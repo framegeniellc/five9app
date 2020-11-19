@@ -1,7 +1,11 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from "react"
+import * as ReactDOM from "react-dom"
+import App from './App'
+
+import getDefaultTransport, { ENDPOINTS } from '../services/api/defaultInterceptor'
+const defaultTransport = getDefaultTransport()
 
 ReactDOM.render(
-  <React.Fragment><div>This is a test component lol</div></React.Fragment>,
+  <div><App interceptor={defaultTransport} /></div>,
   document.getElementById("app")
 );
