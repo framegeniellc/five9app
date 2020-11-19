@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const ENDPOINTS = {
-  FIVE9: '/WebClientDevelopment/Five9/',
+  FIVE9: '/Five9/',
 }
 
 const getDefaultTransport = () => {
