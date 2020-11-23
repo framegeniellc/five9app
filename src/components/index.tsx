@@ -8,4 +8,4 @@ const defaultTransport = getDefaultTransport()
 ReactDOM.render(
   <div><App interceptor={defaultTransport} /></div>,
   document.getElementById("app")
-);
+)
