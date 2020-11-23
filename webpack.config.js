@@ -24,9 +24,9 @@ module.exports = {
         loader: "source-map-loader",
       },
       {
-        test: /\.css$/,
-        loader: "css-loader",
-      },
+        test: /\.(scss|css)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+       }
     ],
   },
   plugins: [

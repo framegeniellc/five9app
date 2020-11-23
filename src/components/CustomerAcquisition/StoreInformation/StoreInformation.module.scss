@@ -1,0 +1,25 @@
+@import '../../../styles/mixins/helpers.scss';
+
+.storeContainer{
+    display: flex;
+    flex-direction: column;
+
+    .storeHeader {
+        h2 {
+            font-weight: bold;
+            margin-top: 0;
+        }
+    }
+
+    .iconContainer{
+        display: flex;
+        flex-direction: row;
+
+        .icon {
+            width: 34px;
+            height: 34px;
+            font-family: 'FontAwesome';
+        }
+    }
+}
+

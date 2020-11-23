@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import css from 'StoreInformation.scss'
+import css from './StoreInformation.module.scss'
 
 interface IStoreInformation {
     /*
@@ -16,43 +16,43 @@ const StoreInformation = (props: IStoreInformation) => {
   
     return (
 
-        <p>Prueba</p>
-        /*
-        <div className={css.storeContainer}>
-            <div className={css.storeHeader}>
-                <h2>Store Information</h2>
-                <span>Reference Number #: </span>
+            <div className={css.storeContainer}>
+                <div className={`${css.iconContainer} ${css.storeHeader}`}>
+                    <h2>Store Information</h2>
+                </div>
+                <div className={`${css.iconContainer} ${css.storeName}`}>
+                    <i className={`${css.icon} fab fab-react`}></i>
+                    <span>Stanton Optical - Mishawaka</span>
+                </div>
+                <div className={`${css.iconContainer} ${css.storeAddress}`}>
+                    <i className={css.icon}></i>
+                    <div>
+                        <span>5415 N Main</span>
+                        <span>Mishawaka, IN 46545</span>
+                    </div>
+                </div>
+                <div className={`${css.iconContainer} ${css.storeAddressInfo}`}>
+                    <i className={css.icon}></i>
+                    <span>We're in the intersection of West Douglas Rd and N Main St, next to Chipotle Mexican Grill.</span>
+                </div>
+                <div className={`${css.iconContainer} ${css.storeHours}`}>
+                    <i className={css.icon}></i>
+                    <span>Store Hours</span>
+                </div>
+                <div className={`${css.iconContainer} ${css.storeLanguages}`}>
+                    <i className={css.icon}></i>
+                    <span>English</span>
+                </div>
+                <div className={`${css.iconContainer} ${css.storeMRS}`}>
+                    <i className={css.icon}></i>
+                    <span>MRS</span>
+                </div>
+                <div className={`${css.iconContainer} ${css.storeLab}`}>
+                    <i className={css.icon}></i>
+                    <span>LabOpen</span>
+                </div>
             </div>
-            <div className={css.storeName}>
-                <i className={css.icon}></i>
-                <p>Stanton Optical - Mishawaka</p>
-            </div>
-            <div className={css.storeAddress}>
-                <i className={css.icon}></i>
-                <p></p>
-            </div>
-            <div className={css.storeAddressInfo}>
-                <i className={css.icon}></i>
-                <p>We're in the intersection of West Douglas Rd and N Main St, next to Chipotle Mexican Grill.</p>
-            </div>
-            <div className={css.storeHours}>
-                <i className={css.icon}></i>
-                <p>Store Hours</p>
-            </div>
-            <div className={css.storeLanguages}>
-                <i className={css.icon}></i>
-                <p>English</p>
-            </div>
-            <div className={css.storeMRS}>
-                <i className={css.icon}></i>
-                <p>MRS</p>
-            </div>
-            <div className={css.storeLab}>
-                <i className={css.icon}></i>
-                <p>LabOpen</p>
-            </div>
-        </div>
-        */
+  
     )
   }
   
