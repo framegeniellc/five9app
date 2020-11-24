@@ -1,16 +1,28 @@
+@import '../../../styles/mixins/helpers.scss';
 
 .textArea {
     display: flex;
     flex-direction: column;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    padding: 0 15px;
     
     .title {
-        font-size: 1rem;
+        font-size: 1.2rem;
         font-weight: bold;
-        margin-bottom: 10px;
+        margin-bottom: 1rem;
+        color: $color-dark-grey;
     }
     textarea {
-        min-height: 200px;
+        min-height: 150px;
+        height: auto;
         resize: none;
+        font-family: Helvetica;
+        font-size: 1rem;
+        line-height: 20px;
+        background: whitesmoke;
+        border-radius: 5px;
+        padding: 1rem;
+        border: 1px solid grey;
+        color: $text-color;
     }
 }

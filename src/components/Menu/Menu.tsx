@@ -19,15 +19,19 @@ const Menu = (props: IMenu) => {
   
     return (
         <React.Fragment>
-            <nav>
+            <nav className={css.menu}>
                 <ul>
                     <li>
-                        <i></i>
-                        <span>Info</span>
+                        <a href="#">
+                            <i className={`${css.icon} fas fa-info-circle`}></i>
+                            <span>Info</span>
+                        </a>
                     </li>
                     <li>
-                        <i></i>
-                        <span>Offers</span>
+                        <a href="#">
+                            <i className={`${css.icon} fas fa-tag`}></i>
+                            <span>Offers</span>
+                        </a>
                     </li>
                 </ul>
             </nav>

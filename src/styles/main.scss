@@ -1,28 +1,13 @@
 @import 'mixins/helpers.scss';
 @import 'base/normalize.scss';
-@import 'vendors/font-awesome.scss';
 
 html {
   width: auto !important;
   overflow-x: hidden !important;
 }
 
-body {
-  font-family: 'Arial';
-
-  .content{
-    width: 100%;
-    padding: 0 15px;
-    display: flex;
-    flex-direction: column;
-
-    .menuContainer {
-      width: 30%;
-      background-color: red;
-    }
-    .viewContainer {
-      width: 70%;
-      background-color: pink;
-    }
-  }
+.body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: $text-color;
+  margin: 0;
 }

@@ -7,18 +7,52 @@
     .storeHeader {
         h2 {
             font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: $color-dark-grey;
             margin-top: 0;
         }
     }
-
     .iconContainer{
         display: flex;
         flex-direction: row;
+        align-items: center;
+        margin: 0.3rem 0;
 
         .icon {
-            width: 34px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 13%;
             height: 34px;
-            font-family: 'FontAwesome';
+            font-size: 1rem;
+            color: $color-orange;
+            align-self: flex-start;
+        }
+        span {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 20px;
+        }
+        > div {
+            width: 80%;
+        }
+    }
+    .storeHours {
+        .hourDay{
+            display: flex;
+            flex-direction: row;
+            line-height: 20px;
+            .day {
+                margin-right: 2rem;
+                width: 35px;
+            }
+        }
+    }
+    .storeAddress,
+    .storeAddressInfo {
+        span {
+            display: block;
         }
     }
 }

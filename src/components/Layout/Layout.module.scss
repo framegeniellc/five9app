@@ -1,0 +1,19 @@
+@import '../../styles/mixins/helpers.scss';
+
+  .layout {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    .menuContainer {
+      width: 6%;
+      padding: 0 15px;
+      background-color: $color-orange;
+    }
+    .viewContainer {
+      width: 90%;
+      padding: 0 15px;
+      background-color: $color-grey;
+      padding-bottom: 2rem;
+    }
+  }

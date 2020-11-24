@@ -1,0 +1,14 @@
+@import '../../../styles/mixins/helpers.scss';
+
+.searchBox {
+    padding: 1rem 0 2rem 0;
+
+    select {
+        width: 20rem;
+        padding: 0.7rem;
+        border-radius: 5px;
+        border-color: $color-grey;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(14,30,37,.16);
+    }
+}

@@ -6,20 +6,25 @@ import StoreInformation from './StoreInformation/StoreInformation'
 import OpeningScript from './OpeningScript/OpeningScript'
 import StoreDetails from './StoreDetails/StoreDetails'
 import SpecialNotes from './SpecialNotes/SpecialNotes'
+import SearchBox from './SearchBox/SearchBox'
 
 const CustomerAcquisition = () => {
-    //const [data, setData] = React.useState<string | undefined>(props.data)
-  
+    
     return (
-        <div className={css.column}>
-            <div className={css.half}>
-                <OpeningScript></OpeningScript>
-                <StoreDetails></StoreDetails>
-                <SpecialNotes></SpecialNotes>
+        <div className={css.customerAcquisition}>
+            <div className={css.header}>
+                <SearchBox></SearchBox>
             </div>
-            <div className={css.half}>
-                <StoreInformation></StoreInformation>
-            </div>   
+            <div className={css.column}>
+                <div className={`${css.columnItem} ${css.details}`}>
+                    <OpeningScript></OpeningScript>
+                    <StoreDetails></StoreDetails>
+                    <SpecialNotes></SpecialNotes>
+                </div>
+                <div className={`${css.columnItem} ${css.storeInformation}`}>
+                    <StoreInformation></StoreInformation>
+                </div>  
+            </div> 
         </div>
     )
   }
