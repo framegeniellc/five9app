@@ -1,6 +1,12 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+const env = (process.env.NODE_EN || "development")
+const config = env + '.config.js';
+
 module.exports = {
   entry: "./src/components/index.tsx",
   target: "web",
@@ -43,6 +49,10 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: "./public/main.css",
+    }),
+    new webpack.DefinePlugin({
+      // Dynamically access local environment variables based on the environment
+      "process.env": JSON.stringify(require(path.join(__dirname, "src", "config", env, config))),
     }),
   ],
 };

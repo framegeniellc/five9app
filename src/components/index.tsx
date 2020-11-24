@@ -1,20 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import '../../static/main.css'
-import Layout from './Layout/Layout'
+import App from './App'
 
-
-function App() {
-  return (
-  <React.Fragment>
-    <Layout></Layout>
-  </React.Fragment>
-  );
-}
+import getDefaultTransport, { ENDPOINTS } from '../services/api/defaultInterceptor'
+const defaultTransport = getDefaultTransport()
 
 ReactDOM.render(
-  <App />,
+  <div><App interceptor={defaultTransport} /></div>,
   document.getElementById("app")
-);
-
-
+)

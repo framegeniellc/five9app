@@ -1,7 +1,7 @@
-export const getConfig = (token: string) => {
+export const getConfig = (token: string, username: string) => {
     const config = {
       headers: {
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}:${username}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
         charset: 'utf-8',
@@ -9,3 +9,4 @@ export const getConfig = (token: string) => {
     }
     return config
   }
+  
