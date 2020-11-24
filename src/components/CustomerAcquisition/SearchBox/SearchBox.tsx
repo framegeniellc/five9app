@@ -9,7 +9,7 @@ const SearchBox = () => {
         <React.Fragment>
             <form className={css.searchBox}>
                 <select>
-                    <option value="" selected>Search by Store # or Name</option>
+                    <option value="">Search by Store # or Name</option>
                     <option value="">Mishawaka</option>
                     <option value="">Bakersfield</option>
                     <option value="">Little Rock</option>
@@ -20,3 +20,4 @@ const SearchBox = () => {
   }
   
   export default SearchBox
+  
