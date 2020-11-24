@@ -1,5 +1,6 @@
 import * as React from 'react'
 import getEndpointData from '../../services/zeus/store'
+import Loading from '../Loading/Loading'
 
 interface IStore {
     interceptor: any
@@ -23,7 +24,7 @@ const Offers = (props: IStore) => {
     }, [])
     
     if (loading) {
-        return (<div>Loading....</div>)
+        return (<Loading></Loading>)
     }
 
     return (

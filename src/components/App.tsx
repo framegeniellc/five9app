@@ -21,8 +21,8 @@ export default class App extends React.Component<IProps, IState> {
         return (
             <React.Fragment>
                 <Layout></Layout>
-                <Offers interceptor={this.props.interceptor} storeId={this.getStoreFromUri()} />
             </React.Fragment>
+            //<Offers interceptor={this.props.interceptor} storeId={this.getStoreFromUri()} />
         )
     }
 }
