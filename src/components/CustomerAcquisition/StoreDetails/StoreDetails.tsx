@@ -17,7 +17,7 @@ const StoreDetails = (props: IStoreDetails) => {
     return (
         <div className={`${css.textArea} ${css.storeDetailsContainer}`}>
             <label className={css.title}>Store Details:</label>
-            <textarea value={text} onChange={onChange} />
+            <textarea value={text || ''} onChange={onChange} />
         </div>
     )
   }

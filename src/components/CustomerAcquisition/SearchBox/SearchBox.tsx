@@ -1,11 +1,13 @@
 import * as React from "react";
-import Loading from '../../Loading/Loading'
+//import Loading from '../../Loading/Loading'
 import { ISearch } from '../../interfaces/global'
-import getEndpointData from '../../../services/zeus/store'
+//import getEndpointData from '../../../services/zeus/store'
+import storesMock from '../../../../static/mock/stores'
 import css from './SearchBox.module.scss'
 
 const SearchBox = (props: ISearch) => {
-    const { interceptor, setStore } = props
+    const { interceptor, setStoreInfo, setSelectedStoreId } = props
+    /*
     const [loading, setLoading] = React.useState<boolean>(true)
 
     const setStoreInfo = async () => {
@@ -25,16 +27,22 @@ const SearchBox = (props: ISearch) => {
     if (loading) {
         return(<Loading />)
     }
-
+    */
+    const onChangeStore = (e: any) => {
+        const value = e.target.value
+        setSelectedStoreId(value)
+        setStoreInfo()
+    }
   
     return (
         <React.Fragment>
             <form className={css.searchBox}>
-                <select>
-                    <option value="">Search by Store # or Name</option>
-                    <option value="">Mishawaka</option>
-                    <option value="">Bakersfield</option>
-                    <option value="">Little Rock</option>
+                <select onChange={onChangeStore}>
+                    {storesMock.map( (store: any, key: any) => {
+                        return (
+                            <option key={key} value={store['Store ID']}>{store['Store Name']}</option>
+                        )
+                    } )}
                 </select>
             </form>
         </React.Fragment>

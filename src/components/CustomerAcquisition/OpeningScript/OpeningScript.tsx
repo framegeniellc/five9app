@@ -17,7 +17,7 @@ const OpeningScript = (props: IOpeningScript) => {
     return (
         <div className={`${css.textArea} ${css.openingScriptContainer}`}>
             <label className={css.title}>Opening Script:</label>
-            <textarea value={openingText} onChange={onChange} />
+            <textarea value={openingText || ``} onChange={onChange} />
         </div>
     )
   }

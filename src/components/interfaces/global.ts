@@ -17,7 +17,8 @@ export interface IStoreLoad {
 }
 
 export interface ISearch extends IGlobalProps {
-    setStore: any
+    setStoreInfo: any
+    setSelectedStoreId: any
 }
 
 export interface IOpeningScript extends IStoreLoad {
