@@ -1,5 +1,6 @@
 import * as React from "react";
 import { IStoreLoad, IOpeningScript } from '../../interfaces/global'
+import Loading from '../../Loading/Loading'
 import css from './OpeningScript.module.scss'
 
 const OpeningScript = (props: IOpeningScript) => {
@@ -10,7 +11,7 @@ const OpeningScript = (props: IOpeningScript) => {
     }
 
     if (loading) {
-        return (<div>Loading...</div>)
+        return (<Loading />)
     }
   
     return (

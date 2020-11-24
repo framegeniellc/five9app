@@ -16,11 +16,19 @@ export interface IStoreLoad {
     loading?: boolean
 }
 
+export interface ISearch extends IGlobalProps {
+    setStore: any
+}
+
 export interface IOpeningScript extends IStoreLoad {
     openingText: string
 }
 
 export interface IStoreDetails extends IStoreLoad {
+    text: string
+}
+
+export interface ISpecialNotes extends IStoreLoad {
     text: string
 }
 

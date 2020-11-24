@@ -1,5 +1,6 @@
 import * as React from "react";
 import { IStoreDetails } from '../../interfaces/global'
+import Loading from '../../Loading/Loading'
 import css from './StoreDetails.module.scss'
 
 const StoreDetails = (props: IStoreDetails) => {
@@ -10,7 +11,7 @@ const StoreDetails = (props: IStoreDetails) => {
     }
 
     if (loading) {
-        return (<div>Loading...</div>)
+        return (<Loading />)
     }
   
     return (

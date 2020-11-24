@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Offers from './Offers/Offers'
 import Layout from './Layout/Layout'
 
 interface IProps {
@@ -20,8 +19,7 @@ export default class App extends React.Component<IProps, IState> {
     render() {
         return (
             <React.Fragment>
-                <Layout interceptor={this.props.interceptor} storeId={this.getStoreFromUri()}></Layout>
-                <Offers interceptor={this.props.interceptor} storeId={this.getStoreFromUri()} />
+                <Layout interceptor={this.props.interceptor} storeId={this.getStoreFromUri()} />
             </React.Fragment>
         )
     }

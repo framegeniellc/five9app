@@ -3,6 +3,9 @@
 .storeContainer{
     display: flex;
     flex-direction: column;
+    @media (max-width: 991px) {  
+        padding: 15px;
+    }
 
     .storeHeader {
         h2 {
@@ -28,6 +31,12 @@
             font-size: 1rem;
             color: $color-orange;
             align-self: flex-start;
+
+            @media (max-width: 991px) {  
+                width: 9%;
+                margin-left: 10px;
+                justify-content: flex-start;
+            }
         }
         span {
             font-size: 1rem;

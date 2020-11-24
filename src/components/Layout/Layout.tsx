@@ -1,16 +1,14 @@
 
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import css from './Layout.module.scss';
 import CustomerAcquisition from '../CustomerAcquisition/CustomerAcquisition'
 import Menu from '../Menu/Menu'
+//import Error from '../Error/Error'
+import Loading from "../Loading/Loading";
 import { IGlobalProps } from '../interfaces/global'
 
-interface IState {
-    store: number
-}
-
 const Layout = (props: IGlobalProps) => {
+    const error = true
     const { interceptor, storeId } = props
 
     return (
@@ -19,7 +17,11 @@ const Layout = (props: IGlobalProps) => {
                 <Menu></Menu>
             </div>
             <div className={css.viewContainer}>
-                <CustomerAcquisition interceptor={interceptor} storeId={storeId}></CustomerAcquisition>
+                {
+                    error ?
+                    <CustomerAcquisition interceptor={interceptor} storeId={storeId} />
+                    : <Loading />//<Error error='TRY_AGAIN'></Error> 
+                }
             </div>
         </div>
     )

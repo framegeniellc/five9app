@@ -1,13 +1,14 @@
 import * as React from "react";
 import { IStoreLoad, ISchedule } from '../../interfaces/global'
 import StoreHours from './StoreHours/StoreHours'
+import Loading from '../../Loading/Loading'
 import css from './StoreInformation.module.scss'
 
 const StoreInformation = (props: IStoreLoad) => {
     const {store, loading} = props
 
     if (loading) {
-        return (<div>Loading....</div>)
+        return (<Loading />)
     }
 
     return (

@@ -1,12 +1,7 @@
 @import '../../styles/mixins/helpers.scss';
 
 .customerAcquisition {
-    background-image: url('../../../static/images/opticall_logo.png');
-    background-repeat: no-repeat;
-    background-position: bottom right;
     max-width: 1420px;
-    margin: 0 auto;
-    padding: 1.5rem 0;
 
     .header {
         padding: 0 1rem;
@@ -27,7 +22,7 @@
     }
 
     .columnItem {
-        padding: 2rem;
+        padding: 1rem;
         margin: 0 15px;
         background: $color-white;
         border-radius: 8px;
@@ -45,5 +40,8 @@
     }
     .storeInformation {
         width: 25%;
+        @media (max-width: 991px) { 
+            margin-top: 2rem;
+        }
     }
 }

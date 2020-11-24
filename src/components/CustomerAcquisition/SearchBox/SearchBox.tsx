@@ -1,9 +1,31 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
-
+import Loading from '../../Loading/Loading'
+import { ISearch } from '../../interfaces/global'
+import getEndpointData from '../../../services/zeus/store'
 import css from './SearchBox.module.scss'
 
-const SearchBox = () => {
+const SearchBox = (props: ISearch) => {
+    const { interceptor, setStore } = props
+    const [loading, setLoading] = React.useState<boolean>(true)
+
+    const setStoreInfo = async () => {
+        const store = await getEndpointData(interceptor, null, 'info')
+
+        console.log('stores', store)
+        if (store) {
+            setStore(store?.data)
+        }
+        setLoading(false)
+    }
+
+    React.useEffect(() => {
+        setStoreInfo()
+    }, [])
+
+    if (loading) {
+        return(<Loading />)
+    }
+
   
     return (
         <React.Fragment>

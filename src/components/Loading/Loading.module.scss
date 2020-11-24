@@ -1,0 +1,63 @@
+@import '../../styles/mixins/helpers.scss';
+
+.loadingContainer {
+  //height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  .loading,
+  .loading:after {
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .loading {
+    margin: 8rem auto auto auto;
+    font-size: 1rem;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 0.4rem solid $color-white;
+    border-right: 0.4rem solid $color-white;
+    border-bottom: 0.4rem solid $color-white;
+    border-left: 0.4rem solid $color-orange;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+  }
+
+  .text {
+    margin: 1rem auto auto auto;
+    text-align: center;
+    font-weight: 600;
+    color: $color-orange;
+    padding: 2px;
+    font-size: 1.4rem;
+  }
+
+  @-webkit-keyframes load8 {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes load8 {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+}

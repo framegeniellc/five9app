@@ -13,7 +13,9 @@ const acceptedStatusCodes = [200, 201]
 
 const getEndpointData = async (transport: any, storeId: number, type: string) => {
     try {
-        const finalEndpoint: string = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${BASE_ENDPOINTS.FIVE9}/${getRequestType(type)}?StoreNumber=${prependZeros(storeId)}`
+        const storeParam = typeof storeId !== 'object' ? `?StoreNumber=${prependZeros(storeId)}` : ``
+        console.log('storeParam', typeof storeId)
+        const finalEndpoint: string = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${BASE_ENDPOINTS.FIVE9}/${getRequestType(type)}${storeParam}`
         const token = await getToken()
         const response = await transport.get(finalEndpoint, getConfig(token, BASE_ENDPOINTS.NOBLE_ZEUS_USERNAME))
         
@@ -28,7 +30,7 @@ const getEndpointData = async (transport: any, storeId: number, type: string) =>
         return { error: '', data: response?.data }
     } catch (e) {
         return {
-          error: e.response.data.message ? e.response.data.message : 'Unable to retrieve data',
+          error: e.response?.data.message ? e.response.data.message : 'Unable to retrieve data',
           data: null,
         }
     }

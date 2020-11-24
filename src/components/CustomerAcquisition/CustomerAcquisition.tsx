@@ -1,6 +1,4 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-
+import * as React from "react"
 import css from '././CustomerAcquisition.module.scss'
 import { IGlobalProps } from '../interfaces/global'
 import getEndpointData from '../../services/zeus/store'
@@ -16,10 +14,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
     const { interceptor, storeId } = props
 
     const setStoreInfo = async () => {
-        const { interceptor, storeId } = props
         const store = await getEndpointData(interceptor, storeId, 'info')
-
-        console.log('store', store)
 
         setStore(store?.data)
         setLoading(false)
@@ -32,13 +27,13 @@ const CustomerAcquisition = (props: IGlobalProps) => {
     return (
         <div className={css.customerAcquisition}>
             <div className={css.header}>
-                <SearchBox></SearchBox>
+                <SearchBox setStore={setStore} interceptor={interceptor} />
             </div>
             <div className={css.column}>
                 <div className={`${css.columnItem} ${css.details}`}>
-                    <OpeningScript openingText={store?.StoreScriptOperning} loading={loading} ></OpeningScript>
-                    <StoreDetails text={store?.StoreDetails} loading={loading}></StoreDetails>
-                    <SpecialNotes></SpecialNotes>
+                    <OpeningScript openingText={store?.StoreScriptOperning} loading={loading} />
+                    <StoreDetails text={store?.StoreDetails} loading={loading} />
+                    <SpecialNotes text={interceptor} loading={loading} />
                 </div>
                 <div className={`${css.columnItem} ${css.storeInformation}`}>
                     <StoreInformation store={store} loading={loading} />
