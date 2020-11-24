@@ -14,6 +14,7 @@
     "types": ["node"]
   },
   "include": [
-    "src/components/index.tsx"
+    "src/components/index.tsx",
+    "src/declarations.d.ts"
   ]
 }
