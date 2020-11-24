@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-cli serve --mode development",
-    "build": "webpack-cli --config webpack.config.js",
+    "start": "NODE_ENV=production webpack-cli serve --mode development",
+    "build": "NODE_ENV=production webpack-cli --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

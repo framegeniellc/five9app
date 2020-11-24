@@ -10,14 +10,16 @@ interface IState {
 }
 
 export default class App extends React.Component<IProps, IState> {
-    componentDidMount = () => {
-        this.setState({ store: 20 }, () => { console.log('store', this.state.store) })
+    private getStoreFromUri = () => {
+        const urlParams = new URLSearchParams(window?.location.search)
+
+        return Number(urlParams.get('StoreID')) || 0
     }
 
     render() {
         return (
             <React.Fragment>
-                <Offers interceptor={this.props.interceptor} storeId={111} />
+                <Offers interceptor={this.props.interceptor} storeId={this.getStoreFromUri()} />
             </React.Fragment>
         )
     }

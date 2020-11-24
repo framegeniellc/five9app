@@ -12,7 +12,7 @@ const Offers = (props: IStore) => {
 
     const setStoreInfo = async () => {
         const { interceptor, storeId } = props
-        const store = await getEndpointData(props.interceptor, props.storeId, 'offers')
+        const store = await getEndpointData(props.interceptor, props.storeId, 'info')
 
         setStorePromos(store?.data)
         setLoading(false)
