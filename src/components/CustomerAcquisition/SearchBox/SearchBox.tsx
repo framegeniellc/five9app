@@ -26,7 +26,7 @@ const SearchBox = (props: ISearch) => {
                 <select onChange={onChangeStore}>
                     {storesMock.map( (store: any, key: any) => {
                         return (
-                            <option key={key} value={store['Store ID']}>{store['Store Name']}</option>
+                            <option key={key} value={store['Store ID']} className={store['Brand'] === 'SO' ? css.so : css.mel} >#{store['Store ID']} - {store['Store Name']} ({store['Brand']})</option>
                         )
                     } )}
                 </select>
