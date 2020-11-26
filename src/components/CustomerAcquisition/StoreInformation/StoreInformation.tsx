@@ -1,8 +1,9 @@
 import * as React from "react";
-import { IStoreData, ISchedule, IDoctor } from '../../interfaces/global'
+import { IStoreData, ISchedule, IDoctor, IStatesObject } from '../../interfaces/global'
 import StoreHours from './StoreHours/StoreHours'
 import Doctor from './Doctor/Doctor'
 import Loading from '../../Loading/Loading'
+import statesList from '../../../../static/mock/stateList'
 import css from './StoreInformation.module.scss'
 
 const StoreInformation = (props: IStoreData) => {
@@ -22,6 +23,20 @@ const StoreInformation = (props: IStoreData) => {
         return filteredStandardMRS.filter((v: any, i: any, a: any) => a.indexOf(v) === i).join('/').slice(0, -1)
     }
 
+    const getShortStateByLong = (longState: string) => {
+        const states: IStatesObject = statesList
+    
+        if (longState.length == 2) {
+          return longState
+        }
+    
+        for (const prop in states) {
+          if (states[prop] === longState.toLowerCase()) return prop.toUpperCase()
+        }
+    
+        return ''
+      }
+
     return (
 
             <div className={css.storeContainer}>
@@ -36,7 +51,7 @@ const StoreInformation = (props: IStoreData) => {
                     <i className={`${css.icon} fa fa-store`}></i>
                     <div>
                         <span>{store?.Address}</span>
-                        <span>{store?.CITY}, {store?.StateName} {store?.ZipCode}</span>
+                        <span>{store?.CITY}, {getShortStateByLong(store?.StateName)} {store?.ZipCode}</span>
                     </div>
                 </div>
                 <div className={`${css.iconContainer} ${css.storeAddressInfo}`}>
@@ -63,7 +78,9 @@ const StoreInformation = (props: IStoreData) => {
                 </div>
                 <div className={css.doctors}>
                     {doctors && doctors.map( (doctor: IDoctor, key: any) => {
-                        return <Doctor key={key} doctorInfo={doctor} />
+                        if (doctor.FirstName.toLowerCase() !== 'mrs' && doctor.LastName.toLowerCase() !== 'mrs') {
+                            return <Doctor key={key} doctorInfo={doctor} />
+                        }
                     })}
                 </div>
                 <div className={`${css.iconContainer} ${css.storeLab}`}>

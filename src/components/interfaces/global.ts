@@ -3,6 +3,10 @@ export interface IGlobalProps {
     storeId?: number
 }
 
+export interface IStatesObject {
+    [key: string]: string
+  }
+
 export interface IStore {
     StoreNumber: string
     Address: string
