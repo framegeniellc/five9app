@@ -7,27 +7,13 @@ import css from './SearchBox.module.scss'
 
 const SearchBox = (props: ISearch) => {
     const { interceptor, setStoreInfo, setSelectedStoreId } = props
-    /*
-    const [loading, setLoading] = React.useState<boolean>(true)
 
-    const setStoreInfo = async () => {
-        const store = await getEndpointData(interceptor, null, 'info')
-
-        console.log('stores', store)
-        if (store) {
-            setStore(store?.data)
+    const onKeyPress = (evt: any) => {
+        if (evt.key == 'Enter') {
+            console.log()
         }
-        setLoading(false)
     }
 
-    React.useEffect(() => {
-        setStoreInfo()
-    }, [])
-
-    if (loading) {
-        return(<Loading />)
-    }
-    */
     const onChangeStore = (e: any) => {
         const value = e.target.value
         setSelectedStoreId(value)
@@ -44,6 +30,9 @@ const SearchBox = (props: ISearch) => {
                         )
                     } )}
                 </select>
+                <div className={css.zip}>
+                    <input type="number" name="zip" onKeyPress={onKeyPress} maxLength={5} min={10000} max={99999} />
+                </div>
             </form>
         </React.Fragment>
     )

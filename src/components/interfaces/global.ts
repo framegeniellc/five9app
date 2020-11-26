@@ -16,6 +16,11 @@ export interface IStoreLoad {
     loading?: boolean
 }
 
+export interface IStoreData extends IStoreLoad {
+    doctors: any
+    rooms: any
+}
+
 export interface ISearch extends IGlobalProps {
     setStoreInfo: any
     setSelectedStoreId: any
@@ -36,3 +41,10 @@ export interface ISpecialNotes extends IStoreLoad {
 export interface ISchedule {
     schedule: any
 }
+
+export interface IDoctor {
+    FirstName: string
+    LastName: string
+    Comments: string | null
+}
+

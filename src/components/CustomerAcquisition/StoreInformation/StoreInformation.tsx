@@ -1,14 +1,25 @@
 import * as React from "react";
-import { IStoreLoad, ISchedule } from '../../interfaces/global'
+import { IStoreData, ISchedule, IDoctor } from '../../interfaces/global'
 import StoreHours from './StoreHours/StoreHours'
+import Doctor from './Doctor/Doctor'
 import Loading from '../../Loading/Loading'
 import css from './StoreInformation.module.scss'
 
-const StoreInformation = (props: IStoreLoad) => {
-    const {store, loading} = props
+const StoreInformation = (props: IStoreData) => {
+    const {store, loading, doctors, rooms} = props
 
     if (loading) {
         return (<Loading />)
+    }
+
+    const checkRoomCategories = () => {
+        const filteredStandardMRS = rooms.map( (item: any, key: any) => {
+            if (item.ODStatus === 'MRS' || item.ODStatus === 'Standard') {
+                return item.ODStatus
+            }
+        })
+
+        return filteredStandardMRS.filter((v: any, i: any, a: any) => a.indexOf(v) === i).join('/').slice(0, -1)
     }
 
     return (
@@ -47,8 +58,13 @@ const StoreInformation = (props: IStoreLoad) => {
                     <span>{store?.Language}</span>
                 </div>
                 <div className={`${css.iconContainer} ${css.storeMRS}`}>
-                <i className={`${css.icon} fas fa-star-of-life`}></i>
-                    <span>MRS</span>
+                    <i className={`${css.icon} fas fa-star-of-life`}></i>
+                    <div>OD: {rooms && checkRoomCategories()}</div>                    
+                </div>
+                <div className={css.doctors}>
+                    {doctors && doctors.map( (doctor: IDoctor, key: any) => {
+                        return <Doctor key={key} doctorInfo={doctor} />
+                    })}
                 </div>
                 <div className={`${css.iconContainer} ${css.storeLab}`}>
                 <i className={`${css.icon} fas fa-flask`}></i>

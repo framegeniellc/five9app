@@ -7,6 +7,7 @@ const ENDPOINTS = {
     NOTESALERTS: `GetStoreSpecialNotesAlerts`,
     STORE: `GetStoreInformation`,
     DOCTOR: `GetStoreDoctorComments`,
+    ROOMS: `GetStoreExamRooms`,
 }
 
 const acceptedStatusCodes = [200, 201]
@@ -48,6 +49,9 @@ const getRequestType = (type: string) => {
     }
     case 'doctors': {
       return ENDPOINTS.DOCTOR
+    }
+    case 'rooms': {
+      return ENDPOINTS.ROOMS
     }
   }
 }
