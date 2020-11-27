@@ -28,6 +28,7 @@ export interface IStoreData extends IStoreLoad {
 export interface ISearch extends IGlobalProps {
     setStoreInfo: any
     setSelectedStoreId: any
+    setGeoResponse: any
 }
 
 export interface IOpeningScript extends IStoreLoad {

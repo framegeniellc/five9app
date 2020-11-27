@@ -1,12 +1,13 @@
 import * as React from "react"
 import css from '././CustomerAcquisition.module.scss'
 import { IGlobalProps } from '../interfaces/global'
-import getEndpointData from '../../services/zeus/store'
+import { getEndpointData } from '../../services/zeus/store'
 import StoreInformation from './StoreInformation/StoreInformation'
 import OpeningScript from './OpeningScript/OpeningScript'
 import StoreDetails from './StoreDetails/StoreDetails'
 import SpecialNotes from './SpecialNotes/SpecialNotes'
 import SearchBox from './SearchBox/SearchBox'
+import StoreItem from './SearchBox/StoreItem/StoreItem'
 import Error from '../Error/Error'
 
 const CustomerAcquisition = (props: IGlobalProps) => {
@@ -17,6 +18,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
     const [existStore, setExistsStore] = React.useState<boolean>(false)
     const [loading, setLoading] = React.useState<boolean>(true)
     const [selectedStoreId, setSelectedStoreId] = React.useState<number>(storeId)
+    const [geoResponse, setGeoResponse] = React.useState<any>(null)
     
 
     const setStoreInfo = async () => {
@@ -35,8 +37,6 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         setLoading(false)
     }
 
-
-
     React.useEffect(() => {
         setStoreInfo()
     }, [selectedStoreId])
@@ -44,13 +44,18 @@ const CustomerAcquisition = (props: IGlobalProps) => {
     return (<div>{existStore ? (
                 <div className={css.customerAcquisition}>
                     <div className={css.header}>
-                        <SearchBox setStoreInfo={setStoreInfo} interceptor={interceptor} setSelectedStoreId={setSelectedStoreId} />
+                        <SearchBox setStoreInfo={setStoreInfo} interceptor={interceptor} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} />
                     </div>
                     <div className={css.column}>
                         <div className={`${css.columnItem} ${css.details}`}>
-                            <OpeningScript openingText={store?.StoreScriptOperning} loading={loading} />
-                            <StoreDetails text={store?.StoreDetails} loading={loading} />
-                            <SpecialNotes text={store?.Alerts} loading={loading} />
+                            {geoResponse && <div>
+                               <StoreItem store={geoResponse[0]} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} />
+                            </div>}
+                            {!geoResponse && (<div>
+                                <OpeningScript openingText={store?.StoreScriptOperning} loading={loading} />
+                                <StoreDetails text={store?.StoreDetails} loading={loading} />
+                                <SpecialNotes text={store?.Alerts} loading={loading} />
+                            </div>)}
                         </div>
                         <div className={`${css.columnItem} ${css.storeInformation}`}>
                             <StoreInformation store={store} loading={loading} doctors={doctors} rooms={examRooms} />
