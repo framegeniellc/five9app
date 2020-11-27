@@ -54,6 +54,16 @@ const StoreInformation = (props: IStoreData) => {
                         <span>{store?.CITY}, {getShortStateByLong(store?.StateName)} {store?.ZipCode}</span>
                     </div>
                 </div>
+                <div className={`${css.iconContainer} ${css.phoneNumbers}`}>
+                    <i className={`${css.icon} fa fa-phone`}></i>
+                    <div>
+                        {store.Phones && store.Phones.map( (phone: any, key: any) => {
+                            return <div key={key} className={`${css.phone} phone-${phone.Name.toLowerCase()}`}>
+                                {phone.Name}: <a href={`tel:${phone.PhoneNumber}`}>{phone.PhoneNumber}</a>
+                            </div>
+                        } )}
+                    </div>
+                </div>
                 <div className={`${css.iconContainer} ${css.storeAddressInfo}`}>
                     <i className={`${css.icon} fa fa-car`}></i>
                     <div>

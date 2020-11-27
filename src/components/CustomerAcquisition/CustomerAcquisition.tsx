@@ -26,6 +26,8 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         const doctorsData = await getEndpointData(interceptor, selectedStoreId, 'doctors')
         const examRoomsData = await getEndpointData(interceptor, selectedStoreId, 'rooms')
 
+        console.log(storeData)
+
         setDoctors(doctorsData?.data)
         setStore(storeData?.data)
         setExamRooms(examRoomsData?.data)
