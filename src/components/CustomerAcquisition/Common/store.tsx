@@ -1,3 +1,14 @@
+const formatPhoneNumber = (phone: string) => {
+    let cleaned = ('' + phone).replace(/\D/g, '')
+    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
+    
+    if (match) {
+        return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+    }
+    
+    return null
+}
+
 const getNearestStores = (geoData: any, stores: any) => {
     const { lat, lng } = geoData.results[0].geometry.location
 
@@ -68,4 +79,4 @@ const getDefaultScript = (store: any) => {
     return `Thank you for calling ${store.BrandName} in ${store.StoreName.replace(store.BrandName + ' - ', '')}. My name is ______. Are you calling to schedule/book your eye exam today?`
 }
 
-export { getNearestStores, getStoreScript }
+export { getNearestStores, getStoreScript, formatPhoneNumber }

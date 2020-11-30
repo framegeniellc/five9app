@@ -23,7 +23,6 @@ export default class App extends React.Component<IProps, IState> {
     }
 
     render() {
-        console.log('do render')
         return (
             <React.Fragment>
                 <Layout interceptor={this.props.interceptor} storeId={this.getStoreFromUri()} IVR={this.getIvrFromUri()} />

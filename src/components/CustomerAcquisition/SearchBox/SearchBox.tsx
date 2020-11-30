@@ -5,7 +5,7 @@ import { getLocationFromZip } from '../../../services/zeus/store'
 import css from './SearchBox.module.scss'
 
 const SearchBox = (props: ISearch) => {
-    const { setStoreInfo, setSelectedStoreId, setGeoResponse, stores } = props
+    const { setStoreInfo, setSelectedStoreId, setGeoResponse, stores, store } = props
     const [searchValue, setSearchValue] = React.useState<string>('')
     const [valueSelect, setValueSelect] = React.useState<string>()
 
@@ -25,7 +25,15 @@ const SearchBox = (props: ISearch) => {
         setSelectedStoreId(value)
         setStoreInfo()
     }
-  
+
+    const onKeyUpHandler = (evt: any) => {
+        const value = evt.target.value
+        
+        if (value.length === 5) {
+            getLocationFromZip(value, stores, setGeoResponse)
+        }
+    }
+
     const getOptions = () => {
         const array: Array<any> = []
         if(stores) {
@@ -39,6 +47,17 @@ const SearchBox = (props: ISearch) => {
         return array
     }
 
+    const getSelectedValue = () => {
+        const options = getOptions()
+        let selected = null
+
+        selected = options.filter(obj => {
+            return obj.value === parseInt(store?.StoreNumber)
+        })
+
+        return selected
+    }
+
     const onChangeHandler = (evt: any) => {
         const value = evt.target.value
 
@@ -49,10 +68,10 @@ const SearchBox = (props: ISearch) => {
         <React.Fragment>
             <div className={css.searchBox}>
                 <div className={css.select}>
-                    <Select options={getOptions()} onChange={onChangeStore} value={valueSelect} /> 
+                    <Select options={getOptions()} onChange={onChangeStore} value={getSelectedValue()} /> 
                 </div>
                 <div className={css.zip}>
-                    <input type="text" name="zip" placeholder="Enter Zip Code"  onKeyPress={onKeyPress} onChange={onChangeHandler} value={searchValue} />
+                    <input type="text" name="zip" placeholder="Enter Zip Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} value={searchValue} />
                 </div>
             </div>
         </React.Fragment>

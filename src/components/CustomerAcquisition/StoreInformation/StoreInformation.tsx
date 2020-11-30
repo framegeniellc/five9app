@@ -4,6 +4,7 @@ import StoreHours from './StoreHours/StoreHours'
 import Doctor from './Doctor/Doctor'
 import Loading from '../../Loading/Loading'
 import statesList from '../../../../static/mock/stateList'
+import { formatPhoneNumber } from '../Common/store'
 import css from './StoreInformation.module.scss'
 
 const StoreInformation = (props: IStoreData) => {

@@ -31,6 +31,7 @@ export interface ISearch {
     setSelectedStoreId: any
     setGeoResponse: any
     stores: any
+    store?: any
 }
 
 export interface IOpeningScript {
