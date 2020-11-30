@@ -8,6 +8,7 @@ import StoreDetails from './StoreDetails/StoreDetails'
 import SpecialNotes from './SpecialNotes/SpecialNotes'
 import SearchBox from './SearchBox/SearchBox'
 import Error from '../Error/Error'
+import Loading from "../Loading/Loading"
 
 const CustomerAcquisition = (props: IGlobalProps) => {
     const { interceptor, storeId } = props
@@ -16,8 +17,8 @@ const CustomerAcquisition = (props: IGlobalProps) => {
     const [examRooms, setExamRooms] = React.useState<any>([])
     const [existStore, setExistsStore] = React.useState<boolean>(false)
     const [loading, setLoading] = React.useState<boolean>(true)
+    const [loaded, setLoaded] = React.useState<boolean>(false)
     const [selectedStoreId, setSelectedStoreId] = React.useState<number>(storeId)
-    
 
     const setStoreInfo = async () => {
         const storeData = await getEndpointData(interceptor, selectedStoreId, 'info')
@@ -35,30 +36,31 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         setLoading(false)
     }
 
-
-
     React.useEffect(() => {
         setStoreInfo()
+        setLoading(true)
     }, [selectedStoreId])
 
-    return (<div>{existStore ? (
-                <div className={css.customerAcquisition}>
-                    <div className={css.header}>
-                        <SearchBox setStoreInfo={setStoreInfo} interceptor={interceptor} setSelectedStoreId={setSelectedStoreId} />
-                    </div>
-                    <div className={css.column}>
-                        <div className={`${css.columnItem} ${css.details}`}>
-                            <OpeningScript openingText={store?.StoreScriptOperning} loading={loading} />
-                            <StoreDetails text={store?.StoreDetails} loading={loading} />
-                            <SpecialNotes text={store?.Alerts} loading={loading} />
+    return (loading ? ( <Loading></Loading>) : (
+            <div>{existStore ? (
+                    <div className={css.customerAcquisition}>
+                        <div className={css.header}>
+                            <SearchBox setStoreInfo={setStoreInfo} interceptor={interceptor} setSelectedStoreId={setSelectedStoreId} />
                         </div>
-                        <div className={`${css.columnItem} ${css.storeInformation}`}>
-                            <StoreInformation store={store} loading={loading} doctors={doctors} rooms={examRooms} />
-                        </div>  
-                    </div> 
-                </div>) : (<Error error={`404`}/>)
-        }
-        </div>
+                        <div className={css.column}>
+                            <div className={`${css.columnItem} ${css.details}`}>
+                                <OpeningScript openingText={store?.StoreScriptOperning} loading={loading} />
+                                <StoreDetails text={store?.StoreDetails} loading={loading} />
+                                <SpecialNotes text={store?.Alerts} loading={loading} />
+                            </div>
+                            <div className={`${css.columnItem} ${css.storeInformation}`}>
+                                <StoreInformation store={store} loading={loading} doctors={doctors} rooms={examRooms} />
+                            </div>  
+                        </div> 
+                    </div>) : (<Error error={`404`}/>)
+            }
+            </div>
+        )
     )
   }
   

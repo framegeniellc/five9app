@@ -44,11 +44,11 @@ const StoreInformation = (props: IStoreData) => {
                     <h2>Store Information</h2>
                 </div>
                 <div className={`${css.iconContainer} ${css.storeName}`}>
-                    <i className={`${css.icon} fas fa-map-marker-alt`}></i>
+                    <i className={`${css.icon} fas fa-store`}></i>
                     <span>{store?.StoreName}</span>
                 </div>
                 <div className={`${css.iconContainer} ${css.storeAddress}`}>
-                    <i className={`${css.icon} fa fa-store`}></i>
+                    <i className={`${css.icon} fa fa-map-marker-alt`}></i>
                     <div>
                         <span>{store?.Address}</span>
                         <span>{store?.CITY}, {getShortStateByLong(store?.StateName)} {store?.ZipCode}</span>
@@ -85,7 +85,7 @@ const StoreInformation = (props: IStoreData) => {
                 </div>
                 <div className={`${css.iconContainer} ${css.storeLab}`}>
                 <i className={`${css.icon} fas fa-flask`}></i>
-                    <span>{store?.StoreLabStatus === 'None' ? `LabClosed` : `LabOpen`}</span>
+                    <span>{store?.StoreLabStatus === 'None' ? `Lab: Closed` : `Lab: Open`}</span>
                 </div>
             </div>
   
