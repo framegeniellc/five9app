@@ -87,11 +87,11 @@ const getToken = async () => {
   return response.data
 }
 
-const getLocationFromZip = async (zip: string, setGeoResponse: any) => {
+const getLocationFromZip = async (zip: string, stores: any, setGeoResponse: any) => {
   Geocode.setRegion('en')
   Geocode.setApiKey(process.env.GMAP_KEY)
   return Geocode.fromAddress(zip).then( response => {
-    setGeoResponse(getNearestStores(response))
+    setGeoResponse(getNearestStores(response, stores))
   })
 }
 

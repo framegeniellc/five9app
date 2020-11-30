@@ -1,5 +1,6 @@
 export interface IGlobalProps {
     interceptor: any
+    IVR?: string
     storeId?: number
 }
 
@@ -32,8 +33,9 @@ export interface ISearch {
     stores: any
 }
 
-export interface IOpeningScript extends IStoreLoad {
-    openingText: string
+export interface IOpeningScript {
+    IVR: string
+    store: any
 }
 
 export interface IStoreDetails extends IStoreLoad {

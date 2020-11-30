@@ -1,6 +1,4 @@
-import stores from '../../../../static/mock/stores'
-
-const getNearestStores = (geoData: any) => {
+const getNearestStores = (geoData: any, stores: any) => {
     const { lat, lng } = geoData.results[0].geometry.location
 
     stores.sort((a: any, b: any) => {
@@ -31,4 +29,43 @@ const deg2rad = (deg: number) => {
     return deg * (Math.PI/180)
 }
 
-export { getNearestStores }
+const getStoreScript = (IVR: string, store: any) => {
+    switch(IVR) {
+        case '2.2': { return getExamOptionScript(store) }
+        case '2.1.3.1': { return getDefaultScript(store) }
+    }
+
+    return ``
+}
+
+const getExamOptionScript = (store: any) => {
+    return `"Thank you for calling ${store.BrandName} in ${store.StoreName.replace(store.BrandName + ' - ', '')}. My name is ______. How can I help you in filling your prescription today? `
+}
+
+const getDefaultScript = (store: any) => {
+    const storeId = parseInt(store.StoreNumber)
+    const specialStores = [58, 77, 71 ]
+    const modestoStores = [5, 7015]
+    let streetName = ''
+
+    if (specialStores.indexOf(storeId) > -1) {
+        return `Thank you for calling ${store.StateName} Physicians Eyecare Group in ${store.StoreName.replace(store.BrandName + ' - ', '')}. My name is ________. How may I address your call?`
+    }
+
+    if (modestoStores.indexOf(storeId) > -1 && storeId == 5) {
+        streetName = `Sisk Road`
+    }
+
+    if (modestoStores.indexOf(storeId) > -1 && storeId == 7015) {
+        streetName = `Sylvan Ave`
+    }
+
+    
+    if (modestoStores.indexOf(storeId) > -1) {
+        return `Thank you for calling ${store.BrandName} at ${streetName}, ${store.CITY}. My name is _______, are you calling to book your eye exam today?`
+    }
+
+    return `Thank you for calling ${store.BrandName} in ${store.StoreName.replace(store.BrandName + ' - ', '')}. My name is ______. Are you calling to schedule/book your eye exam today?`
+}
+
+export { getNearestStores, getStoreScript }

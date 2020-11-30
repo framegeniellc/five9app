@@ -3,13 +3,12 @@ import * as React from "react";
 import css from './Layout.module.scss';
 import CustomerAcquisition from '../CustomerAcquisition/CustomerAcquisition'
 import Menu from '../Menu/Menu'
-//import Error from '../Error/Error'
 import Loading from "../Loading/Loading";
 import { IGlobalProps } from '../interfaces/global'
 
 const Layout = (props: IGlobalProps) => {
     const error = true
-    const { interceptor, storeId } = props
+    const { interceptor, storeId, IVR } = props
 
     return (
         <div className={css.layout}>
@@ -19,8 +18,8 @@ const Layout = (props: IGlobalProps) => {
             <div className={css.viewContainer}>
                 {
                     error ?
-                    <CustomerAcquisition interceptor={interceptor} storeId={storeId} />
-                    : <Loading />//<Error error='TRY_AGAIN'></Error> 
+                    <CustomerAcquisition interceptor={interceptor} storeId={storeId} IVR={IVR} />
+                    : <Loading />
                 }
             </div>
         </div>

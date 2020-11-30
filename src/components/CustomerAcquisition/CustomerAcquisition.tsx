@@ -12,7 +12,7 @@ import Error from '../Error/Error'
 import Loading from "../Loading/Loading"
 
 const CustomerAcquisition = (props: IGlobalProps) => {
-    const { interceptor, storeId } = props
+    const { interceptor, storeId, IVR } = props
     const [stores, setStores] = React.useState<any>([])
     const [store, setStore] = React.useState<any>([])
     const [doctors, setDoctors] = React.useState<any>([])
@@ -59,7 +59,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                                 <StoreItem store={geoResponse[0]} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} />
                                 </div>}
                                 {!geoResponse && (<div>
-                                    <OpeningScript openingText={store?.StoreScriptOperning} loading={loading} />
+                                    <OpeningScript IVR={IVR} store={store} />
                                     <StoreDetails text={store?.StoreDetails} loading={loading} />
                                     <SpecialNotes text={store?.Alerts} loading={loading} />
                                 </div>)}

@@ -1,23 +1,19 @@
 import * as React from "react";
-import { IStoreLoad, IOpeningScript } from '../../interfaces/global'
-import Loading from '../../Loading/Loading'
+import { IOpeningScript } from '../../interfaces/global'
 import css from './OpeningScript.module.scss'
+import { getStoreScript } from '../Common/store'
 
 const OpeningScript = (props: IOpeningScript) => {
-    const { openingText, loading } = props
+    const { IVR, store } = props
 
     const onChange = (e: any) => {
         console.log('e', e)
-    }
-
-    if (loading) {
-        return (<Loading />)
     }
   
     return (
         <div className={`${css.textArea} ${css.openingScriptContainer}`}>
             <label className={css.title}>Opening Script:</label>
-            <textarea value={openingText || ``} onChange={onChange} />
+            <textarea value={getStoreScript(IVR, store) || ``} onChange={onChange} />
         </div>
     )
   }

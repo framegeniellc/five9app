@@ -15,7 +15,7 @@ const SearchBox = (props: ISearch) => {
         setSearchValue(value)
 
         if (evt.key == 'Enter') {
-            getLocationFromZip(value, setGeoResponse)
+            getLocationFromZip(value, stores, setGeoResponse)
         }
     }
 
