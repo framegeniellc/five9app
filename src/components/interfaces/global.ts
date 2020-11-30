@@ -25,10 +25,11 @@ export interface IStoreData extends IStoreLoad {
     rooms: any
 }
 
-export interface ISearch extends IGlobalProps {
+export interface ISearch {
     setStoreInfo: any
     setSelectedStoreId: any
     setGeoResponse: any
+    stores: any
 }
 
 export interface IOpeningScript extends IStoreLoad {

@@ -7,7 +7,7 @@ const ENDPOINTS = {
     TOKEN: `/Account/Login`,
     PROMOTIONS: `GetStorePromotions`,
     NOTESALERTS: `GetStoreSpecialNotesAlerts`,
-    STORE: `GetStoreInformation`,
+    STORE: `GetStoreInformationV2`,
     DOCTOR: `GetStoreDoctorComments`,
     ROOMS: `GetStoreExamRooms`,
 }
@@ -16,7 +16,7 @@ const acceptedStatusCodes = [200, 201]
 
 const getEndpointData = async (transport: any, storeId: number, type: string) => {
     try {
-        const storeParam = typeof storeId !== 'object' ? `?StoreNumber=${prependZeros(storeId)}` : ``
+        const storeParam = typeof storeId !== 'object' ? `?StoreNumber=${prependZeros(storeId)}` : `?StoreNumber=`
         const finalEndpoint: string = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${BASE_ENDPOINTS.FIVE9}/${getRequestType(type)}${storeParam}`
         const token = await getToken()
         const response = await transport.get(finalEndpoint, getConfig(token, BASE_ENDPOINTS.NOBLE_ZEUS_USERNAME))

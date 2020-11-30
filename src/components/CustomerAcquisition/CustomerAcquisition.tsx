@@ -13,6 +13,7 @@ import Loading from "../Loading/Loading"
 
 const CustomerAcquisition = (props: IGlobalProps) => {
     const { interceptor, storeId } = props
+    const [stores, setStores] = React.useState<any>([])
     const [store, setStore] = React.useState<any>([])
     const [doctors, setDoctors] = React.useState<any>([])
     const [examRooms, setExamRooms] = React.useState<any>([])
@@ -23,15 +24,16 @@ const CustomerAcquisition = (props: IGlobalProps) => {
     const [geoResponse, setGeoResponse] = React.useState<any>(null)
 
     const setStoreInfo = async () => {
+        const storesData = await getEndpointData(interceptor, null, 'info')
         const storeData = await getEndpointData(interceptor, selectedStoreId, 'info')
         const doctorsData = await getEndpointData(interceptor, selectedStoreId, 'doctors')
         const examRoomsData = await getEndpointData(interceptor, selectedStoreId, 'rooms')
 
-        console.log(storeData)
 
         setDoctors(doctorsData?.data)
-        setStore(storeData?.data)
+        setStore(storeData?.data[0])
         setExamRooms(examRoomsData?.data)
+        setStores(storesData?.data)
         
         if (storeData?.data) {
             setExistsStore(true)    
@@ -49,7 +51,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
             <div>{existStore ? (
                     <div className={css.customerAcquisition}>
                         <div className={css.header}>
-                            <SearchBox setStoreInfo={setStoreInfo} interceptor={interceptor} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} />
+                            <SearchBox setStoreInfo={setStoreInfo} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} stores={stores} />
                         </div>
                         <div className={css.column}>
                             <div className={`${css.columnItem} ${css.details}`}>
