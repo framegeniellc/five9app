@@ -50,7 +50,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
             <div>{existStore ? (
                     <div className={css.customerAcquisition}>
                         <div className={css.header}>
-                            <SearchBox setStoreInfo={setStoreInfo} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} stores={stores} />
+                            <SearchBox setStoreInfo={setStoreInfo} store={store} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} stores={stores} />
                         </div>
                         <div className={css.column}>
                             <div className={`${css.columnItem} ${css.details}`}>
