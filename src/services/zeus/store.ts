@@ -1,4 +1,6 @@
 import { getConfig } from './index'
+import Geocode from 'react-geocode'
+import { getNearestStores } from '../../components/CustomerAcquisition/Common/store'
 import getDefaultTransport, { ENDPOINTS as BASE_ENDPOINTS } from '../api/defaultInterceptor'
 
 const ENDPOINTS = {
@@ -57,7 +59,6 @@ const getRequestType = (type: string) => {
 }
 
 const prependZeros = (storeId: number) => {
-  console.log('call to prepend', storeId)
   if (storeId < 10) {
     return '000' + storeId
   }
@@ -86,4 +87,12 @@ const getToken = async () => {
   return response.data
 }
 
-export default getEndpointData
+const getLocationFromZip = async (zip: string, setGeoResponse: any) => {
+  Geocode.setRegion('en')
+  Geocode.setApiKey(process.env.GMAP_KEY)
+  return Geocode.fromAddress(zip).then( response => {
+    setGeoResponse(getNearestStores(response))
+  })
+}
+
+export { getEndpointData, getLocationFromZip }

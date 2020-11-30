@@ -3,16 +3,22 @@ import Select from 'react-select'
 //import Loading from '../../Loading/Loading'
 import { ISearch } from '../../interfaces/global'
 //import getEndpointData from '../../../services/zeus/store'
+import { getLocationFromZip } from '../../../services/zeus/store'
 import storesMock from '../../../../static/mock/stores'
 import css from './SearchBox.module.scss'
 
 const SearchBox = (props: ISearch) => {
-    const { interceptor, setStoreInfo, setSelectedStoreId } = props
+    const { setStoreInfo, setSelectedStoreId, setGeoResponse } = props
+    const [searchValue, setSearchValue] = React.useState<string>('')
     const [valueSelect, setValueSelect] = React.useState<string>()
 
     const onKeyPress = (evt: any) => {
+        const value = evt.target.value
+
+        setSearchValue(value)
+
         if (evt.key == 'Enter') {
-            console.log()
+            getLocationFromZip(value, setGeoResponse)
         }
     }
 
@@ -36,16 +42,22 @@ const SearchBox = (props: ISearch) => {
         return array
     }
 
+    const onChangeHandler = (evt: any) => {
+        const value = evt.target.value
+
+        setSearchValue(value)
+    }
+
     return (
         <React.Fragment>
-            <form className={css.searchBox}>
+            <div className={css.searchBox}>
                 <div className={css.select}>
                     <Select options={getOptions()} onChange={onChangeStore} value={valueSelect} /> 
                 </div>
                 <div className={css.zip}>
-                    <input type="number" name="zip" placeholder="Enter Zip Code" onKeyPress={onKeyPress} maxLength={5} min={10000} max={99999} />
+                    <input type="text" name="zip" placeholder="Enter Zip Code"  onKeyPress={onKeyPress} onChange={onChangeHandler} value={searchValue} />
                 </div>
-            </form>
+            </div>
         </React.Fragment>
     )
   }

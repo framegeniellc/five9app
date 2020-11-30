@@ -5,13 +5,24 @@
     flex-direction: row;
     padding: 0 0 1rem 0;
 
+    @media (max-width: 768px) {  
+        flex-direction: column;
+    }
+
     .select {
         width: 20rem;
         margin-right: 2rem;
+        @media (max-width: 768px) {  
+            width: 100%;
+        }
     }
 
     .zip {
-        input[type=number] {
+        @media (max-width: 768px) {  
+            margin-top: 1rem;
+        }
+
+        input[type=text] {
             width: 20rem;
             padding: 0.7rem;
             border-radius: 5px;
@@ -23,6 +34,10 @@
             &::-webkit-inner-spin-button {
                 -webkit-appearance: none;
                 margin: 0;
+            }
+            @media (max-width: 768px) {  
+                width: 98%;
+                padding: 10px 5px;
             }
         }
     }
