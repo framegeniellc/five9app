@@ -3,12 +3,26 @@
 .menu {
     margin-top: 3rem; 
 
+    .active {
+        position: relative;
+
+        .icon {
+            display: flex;
+            &:after{
+                content: '\2022'; 
+                font-size: 1.5rem;
+                position: absolute;
+                top: -5px;
+                right: 5px;
+            }
+        }
+    }
+
     ul {
         list-style: none;
         padding: 0;
 
         li {
-
             a {
                 display: flex;
                 flex-direction: column;
@@ -21,10 +35,6 @@
                 &:hover {
                     background-color: $color-orange-hover;
                     color: $color-white-hover;
-
-                    .icon {
-                        transform: scale(1.1);
-                    }
                 }
             }
 

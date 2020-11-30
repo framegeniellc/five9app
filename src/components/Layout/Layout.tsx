@@ -3,21 +3,26 @@ import * as React from "react";
 import css from './Layout.module.scss';
 import CustomerAcquisition from '../CustomerAcquisition/CustomerAcquisition'
 import Menu from '../Menu/Menu'
-import Loading from "../Loading/Loading";
+import Loading from '../Loading/Loading'
+import Offers from '../Offers/Offers'
 import { IGlobalProps } from '../interfaces/global'
 
 const Layout = (props: IGlobalProps) => {
-    const error = true
+    const error: boolean = true
+    const option: string = 'STORE'
     const { interceptor, storeId, IVR } = props
 
     return (
         <div className={css.layout}>
             <div className={css.menuContainer}>
-                <Menu></Menu>
+                <Menu option={option}></Menu>
             </div>
             <div className={css.viewContainer}>
                 {
-                    error ?
+                    //error ?
+                    option === 'OFFER' ?
+                    <Offers interceptor={interceptor} storeId={storeId} />
+                    : option === 'STORE' ?
                     <CustomerAcquisition interceptor={interceptor} storeId={storeId} IVR={IVR} />
                     : <Loading />
                 }
