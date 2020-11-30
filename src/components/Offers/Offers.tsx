@@ -1,5 +1,5 @@
 import * as React from 'react'
-import getEndpointData from '../../services/zeus/store'
+import { getEndpointData } from '../../services/zeus/store'
 import Loading from '../Loading/Loading'
 
 interface IStore {
@@ -13,9 +13,10 @@ const Offers = (props: IStore) => {
 
     const setStoreInfo = async () => {
         const { interceptor, storeId } = props
-        const store = await getEndpointData(props.interceptor, props.storeId, 'info')
+        const storeOffers = await getEndpointData(interceptor,  storeId, 'offers')
 
-        setStorePromos(store?.data)
+        console.log(storeOffers)
+        setStorePromos(storeOffers)
         setLoading(false)
     }
 

@@ -4,12 +4,12 @@ import { getNearestStores } from '../../components/CustomerAcquisition/Common/st
 import getDefaultTransport, { ENDPOINTS as BASE_ENDPOINTS } from '../api/defaultInterceptor'
 
 const ENDPOINTS = {
-    TOKEN: `/Account/Login`,
-    PROMOTIONS: `GetStorePromotions`,
-    NOTESALERTS: `GetStoreSpecialNotesAlerts`,
-    STORE: `GetStoreInformationV2`,
-    DOCTOR: `GetStoreDoctorComments`,
-    ROOMS: `GetStoreExamRooms`,
+  TOKEN: `/Account/Login`,
+  PROMOTIONS: `GetStorePromotionsV2`,
+  NOTESALERTS: `GetStoreSpecialNotesAlertsV2`,
+  STORE: `GetStoreInformationV2`,
+  DOCTOR: `GetStoreDoctorCommentsV2`,
+  ROOMS: `GetStoreExamRoomsV2`,
 }
 
 const acceptedStatusCodes = [200, 201]
