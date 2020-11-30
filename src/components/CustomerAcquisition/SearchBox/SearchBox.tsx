@@ -25,7 +25,16 @@ const SearchBox = (props: ISearch) => {
         setSelectedStoreId(value)
         setStoreInfo()
     }
-  
+
+    const onKeyUpHandler = (evt: any) => {
+        const value = evt.target.value
+        
+        if (value.length === 5) {
+            console.log('stores from geo', stores)
+            getLocationFromZip(value, stores, setGeoResponse)
+        }
+    }
+
     const getOptions = () => {
         const array: Array<any> = []
         if(stores) {
@@ -52,7 +61,7 @@ const SearchBox = (props: ISearch) => {
                     <Select options={getOptions()} onChange={onChangeStore} value={valueSelect} /> 
                 </div>
                 <div className={css.zip}>
-                    <input type="text" name="zip" placeholder="Enter Zip Code"  onKeyPress={onKeyPress} onChange={onChangeHandler} value={searchValue} />
+                    <input type="text" name="zip" placeholder="Enter Zip Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} value={searchValue} />
                 </div>
             </div>
         </React.Fragment>

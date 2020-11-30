@@ -29,13 +29,12 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         const doctorsData = await getEndpointData(interceptor, selectedStoreId, 'doctors')
         const examRoomsData = await getEndpointData(interceptor, selectedStoreId, 'rooms')
 
-
         setDoctors(doctorsData?.data)
         setStore(storeData?.data[0])
         setExamRooms(examRoomsData?.data)
         setStores(storesData?.data)
-        
-        if (storeData?.data) {
+
+        if (storeData && storeData.data && storeData.data?.length) {
             setExistsStore(true)    
         }
 
@@ -56,7 +55,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                         <div className={css.column}>
                             <div className={`${css.columnItem} ${css.details}`}>
                                 {geoResponse && <div>
-                                <StoreItem store={geoResponse[0]} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} />
+                                    <StoreItem store={geoResponse[0]} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} />
                                 </div>}
                                 {!geoResponse && (<div>
                                     <OpeningScript IVR={IVR} store={store} />
@@ -68,7 +67,9 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                                 <StoreInformation store={store} loading={loading} doctors={doctors} rooms={examRooms} />
                             </div>  
                         </div> 
-                    </div>) : (<Error error={`404`}/>)
+                    </div>) : (<div className={css.searchHome}>
+                        <SearchBox setStoreInfo={setStoreInfo} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} stores={stores} />
+                    </div>)
             }
             </div>
         )
