@@ -30,7 +30,6 @@ const SearchBox = (props: ISearch) => {
         const value = evt.target.value
         
         if (value.length === 5) {
-            console.log('stores from geo', stores)
             getLocationFromZip(value, stores, setGeoResponse)
         }
     }

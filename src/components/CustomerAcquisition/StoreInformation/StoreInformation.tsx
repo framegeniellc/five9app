@@ -4,6 +4,7 @@ import StoreHours from './StoreHours/StoreHours'
 import Doctor from './Doctor/Doctor'
 import Loading from '../../Loading/Loading'
 import statesList from '../../../../static/mock/stateList'
+import { formatPhoneNumber } from '../Common/store'
 import css from './StoreInformation.module.scss'
 
 const StoreInformation = (props: IStoreData) => {
@@ -59,7 +60,7 @@ const StoreInformation = (props: IStoreData) => {
                     <div>
                         {store.Phones && store.Phones.map( (phone: any, key: any) => {
                             return <div key={key} className={`${css.phone} phone-${phone.Name.toLowerCase()}`}>
-                                <b>{phone.Name}: </b>{phone.PhoneNumber}
+                                <b>{phone.Name}: </b>{formatPhoneNumber(phone.PhoneNumber)}
                             </div>
                         } )}
                     </div>
