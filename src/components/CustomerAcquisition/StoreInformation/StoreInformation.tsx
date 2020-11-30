@@ -27,23 +27,23 @@ const StoreInformation = (props: IStoreData) => {
     const getShortStateByLong = (longState: string) => {
         const states: IStatesObject = statesList
     
-        if (longState.length == 2) {
+        if (longState?.length == 2) {
           return longState
         }
     
         for (const prop in states) {
-          if (states[prop] === longState.toLowerCase()) return prop.toUpperCase()
+          if (states[prop] === longState?.toLowerCase()) return prop.toUpperCase()
         }
     
         return ''
       }
 
     return (
-
             <div className={css.storeContainer}>
                 <div className={css.storeHeader}>
                     <h2>Store Information</h2>
                 </div>
+                {store && (<React.Fragment>
                 <div className={`${css.iconContainer} ${css.storeName}`}>
                     <i className={`${css.icon} fas fa-store`}></i>
                     <div><span>{store?.StoreName}</span></div>
@@ -58,7 +58,7 @@ const StoreInformation = (props: IStoreData) => {
                 <div className={`${css.iconContainer} ${css.phoneNumbers}`}>
                     <i className={`${css.icon} fa fa-phone`}></i>
                     <div>
-                        {store.Phones && store.Phones.map( (phone: any, key: any) => {
+                        {store?.Phones && store.Phones.map( (phone: any, key: any) => {
                             return <div key={key} className={`${css.phone} phone-${phone.Name.toLowerCase()}`}>
                                 <b>{phone.Name}: </b>{formatPhoneNumber(phone.PhoneNumber)}
                             </div>
@@ -100,6 +100,7 @@ const StoreInformation = (props: IStoreData) => {
                 <i className={`${css.icon} fas fa-flask`}></i>
                     <span>{store?.StoreLabStatus === 'None' ? `Lab: Closed` : `Lab: Open`}</span>
                 </div>
+                </React.Fragment>)}
             </div>
   
     )

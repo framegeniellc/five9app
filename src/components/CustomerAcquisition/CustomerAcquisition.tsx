@@ -67,9 +67,24 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                                 <StoreInformation store={store} loading={loading} doctors={doctors} rooms={examRooms} />
                             </div>  
                         </div> 
-                    </div>) : (<div className={css.searchHome}>
-                        <SearchBox setStoreInfo={setStoreInfo} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} stores={stores} />
-                    </div>)
+                    </div>) : (<div className={css.customerAcquisition}>
+                        <div className={css.header}>
+                            <SearchBox setStoreInfo={setStoreInfo} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} stores={stores} />
+                        </div>
+                        <div className={css.column}>
+                            <div className={`${css.columnItem} ${css.details}`}>
+
+                                
+                                <OpeningScript IVR={IVR} store={store} />
+                                <StoreDetails text={store?.StoreDetails} loading={loading} />
+                                <SpecialNotes text={store?.Alerts} loading={loading} />
+                            </div>
+                            <div className={`${css.columnItem} ${css.storeInformation}`}>
+                                <StoreInformation store={store} loading={loading} doctors={doctors} rooms={examRooms} />
+                            </div>
+                        </div>
+                    </div>
+                    )
             }
             </div>
         )
