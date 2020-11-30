@@ -39,7 +39,7 @@ const getStoreScript = (IVR: string, store: any) => {
 }
 
 const getExamOptionScript = (store: any) => {
-    return `"Thank you for calling ${store.BrandName} in ${store.StoreName.replace(store.BrandName + ' - ', '')}. My name is ______. How can I help you in filling your prescription today? `
+    return `Thank you for calling ${store.BrandName} in ${store.StoreName.replace(store.BrandName + ' - ', '')}. My name is ______. How can I help you in filling your prescription today?`
 }
 
 const getDefaultScript = (store: any) => {
