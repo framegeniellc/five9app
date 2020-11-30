@@ -45,7 +45,7 @@ const StoreInformation = (props: IStoreData) => {
                 </div>
                 <div className={`${css.iconContainer} ${css.storeName}`}>
                     <i className={`${css.icon} fas fa-store`}></i>
-                    <span>{store?.StoreName}</span>
+                    <div><span>{store?.StoreName}</span></div>
                 </div>
                 <div className={`${css.iconContainer} ${css.storeAddress}`}>
                     <i className={`${css.icon} fa fa-map-marker-alt`}></i>
@@ -59,7 +59,7 @@ const StoreInformation = (props: IStoreData) => {
                     <div>
                         {store.Phones && store.Phones.map( (phone: any, key: any) => {
                             return <div key={key} className={`${css.phone} phone-${phone.Name.toLowerCase()}`}>
-                                {phone.Name}: <a href={`tel:${phone.PhoneNumber}`}>{phone.PhoneNumber}</a>
+                                <b>{phone.Name}: </b>{phone.PhoneNumber}
                             </div>
                         } )}
                     </div>
@@ -79,19 +79,21 @@ const StoreInformation = (props: IStoreData) => {
                     </div>
                 </div>
                 <div className={`${css.iconContainer} ${css.storeLanguages}`}>
-                <i className={`${css.icon} fa fa-globe`}></i>
-                    <span>{store?.Language}</span>
+                    <i className={`${css.icon} fa fa-globe`}></i>
+                   <div><span>{store?.Language}</span></div>
                 </div>
                 <div className={`${css.iconContainer} ${css.storeMRS}`}>
                     <i className={`${css.icon} fas fa-star-of-life`}></i>
-                    <div>OD: {rooms && checkRoomCategories()}</div>                    
-                </div>
-                <div className={css.doctors}>
-                    {doctors && doctors.map( (doctor: IDoctor, key: any) => {
-                        if (doctor.FirstName.toLowerCase() !== 'mrs' && doctor.LastName.toLowerCase() !== 'mrs') {
-                            return <Doctor key={key} doctorInfo={doctor} />
-                        }
-                    })}
+                    <div className={css.odContainer}>
+                        <div className={css.title}>OD: {rooms && checkRoomCategories()}</div>
+                        <div className={css.doctors}>
+                            {doctors && doctors.map( (doctor: IDoctor, key: any) => {
+                                if (doctor.FirstName.toLowerCase() !== 'mrs' && doctor.LastName.toLowerCase() !== 'mrs') {
+                                    return <Doctor key={key} doctorInfo={doctor} />
+                                }
+                            })}
+                        </div>
+                    </div>
                 </div>
                 <div className={`${css.iconContainer} ${css.storeLab}`}>
                 <i className={`${css.icon} fas fa-flask`}></i>
