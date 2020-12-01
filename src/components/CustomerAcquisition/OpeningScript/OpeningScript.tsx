@@ -13,7 +13,7 @@ const OpeningScript = (props: IOpeningScript) => {
     return (
         <div className={`${css.textArea} ${css.openingScriptContainer}`}>
             <label className={css.title}>Opening Script:</label>
-            <textarea value={getStoreScript(IVR, store) || ``} onChange={onChange} />
+            <textarea disabled value={getStoreScript(IVR, store) || ``} onChange={onChange} />
         </div>
     )
   }

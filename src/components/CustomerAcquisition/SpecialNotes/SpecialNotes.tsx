@@ -17,7 +17,7 @@ const SpecialNotes = (props: ISpecialNotes) => {
     return (
         <div className={`${css.textArea} ${css.specialNotesContainer}`}>
             <label className={css.title}>Special Notes:</label>
-            <textarea value={text || ``} onChange={onChange} />
+            <textarea disabled value={text || ``} onChange={onChange} />
         </div>
     )
   }
