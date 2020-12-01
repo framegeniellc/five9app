@@ -1,5 +1,5 @@
 import * as React from "react"
-import Select from 'react-select'
+import Select,  { StylesConfig, components }  from 'react-select'
 import { ISearch } from '../../interfaces/global'
 import { getLocationFromZip } from '../../../services/zeus/store'
 import css from './SearchBox.module.scss'
@@ -38,9 +38,10 @@ const SearchBox = (props: ISearch) => {
         const array: Array<any> = []
         if(stores) {
             stores.map( (store: any, key: any) => {
-                const label = '#' + parseInt(store.StoreNumber) + ' - ' + store.StoreName
-                const value = parseInt(store.StoreNumber)
-                array.push({label: label, value: value})
+                const label: string = '#' + parseInt(store.StoreNumber) + ' - ' + store.StoreName
+                const value: number = parseInt(store.StoreNumber)
+                const color: string = store.BrandName == 'My Eyelab' ? '#0082ca' : '#f58220'
+                array.push({label: label, value: value, color: color})
             })
         }
 
@@ -64,11 +65,19 @@ const SearchBox = (props: ISearch) => {
         setSearchValue(value)
     }
 
+    const Option = (props: any) => {
+        return (
+          <div style={{ color: props.data.color }}>
+            <components.Option {...props} />
+          </div>
+        );
+    }
+
     return (
         <React.Fragment>
             <div className={css.searchBox}>
                 <div className={css.select}>
-                    <Select options={getOptions()} onChange={onChangeStore} value={getSelectedValue()} /> 
+                    <Select options={getOptions()} onChange={onChangeStore} value={getSelectedValue()} components={{ Option }} /> 
                 </div>
                 <div className={css.zip}>
                     <input type="text" name="zip" placeholder="Enter Zip Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} value={searchValue} />
