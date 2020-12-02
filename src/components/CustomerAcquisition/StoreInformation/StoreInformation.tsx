@@ -60,7 +60,7 @@ const StoreInformation = (props: IStoreData) => {
                     <div>
                         {store?.Phones && store.Phones.map( (phone: any, key: any) => {
                             return <div key={key} className={`${css.phone} phone-${phone.Name.toLowerCase()}`}>
-                                {phone.Name}: {phone.PhoneNumber}
+                                {phone.Name}: {formatPhoneNumber(phone.PhoneNumber)}
                             </div>
                         } )}
                     </div>
