@@ -1,19 +1,24 @@
 @import '../../../../styles/mixins/helpers.scss';
 
 .doctors{
+    font-size: 0.9rem;
+    
     .bullet {
         &::before {
             content: "\2022"; 
             color: $color-orange; 
             margin-right: 0.5rem;
-            font-size: 1.8rem;
+            width: 7px;
             vertical-align: middle;
+            height: 24px;
+            font-size: 1.4rem;
+            clear: both;
         }
     }
     .comments {
         margin-left: 18px;
         font-size: 0.8rem;
         color: $color-red;
-        margin-bottom: 10px;
+        margin-bottom: 4px;
     }
 }
