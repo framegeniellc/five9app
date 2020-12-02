@@ -5,11 +5,11 @@ import getDefaultTransport, { ENDPOINTS as BASE_ENDPOINTS } from '../api/default
 
 const ENDPOINTS = {
     TOKEN: `/Account/Login`,
-    PROMOTIONS: `GetStorePromotionsV2`,
-    NOTESALERTS: `GetStoreSpecialNotesAlertsV2`,
-    STORE: `GetStoreInformationV2`,
-    DOCTOR: `GetStoreDoctorCommentsV2`,
-    ROOMS: `GetStoreExamRoomsV2`,
+    PROMOTIONS: `GetStorePromotions`,
+    NOTESALERTS: `GetStoreSpecialNotesAlerts`,
+    STORE: `GetStoreInformation`,
+    DOCTOR: `GetStoreDoctorComments`,
+    ROOMS: `GetStoreExamRooms`,
 }
 
 const acceptedStatusCodes = [200, 201]
