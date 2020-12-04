@@ -52,7 +52,7 @@ const SearchBox = (props: ISearch) => {
 
     const selectStyle: StylesConfig = {
         input: styles => ({ ...styles, ...dot() }),
-        placeholder: styles => ({ ...styles, ...dot() }),
+        placeholder: styles => ({ ...styles, fontSize: '0.9rem', color: '#807e7e', ...dot() }),
         singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
       };
       
@@ -71,6 +71,7 @@ const SearchBox = (props: ISearch) => {
         return array
     }
 
+    /*
     const getSelectedValue = () => {
         const options = getOptions()
         let selected = null
@@ -81,6 +82,7 @@ const SearchBox = (props: ISearch) => {
 
         return selected
     }
+    */
 
     const onChangeHandler = (evt: any) => {
         const value = evt.target.value
@@ -102,10 +104,10 @@ const SearchBox = (props: ISearch) => {
         <React.Fragment>
             <div className={css.searchBox}>
                 <div className={css.select}>
-                    <Select styles={selectStyle} options={getOptions()} onChange={onChangeStore} value={getSelectedValue()} components={{ Option }} /> 
+                    <Select styles={selectStyle} placeholder="Select Store" options={getOptions()} onChange={onChangeStore} components={{ Option }} /> 
                 </div>
                 <div className={css.zip}>
-                    <input type="text" name="zip" placeholder="Enter Zip Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} value={searchValue} />
+                    <input type="text" name="zip" placeholder="Refine by Zip Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} value={searchValue} />
                 </div>
             </div>
         </React.Fragment>
