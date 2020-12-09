@@ -1,6 +1,6 @@
 import * as React from "react"
 import Select,  { StylesConfig, components }  from 'react-select'
-import { ISearch } from '../../interfaces/global'
+import { ISearch, IStore } from '../../interfaces/global'
 import { getLocationFromZip } from '../../../services/zeus/store'
 import css from './SearchBox.module.scss'
 
@@ -17,14 +17,14 @@ const SearchBox = (props: ISearch) => {
     const [defaultStores, setDefaultStores] = React.useState<Array<any>>([])
 
     React.useEffect(() => {
-        setOptions(getOptions())
-        setDefaultStores(getOptions())
+        setOptions(getOptions(true))
+        setDefaultStores(getOptions(true))
     }, [stores])
 
     const startSearch = (evt: any) => {
         if (searchValue?.length == 5) {
             getLocationFromZip(searchValue, stores, setGeoResponse).then(function() {
-                setOptions(getOptions)
+                setOptions(getOptions(false))
                 setFinishSearch(true)
             })
         } else {
@@ -77,6 +77,7 @@ const SearchBox = (props: ISearch) => {
         input: styles => ({ ...styles, ...dot() }),
         placeholder: styles => ({ ...styles, fontSize: '0.9rem', color: '#807e7e', ...dot() }),
         singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
+        loadingMessage: styles => ({ ...styles, fontSize: '5rem' }),
     }
 
     const removeBrand = (storeName: string, brandName: string) => {
@@ -92,9 +93,12 @@ const SearchBox = (props: ISearch) => {
     }
       
 
-    const getOptions = () => {
+    const getOptions = (order: boolean) => {
         const array: Array<any> = []
         if(stores) {
+            if (order) {
+                stores.sort((a: IStore, b: IStore) => (a.StoreNumber > b.StoreNumber ? 1 : -1))
+            }
             stores.map( (store: any, key: any) => {
                 const label: string = '#' + parseInt(store.StoreNumber) + ' - ' + removeBrand(store.StoreName, store.BrandName)
                 const value: number = parseInt(store.StoreNumber)
@@ -102,8 +106,20 @@ const SearchBox = (props: ISearch) => {
                 array.push({label: label, value: value, color: color})
             })
         }
+
         return array
     }
+
+    /*
+    const DropdownIndicator = () => {
+        return (
+            components.DropdownIndicator && (
+              <components.DropdownIndicator {...props}>
+              </components.DropdownIndicator>
+            )
+          );
+    }
+    */
 
     const onChangeHandler = (evt: any) => {
         setSearchValue(evt.target.value)
