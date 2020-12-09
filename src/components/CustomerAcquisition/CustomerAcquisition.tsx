@@ -47,48 +47,27 @@ const CustomerAcquisition = (props: IGlobalProps) => {
     }, [selectedStoreId])
 
     return (loading ? ( <Loading></Loading>) : (
-            <div>{existStore ? (
+            <div>
                     <div className={css.customerAcquisition}>
                         <div className={css.header}>
                             <SearchBox setStoreInfo={setStoreInfo} store={store} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} stores={stores} />
                         </div>
                         <div className={css.column}>
                             <div className={`${css.columnItem} ${css.details}`}>
-                                {geoResponse && <div>
-                                    <StoreItem store={geoResponse[0]} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} />
-                                </div>}
-                                {!geoResponse && (<div>
+                                <div>
                                     <OpeningScript IVR={IVR} store={store} />
                                     <StoreDetails text={store?.StoreDetails} loading={loading} />
                                     <SpecialNotes text={store?.Alerts} loading={loading} />
-                                </div>)}
+                                </div>
                             </div>
                             <div className={`${css.columnItem} ${css.storeInformation}`}>
                                 <StoreInformation store={store} loading={loading} doctors={doctors} rooms={examRooms} />
                             </div>  
                         </div> 
-                    </div>) : (<div className={css.customerAcquisition}>
-                        <div className={css.header}>
-                            <SearchBox setStoreInfo={setStoreInfo} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} stores={stores} />
-                        </div>
-                        <div className={css.column}>
-                            <div className={`${css.columnItem} ${css.details}`}>
-
-                                
-                                <OpeningScript IVR={IVR} store={store} />
-                                <StoreDetails text={store?.StoreDetails} loading={loading} />
-                                <SpecialNotes text={store?.Alerts} loading={loading} />
-                            </div>
-                            <div className={`${css.columnItem} ${css.storeInformation}`}>
-                                <StoreInformation store={store} loading={loading} doctors={doctors} rooms={examRooms} />
-                            </div>
-                        </div>
                     </div>
-                    )
-            }
             </div>
         )
     )
-  }
+    }
   
   export default CustomerAcquisition

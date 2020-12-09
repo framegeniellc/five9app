@@ -4,8 +4,14 @@ import { ISearch } from '../../interfaces/global'
 import { getLocationFromZip } from '../../../services/zeus/store'
 import css from './SearchBox.module.scss'
 
+enum EStoreBrand {
+    SO = 'Stanton Optical',
+    MEL = 'My Eyelab',
+}
+  
 const SearchBox = (props: ISearch) => {
     const { setStoreInfo, setSelectedStoreId, setGeoResponse, stores, store } = props
+    const [finishSearch, setFinishSearch] = React.useState<boolean>(false)
     const [searchValue, setSearchValue] = React.useState<string>('')
     const [options, setOptions] = React.useState<Array<any>>([])
     const [defaultStores, setDefaultStores] = React.useState<Array<any>>([])
@@ -19,9 +25,11 @@ const SearchBox = (props: ISearch) => {
         if (searchValue?.length == 5) {
             getLocationFromZip(searchValue, stores, setGeoResponse).then(function() {
                 setOptions(getOptions)
+                setFinishSearch(true)
             })
         } else {
             setOptions(defaultStores)
+            setFinishSearch(false)
         }
     }
     const onKeyPress = (evt: any) => {
@@ -32,7 +40,7 @@ const SearchBox = (props: ISearch) => {
     const onChangeStore = (selectedOption: any) => {
         const value = selectedOption.value
         setSelectedStoreId(value)
-        setStoreInfo()
+        //setStoreInfo()
     }
 
     const onKeyUpHandler = (evt: any) => {
@@ -56,19 +64,41 @@ const SearchBox = (props: ISearch) => {
     })
 
     const selectStyle: StylesConfig = {
+        control: (styles, state) => {
+            return {
+              ...styles,
+              border: `2px solid ${finishSearch ? 'green' : '#ccc'}`,
+              boxShadow: 'none',
+              '&:hover': {
+                border: `2px solid ${finishSearch ? 'green' : '#ccc'}`,
+             }
+            };
+          },
         input: styles => ({ ...styles, ...dot() }),
         placeholder: styles => ({ ...styles, fontSize: '0.9rem', color: '#807e7e', ...dot() }),
         singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
-      };
+    }
+
+    const removeBrand = (storeName: string, brandName: string) => {
+        let name = storeName.replace('-', '')
+
+        if (name.includes(EStoreBrand.SO)) {
+            name = name.replace(EStoreBrand.SO, '')
+        } else if (name.includes(EStoreBrand.MEL)) {
+            name = name.replace(EStoreBrand.MEL, '')
+        }
+
+        return name.replace('', '')
+    }
       
 
     const getOptions = () => {
         const array: Array<any> = []
         if(stores) {
             stores.map( (store: any, key: any) => {
-                const label: string = '#' + parseInt(store.StoreNumber) + ' - ' + store.StoreName
+                const label: string = '#' + parseInt(store.StoreNumber) + ' - ' + removeBrand(store.StoreName, store.BrandName)
                 const value: number = parseInt(store.StoreNumber)
-                const color: string = store.BrandName == 'My Eyelab' ? '#0082ca' : '#f58220'
+                const color: string = store.BrandName == EStoreBrand.MEL ? '#0082ca' : '#f58220'
                 array.push({label: label, value: value, color: color})
             })
         }
@@ -80,7 +110,8 @@ const SearchBox = (props: ISearch) => {
     }
 
     const Option = (props: any) => {
-        const { data, innerRef, innerProps } = props;
+        const { data, innerRef, innerProps } = props
+
         return (
           <div className={css.option} ref={innerRef} {...innerProps}>
             <span className={css.icon} style={{ color: props.data.color }}></span>
