@@ -7,33 +7,38 @@ import css from './SearchBox.module.scss'
 const SearchBox = (props: ISearch) => {
     const { setStoreInfo, setSelectedStoreId, setGeoResponse, stores, store } = props
     const [searchValue, setSearchValue] = React.useState<string>('')
-    const [valueSelect, setValueSelect] = React.useState<string>()
+    const [options, setOptions] = React.useState<Array<any>>([])
+    const [defaultStores, setDefaultStores] = React.useState<Array<any>>([])
 
-    const onKeyPress = (evt: any) => {
-        const value = evt.target.value
+    React.useEffect(() => {
+        setOptions(getOptions())
+        setDefaultStores(getOptions())
+    }, [stores])
 
-        setSearchValue(value)
-
-        if (evt.key == 'Enter') {
-            getLocationFromZip(value, stores, setGeoResponse)
+    const startSearch = (evt: any) => {
+        if (searchValue?.length == 5) {
+            getLocationFromZip(searchValue, stores, setGeoResponse).then(function() {
+                setOptions(getOptions)
+            })
+        } else {
+            setOptions(defaultStores)
         }
+    }
+    const onKeyPress = (evt: any) => {
+        //setSearchValue(evt.target.value)
+        //startSearch(evt)
     }
 
     const onChangeStore = (selectedOption: any) => {
         const value = selectedOption.value
-        setValueSelect(value)
         setSelectedStoreId(value)
         setStoreInfo()
     }
 
     const onKeyUpHandler = (evt: any) => {
-        const value = evt.target.value
-        
-        if (value.length === 5) {
-            getLocationFromZip(value, stores, setGeoResponse)
-        }
+        setSearchValue(evt.target.value)
+        startSearch(evt)
     }
-
 
     const dot = (color = '#ccc') => ({
         alignItems: 'center',
@@ -67,27 +72,11 @@ const SearchBox = (props: ISearch) => {
                 array.push({label: label, value: value, color: color})
             })
         }
-
         return array
     }
 
-    /*
-    const getSelectedValue = () => {
-        const options = getOptions()
-        let selected = null
-
-        selected = options.filter(obj => {
-            return obj.value === parseInt(store?.StoreNumber)
-        })
-
-        return selected
-    }
-    */
-
     const onChangeHandler = (evt: any) => {
-        const value = evt.target.value
-
-        setSearchValue(value)
+        setSearchValue(evt.target.value)
     }
 
     const Option = (props: any) => {
@@ -104,10 +93,10 @@ const SearchBox = (props: ISearch) => {
         <React.Fragment>
             <div className={css.searchBox}>
                 <div className={css.select}>
-                    <Select styles={selectStyle} placeholder="Select Store" options={getOptions()} onChange={onChangeStore} components={{ Option }} /> 
+                    <Select styles={selectStyle} placeholder="Select Store" options={options} onChange={onChangeStore} components={{ Option }} /> 
                 </div>
                 <div className={css.zip}>
-                    <input type="text" name="zip" placeholder="Refine by Zip Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} value={searchValue} />
+                    <input type="text" name="zip" placeholder="Refine by ZIP Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} value={searchValue} />
                 </div>
             </div>
         </React.Fragment>

@@ -92,7 +92,11 @@ const getLocationFromZip = async (zip: string, stores: any, setGeoResponse: any)
   Geocode.setApiKey(process.env.GMAP_KEY)
   return Geocode.fromAddress(zip).then( response => {
     setGeoResponse(getNearestStores(response, stores))
-  })
+  }).then(response => {
+    //console.log(response);
+  }).catch(e => {
+      console.log(e);
+  });
 }
 
 export { getEndpointData, getLocationFromZip }
