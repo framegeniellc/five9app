@@ -22,6 +22,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
     const [loaded, setLoaded] = React.useState<boolean>(false)
     const [selectedStoreId, setSelectedStoreId] = React.useState<number>(storeId)
     const [geoResponse, setGeoResponse] = React.useState<any>(null)
+    const [specialStore, setSpecialStore] = React.useState<boolean>(false)
 
     const setStoreInfo = async () => {
         const storesData = await getEndpointData(interceptor, null, 'info')
@@ -44,8 +45,19 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         return Number(language) === 2 ? 'es' : 'en'
     }
 
+    const cleanStoreId = (storeId: number) => {
+
+        if(storeId == 958 || storeId == 971 || storeId == 977) {
+            setSpecialStore(true)
+            storeId = Number(storeId.toString().substring(1))
+        }
+        
+        return storeId
+    }
+
     React.useEffect(() => {
         setLoading(true)
+        setSelectedStoreId(cleanStoreId(storeId))
         setStoreInfo()
     }, [selectedStoreId])
 
@@ -58,7 +70,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                         <div className={css.column}>
                             <div className={`${css.columnItem} ${css.details}`}>
                                 <div>
-                                    <OpeningScript IVR={IVR} store={store} language={defineLanguage()} brand={brand} skill={skill} />
+                                    <OpeningScript IVR={IVR} store={store} language={defineLanguage()} brand={brand} skill={skill} specialStore={specialStore}/>
                                     <StoreDetails text={store?.StoreDetails} loading={loading} />
                                     <SpecialNotes text={store?.Alerts} loading={loading} />
                                 </div>

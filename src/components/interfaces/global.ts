@@ -43,6 +43,7 @@ export interface IOpeningScript {
     language?: string
     skill?: string
     brand?: string
+    specialStore?: boolean
 }
 
 export interface IStoreDetails extends IStoreLoad {

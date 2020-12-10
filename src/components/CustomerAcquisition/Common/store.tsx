@@ -48,9 +48,17 @@ const getBrandName = (brand: string) => {
     return brand == 'SO' ? EStoreBrand.SO : EStoreBrand.MEL
 }
 
+const getStateName = (storeId: number) => {
+    switch (storeId){
+        case 58: return 'Oklahoma'
+        case 71: return 'Arkansas'
+        case 77: return ''
+        default: return ''
+    }
+}
+
 const getStoreScript = (props: IOpeningScript) => {
-    //store: any, lang: string, IVR: string, brand: string, skill: string, specialStore: boolean
-    const { store, language, IVR, brand, skill } = props
+    const { store, language, IVR, brand, skill, specialStore } = props
 
     // If only brand, then get script according to language
     if (brand) {
@@ -70,12 +78,15 @@ const getStoreScript = (props: IOpeningScript) => {
 
     // If only store, then get default script according to language
     if (store) {
+        //If storeId is a special store, then get 2nd interaction script according to language and store ID
+        if (specialStore){ //&& (Number(store?.StoreNumber) == 58 || Number(store?.StoreNumber == 71) || Number(store?.StoreNumber == 77))) {
+            return getSpecialStore(store)
+        }
+        
         return getDefaultScript(store, language)
     }
 
-    //If storeId is a special store, then get 2nd interaction script according to language and store ID
-
-    return 'test'
+    return ''
 }
 
 const getIVRScript = (brand: any, lang: string) => {
@@ -92,6 +103,10 @@ const getBrandScript = (brand: string, lang: string ) => {
 
 const getDefaultScript = (store: any, lang: string) => {
    return `${getTranslation('Thank you for calling', lang)} ${store.BrandName} ${getTranslation('at', lang)} ${store.StoreName.replace(store.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______, ${getTranslation('are you calling to schedule your eye exam today?', lang)}`
+}
+
+const getSpecialStore = (store: any) => {
+    return `Thank you for calling ${store?.StateName} Physician Eye Care Group in ${store.StoreName.replace(store.BrandName + ' - ', '')}, my name is _______, How may we address your call?`
 }
 
 export { getNearestStores, getStoreScript, formatPhoneNumber }
