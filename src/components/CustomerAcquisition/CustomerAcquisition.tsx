@@ -37,8 +37,8 @@ const CustomerAcquisition = (props: IGlobalProps) => {
 
         if (storeData && storeData.data && storeData.data?.length) {
             setExistsStore(true)   
+            setLoading(false)
         }
-        setLoading(false)
     }
 
     const defineLanguage = () => {
