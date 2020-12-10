@@ -22,10 +22,31 @@ export default class App extends React.Component<IProps, IState> {
         return urlParams.get("IVR") || null
     }
 
+
+    private getBrandFromUri = () => {
+        const urlParams = new URLSearchParams(window?.location.search)
+
+        return urlParams.get("Brand") || null
+    }
+
+
+    private getSkillFromUri = () => {
+        const urlParams = new URLSearchParams(window?.location.search)
+
+        return urlParams.get("Skill") || null
+    }
+
+
+    private getLanguageFromUri = () => {
+        const urlParams = new URLSearchParams(window?.location.search)
+
+        return urlParams.get("Language") || null
+    }
+
     render() {
         return (
             <React.Fragment>
-                <Layout interceptor={this.props.interceptor} storeId={this.getStoreFromUri()} IVR={this.getIvrFromUri()} />
+                <Layout interceptor={this.props.interceptor} storeId={this.getStoreFromUri()} IVR={this.getIvrFromUri()} language={this.getLanguageFromUri()} brand={this.getBrandFromUri()} skill={this.getSkillFromUri()}  />
             </React.Fragment>
         )
     }

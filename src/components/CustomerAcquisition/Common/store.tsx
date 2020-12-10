@@ -1,3 +1,7 @@
+import { IOpeningScript } from '../../interfaces/global'
+import getTranslation from '../../../utils/translations/translationUtils'
+import { EStoreBrand } from '../SearchBox/SearchBox'
+
 const formatPhoneNumber = (phone: string) => {
     let cleaned = ('' + phone).replace(/\D/g, '')
     const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
@@ -40,47 +44,54 @@ const deg2rad = (deg: number) => {
     return deg * (Math.PI/180)
 }
 
-const getStoreScript = (IVR: string, store: any) => {
-    switch(IVR) {
-        case '2.2': { return getExamOptionScript(store) }
-        case '2.1.3.1': { return getDefaultScript(store) }
-    }
-
-    if(store && !IVR) {
-        return getDefaultScript(store)
-    }
-
-    return `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
+const getBrandName = (brand: string) => {
+    return brand == 'SO' ? EStoreBrand.SO : EStoreBrand.MEL
 }
 
-const getExamOptionScript = (store: any) => {
-    return `Thank you for calling ${store.BrandName} in ${store.StoreName.replace(store.BrandName + ' - ', '')}. My name is ______. How can I help you in filling your prescription today?`
+const getStoreScript = (props: IOpeningScript) => {
+    //store: any, lang: string, IVR: string, brand: string, skill: string, specialStore: boolean
+    const { store, language, IVR, brand, skill } = props
+
+    // If only brand, then get script according to language
+    if (brand) {
+
+        // If only Skrill and brand, then get script of IVR according to language
+        if (skill == 'CA' || skill == 'CR') {
+            return getSkillScript(skill, brand, language)
+        }
+
+        // If IVR is 1, then get script of IVR according to language
+        if (Number(IVR) == 1) {
+            return getIVRScript(brand, language)
+        }
+
+        return getBrandScript(brand, language)
+    }
+
+    // If only store, then get default script according to language
+    if (store) {
+        return getDefaultScript(store, language)
+    }
+
+    //If storeId is a special store, then get 2nd interaction script according to language and store ID
+
+    return 'test'
 }
 
-const getDefaultScript = (store: any) => {
-    const storeId = parseInt(store.StoreNumber)
-    const specialStores = [58, 77, 71 ]
-    const modestoStores = [5, 7015]
-    let streetName = ''
+const getIVRScript = (brand: any, lang: string) => {
+    return `${getTranslation('Thank you for calling', lang)} ${getTranslation('in', lang)} ${getBrandName(brand)}, ${getTranslation('my name is', lang)} _______. ${getTranslation('How can I help you in filling your prescription today?', lang)}`
+}
 
-    if (specialStores.indexOf(storeId) > -1) {
-        return `Thank you for calling ${store.StateName} Physicians Eyecare Group in ${store.StoreName.replace(store.BrandName + ' - ', '')}. My name is ________. How may I address your call?`
-    }
+const getSkillScript = (skill: string, brand: string, lang: string ) => {
+    return `${getTranslation('Thank you for calling', lang)} ${getBrandName(brand)}, ${getTranslation('my name is', lang)} _______. ${getTranslation('May I have your first and last name?', lang)}`
+}
 
-    if (modestoStores.indexOf(storeId) > -1 && storeId == 5) {
-        streetName = `Sisk Road`
-    }
+const getBrandScript = (brand: string, lang: string ) => {
+    return `${getTranslation('Thank you for calling', lang)} ${getBrandName(brand)}, ${getTranslation('to better assist you can I please have your zip code?', lang)}`
+}
 
-    if (modestoStores.indexOf(storeId) > -1 && storeId == 7015) {
-        streetName = `Sylvan Ave`
-    }
-
-    
-    if (modestoStores.indexOf(storeId) > -1) {
-        return `Thank you for calling ${store.BrandName} at ${streetName}, ${store.CITY}. My name is _______, are you calling to book your eye exam today?`
-    }
-
-    return `Thank you for calling ${store.BrandName} in ${store.StoreName.replace(store.BrandName + ' - ', '')}. My name is ______. Are you calling to schedule/book your eye exam today?`
+const getDefaultScript = (store: any, lang: string) => {
+   return `${getTranslation('Thank you for calling', lang)} ${store.BrandName} ${getTranslation('at', lang)} ${store.StoreName.replace(store.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______, ${getTranslation('are you calling to schedule your eye exam today?', lang)}`
 }
 
 export { getNearestStores, getStoreScript, formatPhoneNumber }

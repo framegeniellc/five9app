@@ -4,7 +4,7 @@ import { ISearch, IStore } from '../../interfaces/global'
 import { getLocationFromZip } from '../../../services/zeus/store'
 import css from './SearchBox.module.scss'
 
-enum EStoreBrand {
+export enum EStoreBrand {
     SO = 'Stanton Optical',
     MEL = 'My Eyelab',
 }

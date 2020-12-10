@@ -1,7 +1,10 @@
 export interface IGlobalProps {
     interceptor: any
-    IVR?: string
     storeId?: number
+    IVR?: string
+    language?: string
+    skill?: string
+    brand?: string
 }
 
 export interface IStatesObject {
@@ -37,6 +40,9 @@ export interface ISearch {
 export interface IOpeningScript {
     IVR: string
     store: any
+    language?: string
+    skill?: string
+    brand?: string
 }
 
 export interface IStoreDetails extends IStoreLoad {

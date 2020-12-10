@@ -12,7 +12,7 @@ import Error from '../Error/Error'
 import Loading from "../Loading/Loading"
 
 const CustomerAcquisition = (props: IGlobalProps) => {
-    const { interceptor, storeId, IVR } = props
+    const { interceptor, storeId, IVR, language, brand, skill} = props
     const [stores, setStores] = React.useState<any>([])
     const [store, setStore] = React.useState<any>([])
     const [doctors, setDoctors] = React.useState<any>([])
@@ -35,15 +35,18 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         setStores(storesData?.data)
 
         if (storeData && storeData.data && storeData.data?.length) {
-            setExistsStore(true)    
+            setExistsStore(true)   
         }
-
         setLoading(false)
     }
 
+    const defineLanguage = () => {
+        return Number(language) === 2 ? 'es' : 'en'
+    }
+
     React.useEffect(() => {
-        setStoreInfo()
         setLoading(true)
+        setStoreInfo()
     }, [selectedStoreId])
 
     return (loading ? ( <Loading></Loading>) : (
@@ -55,14 +58,16 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                         <div className={css.column}>
                             <div className={`${css.columnItem} ${css.details}`}>
                                 <div>
-                                    <OpeningScript IVR={IVR} store={store} />
+                                    <OpeningScript IVR={IVR} store={store} language={defineLanguage()} brand={brand} skill={skill} />
                                     <StoreDetails text={store?.StoreDetails} loading={loading} />
                                     <SpecialNotes text={store?.Alerts} loading={loading} />
                                 </div>
                             </div>
+                            {existStore && 
                             <div className={`${css.columnItem} ${css.storeInformation}`}>
                                 <StoreInformation store={store} loading={loading} doctors={doctors} rooms={examRooms} />
                             </div>  
+                            }
                         </div> 
                     </div>
             </div>
