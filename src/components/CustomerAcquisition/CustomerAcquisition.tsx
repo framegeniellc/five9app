@@ -23,6 +23,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
     const [selectedStoreId, setSelectedStoreId] = React.useState<number>(storeId)
     const [geoResponse, setGeoResponse] = React.useState<any>(null)
     const [specialStore, setSpecialStore] = React.useState<boolean>(false)
+    const [error, setError] = React.useState<boolean>(false)
 
     const setStoreInfo = async () => {
         const storesData = await getEndpointData(interceptor, null, 'info')
@@ -35,10 +36,15 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         setExamRooms(examRoomsData?.data)
         setStores(storesData?.data)
 
-        if (storeData && storeData.data && storeData.data?.length) {
+        if (storeData && storeData.data && storeData.data?.length > 0) {
             setExistsStore(true)   
+            setError(false)
             setLoading(false)
+        } else {
+            setError(true)
         }
+
+        setLoading(false)
     }
 
     const defineLanguage = () => {
@@ -73,8 +79,8 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                             <div className={`${css.columnItem} ${css.details}`}>
                                 <div>
                                     <OpeningScript IVR={IVR} store={store} language={defineLanguage()} brand={brand} skill={skill} specialStore={specialStore}/>
-                                    <StoreDetails text={store?.StoreDetails} loading={loading} />
-                                    <SpecialNotes text={store?.Alerts} loading={loading} />
+                                    <StoreDetails text={store?.StoreDetails} />
+                                    <SpecialNotes text={store?.Alerts} />
                                 </div>
                             </div>
                             {existStore && 

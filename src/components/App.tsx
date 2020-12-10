@@ -19,7 +19,7 @@ export default class App extends React.Component<IProps, IState> {
     private getIvrFromUri = () => {
         const urlParams = new URLSearchParams(window?.location.search)
 
-        return urlParams.get("IVR") || null
+        return urlParams.get("IVRSelection") || null
     }
 
 

@@ -60,37 +60,40 @@ const getStateName = (storeId: number) => {
 const getStoreScript = (props: IOpeningScript) => {
     const { store, language, IVR, brand, skill, specialStore } = props
 
-    // If only brand, then get script according to language
-    if (brand) {
-
-        // If only Skrill and brand, then get script of IVR according to language
-        if (skill == 'CA' || skill == 'CR') {
-            return getSkillScript(skill, brand, language)
-        }
-
-        // If IVR is 1, then get script of IVR according to language
-        if (Number(IVR) == 1) {
-            return getIVRScript(brand, language)
-        }
-
-        return getBrandScript(brand, language)
-    }
-
-    // If only store, then get default script according to language
-    if (store) {
-        //If storeId is a special store, then get 2nd interaction script according to language and store ID
-        if (specialStore){ //&& (Number(store?.StoreNumber) == 58 || Number(store?.StoreNumber == 71) || Number(store?.StoreNumber == 77))) {
-            return getSpecialStore(store)
+        // If only store, then get default script according to language
+        if (store) {
+            //If storeId is a special store, then get 2nd interaction script according to language and store ID
+            if (specialStore){ //&& (Number(store?.StoreNumber) == 58 || Number(store?.StoreNumber == 71) || Number(store?.StoreNumber == 77))) {
+                return getSpecialStore(store)
+            }
+            
+            return getDefaultScript(store, language)
         }
         
-        return getDefaultScript(store, language)
+        // If only brand, then get script according to language
+        if (brand) {
+
+            // If only Skrill and brand, then get script of IVR according to language
+            if (skill == 'CA' || skill == 'CR') {
+                return getSkillScript(skill, brand, language)
+            }
+
+            // If IVR is 1, then get script of IVR according to language
+            if (Number(IVR) == 1) {
+                return getIVRScript(brand, language)
+            }
+
+            return getBrandScript(brand, language)
+        
+
     }
+
 
     return ''
 }
 
 const getIVRScript = (brand: any, lang: string) => {
-    return `${getTranslation('Thank you for calling', lang)} ${getTranslation('in', lang)} ${getBrandName(brand)}, ${getTranslation('my name is', lang)} _______. ${getTranslation('How can I help you in filling your prescription today?', lang)}`
+    return `${getTranslation('Thank you for calling', lang)} ${getTranslation('in', lang)} ${getBrandName(brand)}. ${getTranslation('How can I help you in filling your prescription today?', lang)}`
 }
 
 const getSkillScript = (skill: string, brand: string, lang: string ) => {
@@ -102,7 +105,11 @@ const getBrandScript = (brand: string, lang: string ) => {
 }
 
 const getDefaultScript = (store: any, lang: string) => {
-   return `${getTranslation('Thank you for calling', lang)} ${store.BrandName} ${getTranslation('at', lang)} ${store.StoreName.replace(store.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______, ${getTranslation('are you calling to schedule your eye exam today?', lang)}`
+    if ( lang == 'en') {
+        return `${getTranslation(store?.StoreScriptOperning, lang)}`
+    } else {
+        return `${getTranslation('Thank you for calling', lang)} ${store.BrandName} ${getTranslation('at', lang)} ${store.StoreName.replace(store.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______, ${getTranslation('are you calling to schedule your eye exam today?', lang)}`
+    }
 }
 
 const getSpecialStore = (store: any) => {
