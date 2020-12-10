@@ -57,7 +57,9 @@ const CustomerAcquisition = (props: IGlobalProps) => {
 
     React.useEffect(() => {
         setLoading(true)
-        setSelectedStoreId(cleanStoreId(storeId))
+        if(storeId == 958 || storeId == 971 || storeId == 977) {
+            setSelectedStoreId(cleanStoreId(storeId))
+        }
         setStoreInfo()
     }, [selectedStoreId])
 
