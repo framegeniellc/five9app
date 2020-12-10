@@ -30,14 +30,15 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         const doctorsData = await getEndpointData(interceptor, selectedStoreId, 'doctors')
         const examRoomsData = await getEndpointData(interceptor, selectedStoreId, 'rooms')
 
+        setDoctors(doctorsData?.data)
+        setStore(storeData?.data[0])
+        setExamRooms(examRoomsData?.data)
+        setStores(storesData?.data)
+
         if (storeData && storeData.data && storeData.data?.length) {
-            setDoctors(doctorsData?.data)
-            setStore(storeData?.data[0])
-            setExamRooms(examRoomsData?.data)
-            setStores(storesData?.data)
             setExistsStore(true)   
-            setLoading(false)
         }
+        setLoading(false)
     }
 
     const defineLanguage = () => {
