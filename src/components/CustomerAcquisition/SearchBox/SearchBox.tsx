@@ -24,7 +24,6 @@ const SearchBox = (props: ISearch) => {
 
     const preventNotDesiredCharacters = (e: React.KeyboardEvent) => {
         const keyCode = e.keyCode ? e.keyCode : e.which
-        console.log(keyCode)
         if (
           keyCode == 8 ||
           keyCode == 9 ||

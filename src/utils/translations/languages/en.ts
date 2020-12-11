@@ -7,5 +7,9 @@ export default {
     'May I have your first and last name?': 'May I have your first and last name?',
     'How can I help you in filling your prescription today?': 'How can I help you in filling your prescription today?',
     'in': 'in',
+    'are you calling to book your eye exam today?':'are you calling to book your eye exam today?',
+    'My': 'My',
+    'name is': 'name is',
+    'to': '',
 }
   

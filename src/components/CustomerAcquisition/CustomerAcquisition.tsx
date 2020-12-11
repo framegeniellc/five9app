@@ -52,8 +52,9 @@ const CustomerAcquisition = (props: IGlobalProps) => {
     }
 
     const cleanStoreId = (storeId: number) => {
+        const specialStores = [958, 971, 977]
 
-        if(storeId == 958 || storeId == 971 || storeId == 977) {
+        if (specialStores.indexOf(storeId) > -1) {
             setSpecialStore(true)
             storeId = Number(storeId.toString().substring(1))
         }
