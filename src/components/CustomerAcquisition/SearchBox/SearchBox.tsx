@@ -21,6 +21,26 @@ const SearchBox = (props: ISearch) => {
         setDefaultStores(getOptions(true))
     }, [stores])
 
+
+    const preventNotDesiredCharacters = (e: React.KeyboardEvent) => {
+        const keyCode = e.keyCode ? e.keyCode : e.which
+        console.log(keyCode)
+        if (
+          keyCode == 8 ||
+          keyCode == 9 ||
+          keyCode == 46 ||
+          keyCode == 37 ||
+          keyCode == 39 ||
+          (keyCode >= 48 && keyCode <= 57 && !e.shiftKey) ||
+          (keyCode >= 96 && keyCode <= 105 && !e.shiftKey)
+        ) {
+          return true
+        } else {
+          e.preventDefault()
+          return false
+        }
+    }    
+
     const startSearch = (evt: any) => {
         if (searchValue?.length == 5) {
             getLocationFromZip(searchValue, stores, setGeoResponse).then(function() {
@@ -143,7 +163,7 @@ const SearchBox = (props: ISearch) => {
                     <Select styles={selectStyle} placeholder="Select Store" options={options} onChange={onChangeStore} components={{ Option }} /> 
                 </div>
                 <div className={css.zip}>
-                    <input type="text" name="zip" placeholder="Refine by ZIP Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} value={searchValue} />
+                    <input type="text" name="zip" maxLength={5} placeholder="Refine by ZIP Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} onKeyDown={preventNotDesiredCharacters} value={searchValue} />
                 </div>
             </div>
         </React.Fragment>
