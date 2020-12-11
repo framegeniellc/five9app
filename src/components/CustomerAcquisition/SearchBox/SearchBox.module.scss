@@ -43,10 +43,13 @@
     }
 
     .option {
-        padding: 4px 8px;
+        padding: 6px 8px;
         display: flex;
         flex-direction: row;
     
+        &:hover {
+            background: rgba(46, 47, 48, 0.1);
+        }
         .icon {
             width: 8px;
             height: 10px;

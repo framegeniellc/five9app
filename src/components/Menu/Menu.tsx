@@ -26,12 +26,15 @@ const Menu = (props: IMenu) => {
                             <span>Info</span>
                         </a>
                     </li>
+                    {/* 
                     <li>
-                    <a href="#" className={`${option === MENU_ITEM.OFFERS ? css.active : ''}`}>
+                        <a href="#" className={`${option === MENU_ITEM.OFFERS ? css.active : ''}`}>
                             <i className={`${css.icon} fas fa-tag`}></i>
                             <span>Offers</span>
                         </a>
                     </li>
+                    */}
+
                 </ul>
             </nav>
         </React.Fragment>
