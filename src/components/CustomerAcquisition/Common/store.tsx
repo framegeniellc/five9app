@@ -121,14 +121,16 @@ const getSpecialStore = (store: any) => {
 }
 
 const getModestoScript = (store: any, lang: string) => {
-    let roadName: string
+    let roadName: string = ''
     let to_es: string = ''
 
     switch (Number(store?.StoreNumber)){
         case 5: 
             roadName = 'Sisk Road'
+            break
         case 7015: 
             roadName = 'Sylvan Ave'
+            break
         default: 
     }
 
