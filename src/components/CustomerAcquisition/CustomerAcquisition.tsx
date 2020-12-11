@@ -79,7 +79,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                             <div className={`${css.columnItem} ${css.details}`}>
                                 <div>
                                     <OpeningScript IVR={IVR} store={store} language={defineLanguage()} brand={brand} skill={skill} specialStore={specialStore}/>
-                                    <StoreDetails text={store?.StoreDetails} />
+                                    <StoreDetails text={store?.LandMarks} />
                                     <SpecialNotes text={store?.Alerts} />
                                 </div>
                             </div>
