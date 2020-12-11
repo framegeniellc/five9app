@@ -105,11 +105,11 @@ const getBrandScript = (brand: string, lang: string ) => {
 }
 
 const getDefaultScript = (store: any, lang: string) => {
-    if ( lang == 'en') {
-        return `${getTranslation(store?.StoreScriptOperning, lang)}`
-    } else {
+    //if ( lang == 'en') {
+        //return `${getTranslation(store?.StoreScriptOperning, lang)}`
+    //} else {
         return `${getTranslation('Thank you for calling', lang)} ${store.BrandName} ${getTranslation('at', lang)} ${store.StoreName.replace(store.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______, ${getTranslation('are you calling to schedule your eye exam today?', lang)}`
-    }
+    //}
 }
 
 const getSpecialStore = (store: any) => {
