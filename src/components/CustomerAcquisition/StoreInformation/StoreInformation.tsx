@@ -68,7 +68,7 @@ const StoreInformation = (props: IStoreData) => {
                 <div className={`${css.iconContainer} ${css.storeAddressInfo}`}>
                     <i className={`${css.icon} fa fa-car`}></i>
                     <div>
-                    <span>{store?.StoreDetails}</span>
+                    <span>{store?.LandMarks}</span>
                     </div>
                 </div>
                 <div className={`${css.iconContainer} ${css.storeHours}`}>
