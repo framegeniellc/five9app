@@ -121,6 +121,7 @@ const getSpecialStore = (store: any) => {
 }
 
 const getModestoScript = (store: any, lang: string) => {
+
     let roadName: string = ''
     let to_es: string = ''
 
@@ -136,7 +137,7 @@ const getModestoScript = (store: any, lang: string) => {
 
     if (lang == 'es') { to_es = ` ${getTranslation('to', lang)}` }
 
-    return `${getTranslation('Thank you for calling', lang)}${to_es} ${getBrandName(store?.BrandName)} ${getTranslation('at', lang)} ${roadName}, Modesto. ${getTranslation('My', lang)} ${getTranslation('name is', lang)} _______, ${getTranslation('are you calling to book your eye exam today?', lang)}`
+    return `${getTranslation('Thank you for calling', lang)}${to_es} ${store?.BrandName} ${getTranslation('at', lang)} ${roadName}, Modesto. ${getTranslation('My', lang)} ${getTranslation('name is', lang)} _______, ${getTranslation('are you calling to book your eye exam today?', lang)}`
     
 }
 export { getNearestStores, getStoreScript, formatPhoneNumber }
