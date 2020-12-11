@@ -12,6 +12,7 @@ export enum EStoreBrand {
 const SearchBox = (props: ISearch) => {
     const { setStoreInfo, setSelectedStoreId, setGeoResponse, stores, store } = props
     const [finishSearch, setFinishSearch] = React.useState<boolean>(false)
+    const [isLoadingSearch, setIsLoadingSearch] = React.useState<boolean>(false)
     const [searchValue, setSearchValue] = React.useState<string>('')
     const [options, setOptions] = React.useState<Array<any>>([])
     const [defaultStores, setDefaultStores] = React.useState<Array<any>>([])
@@ -42,9 +43,11 @@ const SearchBox = (props: ISearch) => {
 
     const startSearch = (evt: any) => {
         if (searchValue?.length == 5) {
+            setIsLoadingSearch(true)
             getLocationFromZip(searchValue, stores, setGeoResponse).then(function() {
                 setOptions(getOptions(false))
                 setFinishSearch(true)
+                setIsLoadingSearch(false)
             })
         } else {
             setOptions(defaultStores)
@@ -96,7 +99,6 @@ const SearchBox = (props: ISearch) => {
         input: styles => ({ ...styles, ...dot() }),
         placeholder: styles => ({ ...styles, fontSize: '0.9rem', color: '#807e7e', ...dot() }),
         singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
-        loadingMessage: styles => ({ ...styles, fontSize: '5rem' }),
     }
 
     const removeBrand = (storeName: string, brandName: string) => {
@@ -129,16 +131,13 @@ const SearchBox = (props: ISearch) => {
         return array
     }
 
-    /*
-    const DropdownIndicator = () => {
+    const DropdownIndicator = (props: any) => {
         return (
-            components.DropdownIndicator && (
-              <components.DropdownIndicator {...props}>
-              </components.DropdownIndicator>
-            )
-          );
+            <components.DropdownIndicator {...props}>
+                {isLoadingSearch ? <span className={css.loading}><i className="fas fa-spinner"></i></span> : <span className={css.dropdownIcon}><i className="fas fa-sort-down"></i></span>}
+            </components.DropdownIndicator>
+        )
     }
-    */
 
     const onChangeHandler = (evt: any) => {
         setSearchValue(evt.target.value)
@@ -159,7 +158,7 @@ const SearchBox = (props: ISearch) => {
         <React.Fragment>
             <div className={css.searchBox}>
                 <div className={css.select}>
-                    <Select styles={selectStyle} placeholder="Select Store" options={options} onChange={onChangeStore} components={{ Option }} /> 
+                    <Select styles={selectStyle} placeholder="Select Store" options={options} onChange={onChangeStore} components={{ Option, DropdownIndicator}} /> 
                 </div>
                 <div className={css.zip}>
                     <input type="text" name="zip" maxLength={5} placeholder="Refine by ZIP Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} onKeyDown={preventNotDesiredCharacters} value={searchValue} />
