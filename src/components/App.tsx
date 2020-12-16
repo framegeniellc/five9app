@@ -53,7 +53,7 @@ export default class App extends React.Component<IProps, IState> {
     render() {
         return (
             <React.Fragment>
-                <Layout interceptor={this.props.interceptor} storeId={this.getStoreFromUri()} IVR={this.getIvrFromUri()} language={this.getLanguageFromUri()} brand={this.getBrandFromUri()} skill={this.getSkillFromUri() callID={this.getCallID()}}  />
+                <Layout interceptor={this.props.interceptor} storeId={this.getStoreFromUri()} IVR={this.getIvrFromUri()} language={this.getLanguageFromUri()} brand={this.getBrandFromUri()} skill={this.getSkillFromUri()} callID={this.getCallID()}  />
             </React.Fragment>
         )
     }
