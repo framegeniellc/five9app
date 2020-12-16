@@ -1,7 +1,7 @@
 import * as React from "react"
 import css from '././CustomerAcquisition.module.scss'
 import { IGlobalProps } from '../interfaces/global'
-import { getEndpointData } from '../../services/zeus/store'
+import { getEndpointData, getCachedData } from '../../services/zeus/store'
 import StoreInformation from './StoreInformation/StoreInformation'
 import OpeningScript from './OpeningScript/OpeningScript'
 import StoreDetails from './StoreDetails/StoreDetails'
@@ -19,22 +19,21 @@ const CustomerAcquisition = (props: IGlobalProps) => {
     const [examRooms, setExamRooms] = React.useState<any>([])
     const [existStore, setExistsStore] = React.useState<boolean>(false)
     const [loading, setLoading] = React.useState<boolean>(true)
-    const [loaded, setLoaded] = React.useState<boolean>(false)
     const [selectedStoreId, setSelectedStoreId] = React.useState<number>(storeId)
     const [geoResponse, setGeoResponse] = React.useState<any>(null)
     const [specialStore, setSpecialStore] = React.useState<boolean>(false)
     const [error, setError] = React.useState<boolean>(false)
 
     const setStoreInfo = async () => {
-        const storesData = await getEndpointData(interceptor, null, 'info')
-        const storeData = await getEndpointData(interceptor, selectedStoreId, 'info')
-        const doctorsData = await getEndpointData(interceptor, selectedStoreId, 'doctors')
-        const examRoomsData = await getEndpointData(interceptor, selectedStoreId, 'rooms')
+        const storesData = await getCachedData(interceptor, null, 'info')
+        const storeData = await getCachedData(interceptor, selectedStoreId, 'info')
+        const doctorsData = await getCachedData(interceptor, selectedStoreId, 'doctors')
+        const examRoomsData = await getCachedData(interceptor, selectedStoreId, 'rooms')
 
-        setDoctors(doctorsData?.data)
-        setStore(storeData?.data[0])
-        setExamRooms(examRoomsData?.data)
-        setStores(storesData?.data)
+        setDoctors(doctorsData.data)
+        setStore(storeData.data[0])
+        setExamRooms(examRoomsData.data)
+        setStores(storesData.data)
 
         if (storeData && storeData.data && storeData.data?.length > 0) {
             setExistsStore(true)   

@@ -14,6 +14,21 @@ const ENDPOINTS = {
 
 const acceptedStatusCodes = [200, 201]
 
+const getCachedData = async (transport: any, storeId: number, type: string) => {
+  try {
+    const storeParam = typeof storeId !== 'object' ? `?StoreID=${prependZeros(storeId)}` : `?StoreID=`
+    const finalEndpoint = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${storeParam}&endpoint=${type}&format=json`
+    const response = await transport.get(finalEndpoint)
+
+    if (response) {
+      return response
+    }
+    
+  } catch(e) {
+
+  }
+}
+
 const getEndpointData = async (transport: any, storeId: number, type: string) => {
     try {
         const storeParam = typeof storeId !== 'object' ? `?StoreNumber=${prependZeros(storeId)}` : `?StoreNumber=`
@@ -99,4 +114,4 @@ const getLocationFromZip = async (zip: string, stores: any, setGeoResponse: any)
   });
 }
 
-export { getEndpointData, getLocationFromZip }
+export { getEndpointData, getLocationFromZip, getCachedData }
