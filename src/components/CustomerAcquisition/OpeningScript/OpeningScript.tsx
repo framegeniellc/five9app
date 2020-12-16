@@ -24,6 +24,7 @@ const OpeningScript = (props: IOpeningScript) => {
         <div className={`${css.textArea} ${css.openingScriptContainer}`}>
             <div className={css.headerOpening}>
                 <label className={css.title}>Opening Script:</label>
+                { props?.callID ? 
                 <div className={css.clipboard}>
                     <input type="text" className={css.callID} value={`Call ID: ${props?.callID}`} disabled />
                     <CopyToClipboard text={props?.callID} onCopy={copyText}>
@@ -31,6 +32,7 @@ const OpeningScript = (props: IOpeningScript) => {
                     </CopyToClipboard>
                     {copied ? <span className={css.bubble}>Copied</span> : null}
                 </div>
+                : ''}
             </div>
             <textarea disabled value={getStoreScript(props) || ``} onChange={onChange} />
         </div>
