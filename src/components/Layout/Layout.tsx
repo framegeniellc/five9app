@@ -10,7 +10,7 @@ import { IGlobalProps } from '../interfaces/global'
 const Layout = (props: IGlobalProps) => {
     const error: boolean = true
     const option: string = 'STORE'
-    const { interceptor, storeId, IVR, brand, skill, language } = props
+    const { interceptor, storeId, IVR, brand, skill, language, callID } = props
     
     return (
         <div className={css.layout}>

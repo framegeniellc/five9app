@@ -12,7 +12,7 @@ import Error from '../Error/Error'
 import Loading from "../Loading/Loading"
 
 const CustomerAcquisition = (props: IGlobalProps) => {
-    const { interceptor, storeId, IVR, language, brand, skill} = props
+    const { interceptor, storeId, IVR, language, brand, skill, callID} = props
     const [stores, setStores] = React.useState<any>([])
     const [store, setStore] = React.useState<any>([])
     const [doctors, setDoctors] = React.useState<any>([])
@@ -45,6 +45,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         }
 
         setLoading(false)
+
     }
 
     const defineLanguage = () => {
@@ -79,7 +80,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                         <div className={css.column}>
                             <div className={`${css.columnItem} ${css.details}`}>
                                 <div>
-                                    <OpeningScript IVR={IVR} store={store} language={defineLanguage()} brand={brand} skill={skill} specialStore={specialStore}/>
+                                    <OpeningScript IVR={IVR} store={store} language={defineLanguage()} brand={brand} skill={skill} specialStore={specialStore} callID={callID} />
                                     <StoreDetails text={store?.LandMarks} />
                                     <SpecialNotes text={store?.Alerts} />
                                 </div>

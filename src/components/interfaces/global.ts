@@ -5,6 +5,7 @@ export interface IGlobalProps {
     language?: string
     skill?: string
     brand?: string
+    callID?: string
 }
 
 export interface IStatesObject {
@@ -44,6 +45,7 @@ export interface IOpeningScript {
     skill?: string
     brand?: string
     specialStore?: boolean
+    callID?: string
 }
 
 export interface IStoreDetails extends IStoreLoad {
