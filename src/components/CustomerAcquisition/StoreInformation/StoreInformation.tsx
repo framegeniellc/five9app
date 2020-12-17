@@ -1,4 +1,5 @@
-import * as React from "react";
+import * as React from 'react'
+import CopyToClipboard from 'react-copy-to-clipboard'
 import { IStoreData, ISchedule, IDoctor, IStatesObject } from '../../interfaces/global'
 import StoreHours from './StoreHours/StoreHours'
 import Doctor from './Doctor/Doctor'
@@ -8,7 +9,12 @@ import { formatPhoneNumber } from '../Common/store'
 import css from './StoreInformation.module.scss'
 
 const StoreInformation = (props: IStoreData) => {
-    const {store, loading, doctors, rooms} = props
+    const [copied, setCopied] = React.useState<boolean>(false)
+    const {store, loading, doctors, rooms } = props //setTimezone
+
+    React.useEffect(() => {
+        //setTimezone(store?.TimeZon)
+    }, [store])
 
     if (loading) {
         return (<Loading />)
@@ -36,7 +42,14 @@ const StoreInformation = (props: IStoreData) => {
         }
     
         return ''
-      }
+    }
+
+    const copyText = () => {
+        setCopied(true)
+        setTimeout( () => {
+            setCopied(false)
+        }, 2000)
+    }
 
     return (
             <div className={css.storeContainer}>
@@ -46,7 +59,12 @@ const StoreInformation = (props: IStoreData) => {
                 {store && (<React.Fragment>
                 <div className={`${css.iconContainer} ${css.storeName}`}>
                     <i className={`${css.icon} fas fa-store`}></i>
-                    <div><span>{store?.StoreName}</span></div>
+                    <div className={css.inline}>
+                        <span>{store?.StoreName}</span>
+                        <CopyToClipboard text={store?.StoreNumber} onCopy={copyText}>
+                            <p className={css.storeNumber}>{`#${store?.StoreNumber}`}</p> 
+                        </CopyToClipboard>
+                    </div>
                 </div>
                 <div className={`${css.iconContainer} ${css.storeAddress}`}>
                     <i className={`${css.icon} fa fa-map-marker-alt`}></i>

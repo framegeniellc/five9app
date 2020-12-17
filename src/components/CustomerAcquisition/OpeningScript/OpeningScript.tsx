@@ -30,7 +30,7 @@ const OpeningScript = (props: IOpeningScript) => {
                     <CopyToClipboard text={props?.callID} onCopy={copyText}>
                         <button title="Copy text"><i className="fa fa-clone" aria-hidden="true"></i></button>
                     </CopyToClipboard>
-                    {copied ? <span className={css.bubble}>Copied</span> : null}
+                    {copied ? <span className={css.bubble}>Copied</span> : ''}
                 </div>
                 : ''}
             </div>

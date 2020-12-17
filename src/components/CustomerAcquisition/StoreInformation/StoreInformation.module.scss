@@ -16,6 +16,28 @@
             margin-top: 0;
         }
     }
+    .storeName {
+        white-space: nowrap;
+
+        .inline {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+        }
+        
+        .storeNumber {
+            font-size: 0.8rem;
+            padding: 2px;
+            border-radius: 5px;
+            border: none;
+            font-weight: bold;
+            width: 3rem;
+            text-align: center;
+            margin-left: 8px;
+            background: rgb(235, 235, 228);
+            cursor: pointer;
+        }
+    }
     .iconContainer{
         display: flex;
         flex-direction: row;

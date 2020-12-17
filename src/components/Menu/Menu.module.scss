@@ -1,7 +1,7 @@
 @import '../../styles/mixins/helpers.scss';
 
 .menu {
-    margin-top: 4.5rem; 
+    margin-top: 2.5rem; 
 
     .active {
         position: relative;
@@ -60,4 +60,11 @@
             }
         }
     }
+}
+
+.timezone {
+    font-size: 1rem;
+    color: white;
+    font-weight: bold;
+    margin-top: 2rem;
 }

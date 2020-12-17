@@ -2,14 +2,6 @@ import * as React from 'react'
 import { ISchedule } from '../../../interfaces/global'
 import css from '../StoreInformation.module.scss'
 
-export enum timeZoneNames {
-    AST = 'AST',
-    EST = 'EST',
-    CST = 'CST',
-    MST = 'MST',
-    PST = 'PST',
-}
-
 const formatAMPM = (hoursP: string | undefined) => {
     if (!hoursP) {
       return ''
@@ -56,33 +48,6 @@ const formatDateLabel = (day: string | number): string => {
     }
 }
 
-const getTimezone = (timezone: string) => {
-    if (!timezone) {
-        return ''
-    }
-
-    switch (timezone) {
-        case 'ATLANTIC STANDARD TIME':
-            return timeZoneNames.AST
-            break
-        case 'EASTERN STANDARD TIME':
-            return timeZoneNames.EST
-            break
-        case 'CENTRAL STANDARD TIME':
-            return timeZoneNames.CST
-            break
-        case 'MOUNTAIN STANDARD TIME':
-            return timeZoneNames.MST
-            break
-        case 'PACIFIC STANDARD TIME':
-            return timeZoneNames.PST
-            break
-        default:
-            return ''
-            break
-    }
-}
-
 const StoreHours = (props: ISchedule) => {
     const { schedule } = props
     let today: Date | number = new Date()
@@ -97,7 +62,6 @@ const StoreHours = (props: ISchedule) => {
         <div className={`${css.hourDay} ${isToday ? css.bold : ''}`}>
             <span className={css.day}>{formatDateLabel(schedule.Name)}</span>
             <span className={css.hours}>{slicedTime && slicedTime === '00:00 - 00:00' ? 'Closed' : slicedTime}</span>
-            <span className={css.timezone}>{isToday ? getTimezone(schedule.TimeZone): ''}</span>
         </div>
     )
 }
