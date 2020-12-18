@@ -69,7 +69,6 @@
     margin-top: 2rem;
     text-align: center;
     height: 28px;
-    white-space: nowrap;
 
     time {
         -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
@@ -79,11 +78,11 @@
             animation: fadein 2s;
 
         @media (max-width:767px) { 
-            font-size: 0.6rem;
+            font-size: 1rem;
         }
 
         @media (max-width:468px) { 
-            font-size: 0.4rem;
+            font-size: 0.8rem;
         }
     }
 }
