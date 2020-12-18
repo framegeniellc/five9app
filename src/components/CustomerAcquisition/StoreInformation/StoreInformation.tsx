@@ -10,10 +10,10 @@ import css from './StoreInformation.module.scss'
 
 const StoreInformation = (props: IStoreData) => {
     const [copied, setCopied] = React.useState<boolean>(false)
-    const {store, loading, doctors, rooms } = props //setTimezone
+    const {store, loading, doctors, rooms, setTimezone} = props
 
     React.useEffect(() => {
-        //setTimezone(store?.TimeZon)
+       setTimezone(store?.TimeZon)
     }, [store])
 
     if (loading) {
