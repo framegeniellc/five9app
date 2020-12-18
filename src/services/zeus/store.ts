@@ -18,7 +18,7 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
   try {
     const storeParam = typeof storeId !== 'object' ? `?StoreID=${prependZeros(storeId)}` : `?StoreID=`
     const finalEndpoint = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${storeParam}&endpoint=${type}&format=json`
-    const response = await transport.get(finalEndpoint, {timeout: 30})
+    const response = await transport.get(finalEndpoint, {timeout: 30000})
 
     if (response) {
       return response

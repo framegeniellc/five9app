@@ -6,6 +6,8 @@ export interface IGlobalProps {
     skill?: string
     brand?: string
     setErrorMessage?: any
+    callID?: string
+    setTimezone?: any
 }
 
 export interface IStatesObject {
@@ -28,6 +30,7 @@ export interface IStoreLoad {
 export interface IStoreData extends IStoreLoad {
     doctors: any
     rooms: any
+    setTimezone?: any
 }
 
 export interface ISearch {
@@ -45,6 +48,7 @@ export interface IOpeningScript {
     skill?: string
     brand?: string
     specialStore?: boolean
+    callID?: string
 }
 
 export interface IStoreDetails extends IStoreLoad {
@@ -63,5 +67,10 @@ export interface IDoctor {
     FirstName: string
     LastName: string
     Comments: string | null
+}
+
+export interface IMenu {
+    option: any
+    timezone?: string
 }
 

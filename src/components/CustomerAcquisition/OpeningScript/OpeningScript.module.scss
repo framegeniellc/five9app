@@ -15,6 +15,10 @@
         font-weight: bold;
         margin-bottom: 1rem;
         color: $color-dark-grey;
+
+        @media (max-width: 991px) {  
+            margin-bottom: 0.5rem;
+        }
     }
     textarea {
         min-height: 80px;
@@ -28,5 +32,43 @@
         padding: 1rem;
         border: 1px solid grey;
         color: $text-color;
+    }
+
+    .clipboard {
+        display: flex;
+        margin-bottom: 10px;
+        position: relative;
+    
+        button {
+            border: none;
+            padding: 4px 10px;
+            border-radius: 0px 5px 5px 0;
+            background: $color-dark-button;
+            cursor: pointer;
+            
+            i {
+                color: $color-orange;
+            }
+        }
+    }
+
+    .headerOpening{
+        display: flex;
+        flex-direction: row;  
+        justify-content: space-between; 
+
+        @media (max-width: 991px) {  
+            flex-direction: column-reverse;  
+        }
+
+        .callID {
+            font-size: 0.8rem;
+            padding: 4px;
+            border-radius: 5px 0px 0px 5px;
+            border: none;
+            font-weight: bold;
+            width: 6rem;
+        }
+
     }
 }

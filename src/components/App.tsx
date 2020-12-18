@@ -43,10 +43,17 @@ export default class App extends React.Component<IProps, IState> {
         return urlParams.get("Language") || null
     }
 
+
+    private getCallID = () => {
+        const urlParams = new URLSearchParams(window?.location.search)
+
+        return urlParams.get("call_id") || null
+    }
+
     render() {
         return (
             <React.Fragment>
-                <Layout interceptor={this.props.interceptor} storeId={this.getStoreFromUri()} IVR={this.getIvrFromUri()} language={this.getLanguageFromUri()} brand={this.getBrandFromUri()} skill={this.getSkillFromUri()}  />
+                <Layout interceptor={this.props.interceptor} storeId={this.getStoreFromUri()} IVR={this.getIvrFromUri()} language={this.getLanguageFromUri()} brand={this.getBrandFromUri()} skill={this.getSkillFromUri()} callID={this.getCallID()}  />
             </React.Fragment>
         )
     }
