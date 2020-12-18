@@ -31,9 +31,11 @@ const Menu = (props: IMenu) => {
     return (
         <React.Fragment>
             <div className={css.timezone}> 
-                { props?.timezone ?
-                    <Clock format={'HH:mm A'} ticking={true} timezone={getRealTimezone(props?.timezone)} />
-                : '' }
+                <div>
+                    { props?.timezone ?
+                        <Clock format={'HH:mm A'} ticking={true} timezone={getRealTimezone(props?.timezone)} />
+                    : '' }
+                </div>
             </div>
             <nav className={css.menu}>
                 <ul>

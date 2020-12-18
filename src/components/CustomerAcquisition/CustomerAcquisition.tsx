@@ -65,6 +65,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
 
     React.useEffect(() => {
         setLoading(true)
+        setTimezone('')
         if(storeId == 958 || storeId == 971 || storeId == 977) {
             setSelectedStoreId(cleanStoreId(storeId))
         }
