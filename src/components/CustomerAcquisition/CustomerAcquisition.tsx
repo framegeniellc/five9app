@@ -12,7 +12,7 @@ import Error from '../Error/Error'
 import Loading from "../Loading/Loading"
 
 const CustomerAcquisition = (props: IGlobalProps) => {
-    const { interceptor, storeId, IVR, language, brand, skill} = props
+    const { interceptor, storeId, IVR, language, brand, skill, setErrorMessage} = props
     const [stores, setStores] = React.useState<any>([])
     const [store, setStore] = React.useState<any>([])
     const [doctors, setDoctors] = React.useState<any>([])
@@ -30,10 +30,12 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         const doctorsData = await getCachedData(interceptor, selectedStoreId, 'doctors')
         const examRoomsData = await getCachedData(interceptor, selectedStoreId, 'rooms')
 
-        setDoctors(doctorsData.data)
-        setStore(storeData.data[0])
-        setExamRooms(examRoomsData.data)
-        setStores(storesData.data)
+        setDoctors(doctorsData?.data)
+        setStore(storeData?.data[0])
+        setExamRooms(examRoomsData?.data)
+        setStores(storesData?.data)
+
+        setErrorMessage('')
 
         if (storeData && storeData.data && storeData.data?.length > 0) {
             setExistsStore(true)   
@@ -41,6 +43,10 @@ const CustomerAcquisition = (props: IGlobalProps) => {
             setLoading(false)
         } else {
             setError(true)
+        }
+
+        if (!storesData && !storeData && !doctorsData && !examRoomsData) {
+            setErrorMessage('Connection with store information is not available, please try again later')
         }
 
         setLoading(false)

@@ -5,6 +5,7 @@ export interface IGlobalProps {
     language?: string
     skill?: string
     brand?: string
+    setErrorMessage?: any
 }
 
 export interface IStatesObject {

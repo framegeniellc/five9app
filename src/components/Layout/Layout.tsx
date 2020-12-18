@@ -11,6 +11,7 @@ const Layout = (props: IGlobalProps) => {
     const error: boolean = true
     const option: string = 'STORE'
     const { interceptor, storeId, IVR, brand, skill, language } = props
+    const [errorMessage, setErrorMessage] = React.useState<string>('')
     
     return (
         <div className={css.layout}>
@@ -18,12 +19,13 @@ const Layout = (props: IGlobalProps) => {
                 <Menu option={option}></Menu>
             </div>
             <div className={css.viewContainer}>
+                {errorMessage.length ? (<div className={css.errorMessage}>{errorMessage}</div>): ``}
                 {
                     //error ?
                     option === 'OFFER' ?
                     <Offers interceptor={interceptor} storeId={storeId} />
                     : option === 'STORE' ?
-                    <CustomerAcquisition {...props} />
+                    <CustomerAcquisition {...props} setErrorMessage={setErrorMessage} />
                     //interceptor={interceptor} storeId={storeId} IVR={IVR} />
                     : <Loading />
                 }
