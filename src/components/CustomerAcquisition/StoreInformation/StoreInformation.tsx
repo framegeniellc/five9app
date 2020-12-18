@@ -12,8 +12,6 @@ const StoreInformation = (props: IStoreData) => {
     const [copied, setCopied] = React.useState<boolean>(false)
     const {store, loading, doctors, rooms, setTimezone} = props
 
-    console.log(props)
-
     React.useEffect(() => {
        setTimezone(store?.TimeZon)
     }, [store])
