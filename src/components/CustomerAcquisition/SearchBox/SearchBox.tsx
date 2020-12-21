@@ -25,14 +25,16 @@ const SearchBox = (props: ISearch) => {
 
     const preventNotDesiredCharacters = (e: React.KeyboardEvent) => {
         const keyCode = e.keyCode ? e.keyCode : e.which
+
         if (
           keyCode == 8 ||
           keyCode == 9 ||
           keyCode == 46 ||
           keyCode == 37 ||
-          keyCode == 39 ||
-          (keyCode >= 48 && keyCode <= 57 && !e.shiftKey) ||
-          (keyCode >= 96 && keyCode <= 105 && !e.shiftKey)
+          keyCode == 39 || 
+          keyCode == 17 || 
+          keyCode == 86 || 
+          ((keyCode >= 48 && keyCode <=57) || (keyCode >= 96 && keyCode <=105))
         ) {
           return true
         } else {
@@ -140,7 +142,12 @@ const SearchBox = (props: ISearch) => {
     }
 
     const onChangeHandler = (evt: any) => {
-        setSearchValue(evt.target.value)
+        const regex = /^[0-9\b]+$/
+        const value = evt.target.value
+
+        if (value === '' || regex.test(value)) {
+            setSearchValue(value)
+        }       
     }
 
     const Option = (props: any) => {

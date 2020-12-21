@@ -12,7 +12,7 @@ import Error from '../Error/Error'
 import Loading from "../Loading/Loading"
 
 const CustomerAcquisition = (props: IGlobalProps) => {
-    const { interceptor, storeId, IVR, language, brand, skill, callID, setErrorMessage} = props
+    const { interceptor, storeId, IVR, language, brand, skill, callID, setTimezone, setErrorMessage} = props 
     const [stores, setStores] = React.useState<any>([])
     const [store, setStore] = React.useState<any>([])
     const [doctors, setDoctors] = React.useState<any>([])
@@ -70,6 +70,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
 
     React.useEffect(() => {
         setLoading(true)
+        setTimezone('')
         if(storeId == 958 || storeId == 971 || storeId == 977) {
             setSelectedStoreId(cleanStoreId(storeId))
         }
@@ -92,9 +93,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                             </div>
                             {existStore && 
                             <div className={`${css.columnItem} ${css.storeInformation}`}>
-                                <StoreInformation store={store} loading={loading} doctors={doctors} rooms={examRooms} />
-                                {//setTimezone={setTimezone}
-                                }
+                                <StoreInformation store={store} loading={loading} doctors={doctors} rooms={examRooms} setTimezone={setTimezone} />
                             </div>  
                             }
                         </div> 

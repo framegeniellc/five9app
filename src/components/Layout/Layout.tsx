@@ -10,17 +10,14 @@ import { IGlobalProps } from '../interfaces/global'
 const Layout = (props: IGlobalProps) => {
     const error: boolean = true
     const option: string = 'STORE'
-
-    //const [timezone, setTimezone] = React.useState<string>('')  
+    const [timezone, setTimezone] = React.useState<string>('')  
     const { interceptor, storeId, IVR, brand, skill, language, callID } = props
     const [errorMessage, setErrorMessage] = React.useState<string>('')
 
     return (
         <div className={css.layout}>
             <div className={css.menuContainer}>
-                <Menu option={option}></Menu>
-                {//timezone={timezone}
-                }
+                <Menu option={option} timezone={timezone}></Menu>
             </div>
             <div className={css.viewContainer}>
                 {errorMessage.length ? (<div className={css.errorMessage}>{errorMessage}</div>): ``}
@@ -29,8 +26,8 @@ const Layout = (props: IGlobalProps) => {
                     option === 'OFFER' ?
                     <Offers interceptor={interceptor} storeId={storeId} />
                     : option === 'STORE' ?
-                    <CustomerAcquisition {...props} setErrorMessage={setErrorMessage} />
-                    //setTimezone={setTimezone}
+                    <CustomerAcquisition {...props} setErrorMessage={setErrorMessage} setTimezone={setTimezone} />
+
                     : <Loading />
                 }
             </div>

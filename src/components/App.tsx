@@ -11,41 +11,49 @@ interface IState {
 
 export default class App extends React.Component<IProps, IState> {
     private getStoreFromUri = () => {
-        const urlParams = new URLSearchParams(window?.location.search)
+        const search = window?.location.search.replace(/&amp;/g, '&')
+        const urlParams = new URLSearchParams(search)
 
         return Number(urlParams.get('StoreID')) || 0
     }
 
     private getIvrFromUri = () => {
-        const urlParams = new URLSearchParams(window?.location.search)
+        const search = window?.location.search.replace(/&amp;/g, '&')
+        const urlParams = new URLSearchParams(search)
+
+        console.log(urlParams.get("IVRSelection"));
 
         return urlParams.get("IVRSelection") || null
     }
 
 
     private getBrandFromUri = () => {
-        const urlParams = new URLSearchParams(window?.location.search)
+        const search = window?.location.search.replace(/&amp;/g, '&')
+        const urlParams = new URLSearchParams(search)
 
         return urlParams.get("Brand") || null
     }
 
 
     private getSkillFromUri = () => {
-        const urlParams = new URLSearchParams(window?.location.search)
+        const search = window?.location.search.replace(/&amp;/g, '&')
+        const urlParams = new URLSearchParams(search)
 
         return urlParams.get("Skill") || null
     }
 
 
     private getLanguageFromUri = () => {
-        const urlParams = new URLSearchParams(window?.location.search)
+        const search = window?.location.search.replace(/&amp;/g, '&')
+        const urlParams = new URLSearchParams(search)
 
         return urlParams.get("Language") || null
     }
 
 
     private getCallID = () => {
-        const urlParams = new URLSearchParams(window?.location.search)
+        const search = window?.location.search.replace(/&amp;/g, '&')
+        const urlParams = new URLSearchParams(search)
 
         return urlParams.get("call_id") || null
     }
