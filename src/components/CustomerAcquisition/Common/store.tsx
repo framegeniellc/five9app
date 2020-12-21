@@ -45,7 +45,11 @@ const deg2rad = (deg: number) => {
 }
 
 const getBrandName = (brand: string) => {
-    return brand == 'SO' ? EStoreBrand.SO : EStoreBrand.MEL
+    switch (brand){
+        case 'SO': return 'Stanton Optical'
+        case 'MEL': return 'My Eyelab'
+        default: return '___'
+    }
 }
 
 const getStateName = (storeId: number) => {
@@ -61,39 +65,35 @@ const getStoreScript = (props: IOpeningScript) => {
     const { store, language, IVR, brand, skill, specialStore } = props
     const modestoStores = [5, 7015]
 
-        // If only store, then get default script according to language
-        if (store) {
-            //If storeId is a special store, then get 2nd interaction script according to language and store ID
-            if (specialStore){ //&& (Number(store?.StoreNumber) == 58 || Number(store?.StoreNumber == 71) || Number(store?.StoreNumber == 77))) {
-                return getSpecialStore(store)
-            }
-            if (modestoStores.indexOf(Number(store?.StoreNumber)) > -1) {
-                return getModestoScript(store, language)
-            }
-            
-            return getDefaultScript(store, language)
-        }
-        
-        // If only brand, then get script according to language
-        if (brand) {
+    // If only Skrill and brand, then get script of IVR according to language
+    if (skill == 'CR') {
+        return getSkillScript(skill, brand, language)
+    }  
 
-            // If only Skrill and brand, then get script of IVR according to language
-            if (skill == 'CA' || skill == 'CR') {
-                return getSkillScript(skill, brand, language)
-            }
-
-            // If IVR is 1, then get script of IVR according to language
-            if (Number(IVR) == 1) {
-                return getIVRScript(brand, language)
-            }
-
-            return getBrandScript(brand, language)
-        
-
+    // If IVR is 1, then get script of IVR according to language
+    if (Number(IVR) == 1) {
+        return getIVRScript(brand, language)
     }
 
+    if (brand && !store) {
+        return getBrandScript(brand, language)
+    }
 
-    return ''
+    // If only store, then get default script according to language
+    if (store) {
+        //If storeId is a special store, then get 2nd interaction script according to language and store ID
+        if (specialStore){ //&& (Number(store?.StoreNumber) == 58 || Number(store?.StoreNumber == 71) || Number(store?.StoreNumber == 77))) {
+            return getSpecialStore(store)
+        }
+        
+        if (modestoStores.indexOf(Number(store?.StoreNumber)) > -1) {
+            return getModestoScript(store, language)
+        }
+                
+        return getDefaultScript(store, language)
+    }
+
+    return getDefaultScript(store, language)
 }
 
 const getIVRScript = (brand: any, lang: string) => {
