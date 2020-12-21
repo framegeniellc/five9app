@@ -93,7 +93,7 @@ const getStoreScript = (props: IOpeningScript) => {
         return getDefaultScript(store, language)
     }
 
-    return getDefaultScript(store, language)
+    //return getDefaultScript(store, language)
 }
 
 const getIVRScript = (brand: any, lang: string) => {
