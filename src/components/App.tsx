@@ -21,8 +21,6 @@ export default class App extends React.Component<IProps, IState> {
         const search = window?.location.search.replace(/&amp;/g, '&')
         const urlParams = new URLSearchParams(search)
 
-        console.log(urlParams.get("IVRSelection"));
-
         return urlParams.get("IVRSelection") || null
     }
 
