@@ -63,28 +63,37 @@
 }
 
 .timezone {
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: white;
     font-weight: bold;
-    margin-top: 2rem;
+    margin-top: 3rem;
     text-align: center;
     height: 28px;
 
-    time {
+    .timezoneDetail {
         -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
         -moz-animation: fadein 2s; /* Firefox < 16 */
         -ms-animation: fadein 2s; /* Internet Explorer */
         -o-animation: fadein 2s; /* Opera < 12.1 */
             animation: fadein 2s;
 
-        @media (max-width:767px) { 
-            font-size: 1rem;
+      
+        @media (max-width: 1030px) { 
+            font-size: 0.8rem;
         }
 
         @media (max-width:468px) { 
             font-size: 0.8rem;
         }
+      
+
+        .time {
+            @media (max-width:767px) { 
+                display: block;
+            }
+        }
     }
+    
 }
 
 @keyframes fadein {
