@@ -95,6 +95,8 @@ const StoreInformation = (props: IStoreData) => {
                     <i className={`${css.icon} fa fa-globe`}></i>
                    <div><span>{store?.Language}</span></div>
                 </div>
+
+                { rooms || doctors ? 
                 <div className={`${css.iconContainer} ${css.storeMRS}`}>
                     <i className={`${css.icon} fas fa-star-of-life`}></i>
                     <div className={css.odContainer}>
@@ -108,6 +110,7 @@ const StoreInformation = (props: IStoreData) => {
                         </div>
                     </div>
                 </div>
+                : ''}
                 <div className={`${css.iconContainer} ${css.storeLab}`}>
                 <i className={`${css.icon} fas fa-flask`}></i>
                     <span>{store?.StoreLabStatus === 'None' ? `Lab: Closed` : `Lab: Open`}</span>
