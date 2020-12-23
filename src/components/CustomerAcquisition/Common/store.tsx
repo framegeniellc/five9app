@@ -112,12 +112,12 @@ const getDefaultScript = (store: any, lang: string) => {
     //if ( lang == 'en') {
         //return `${getTranslation(store?.StoreScriptOperning, lang)}`
     //} else {
-        return `${getTranslation('Thank you for calling', lang)} ${store?.BrandName} ${getTranslation('at', lang)} ${store?.StoreName.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______, ${getTranslation('are you calling to schedule your eye exam today?', lang)}`
+        return `${getTranslation('Thank you for calling', lang)} ${store?.BrandName} ${getTranslation('at', lang)} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______, ${getTranslation('are you calling to schedule your eye exam today?', lang)}`
     //}
 }
 
 const getSpecialStore = (store: any) => {
-    return `Thank you for calling ${store?.StateName} Physician Eye Care Group in ${store?.StoreName.replace(store?.BrandName + ' - ', '')}, my name is _______, How may we address your call?`
+    return `Thank you for calling ${store?.StateName} Physician Eye Care Group in ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, my name is _______, How may we address your call?`
 }
 
 const getModestoScript = (store: any, lang: string) => {

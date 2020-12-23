@@ -17,7 +17,7 @@ const StoreInformation = (props: IStoreData) => {
     }, [store])
 
     if (loading) {
-        return (<Loading />)
+        return (<Loading></Loading>)
     }
 
     const checkRoomCategories = () => {

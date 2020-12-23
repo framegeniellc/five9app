@@ -9,7 +9,7 @@ import SpecialNotes from './SpecialNotes/SpecialNotes'
 import SearchBox from './SearchBox/SearchBox'
 import StoreItem from './SearchBox/StoreItem/StoreItem'
 import Error from '../Error/Error'
-import Loading from "../Loading/Loading"
+//import Loading from "../Loading/Loading"
 
 const CustomerAcquisition = (props: IGlobalProps) => {
     const { interceptor, storeId, IVR, language, brand, skill, callID, setTimezone, setErrorMessage} = props 
@@ -77,7 +77,11 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         setStoreInfo()
     }, [selectedStoreId])
 
-    return (loading ? ( <Loading></Loading>) : (
+    console.log('render')
+
+    console.log(props)
+    
+    return (
             <div>
                     <div className={css.customerAcquisition}>
                         <div className={css.header}>
@@ -100,7 +104,6 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                     </div>
             </div>
         )
-    )
     }
   
   export default CustomerAcquisition

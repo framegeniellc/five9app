@@ -19,6 +19,7 @@ const OpeningScript = (props: IOpeningScript) => {
         }, 2000)
     }
 
+    console.log(props)
 
     return (
         <div className={`${css.textArea} ${css.openingScriptContainer}`}>
