@@ -75,7 +75,7 @@ const getStoreScript = (props: IOpeningScript) => {
         return getIVRScript(brand, language)
     }
 
-    if (brand && !store) {
+    if (brand && store?.StoreNumber != undefined) {
         return getBrandScript(brand, language)
     }
 

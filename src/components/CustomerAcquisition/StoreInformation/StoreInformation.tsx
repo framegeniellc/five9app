@@ -4,17 +4,22 @@ import { IStoreData, ISchedule, IDoctor, IStatesObject } from '../../interfaces/
 import StoreHours from './StoreHours/StoreHours'
 import Doctor from './Doctor/Doctor'
 import statesList from '../../../../static/mock/stateList'
+import Loading from '../../Loading/Loading'
 import { formatPhoneNumber } from '../Common/store'
 import css from './StoreInformation.module.scss'
 
 const StoreInformation = (props: IStoreData) => {
     const [copied, setCopied] = React.useState<boolean>(false)
-    const {store, doctors, rooms, setTimezone} = props
+    const {store, doctors, loading, rooms, setTimezone} = props
     /*
     React.useEffect(() => {
        setTimezone(store?.TimeZon)
     }, [store])
     */
+
+    if (loading) {
+        return (<Loading></Loading>)
+    }
 
     const checkRoomCategories = () => {
         const filteredStandardMRS = rooms.map( (item: any, key: any) => {

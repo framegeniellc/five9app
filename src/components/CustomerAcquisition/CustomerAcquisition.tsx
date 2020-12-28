@@ -74,7 +74,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         setStoreInfo()
     }, [selectedStoreId])
 
-    return (loading ? ( <Loading></Loading>) : (
+    return (
             <div>
                     <div className={css.customerAcquisition}>
                         <div className={css.header}>
@@ -90,14 +90,13 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                             </div>
                             {existStore && 
                             <div className={`${css.columnItem} ${css.storeInformation}`}>
-                                <StoreInformation store={appData?.store} doctors={appData?.doctors} rooms={appData?.examRooms} setTimezone={setTimezone} />
+                                <StoreInformation loading={loading} store={appData?.store} doctors={appData?.doctors} rooms={appData?.examRooms} setTimezone={setTimezone} />
                             </div>  
                             }
                         </div> 
                     </div>
             </div>
         )
-    )
     }
   
   export default CustomerAcquisition
