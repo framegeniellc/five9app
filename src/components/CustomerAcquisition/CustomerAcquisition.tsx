@@ -44,6 +44,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
             setExistsStore(true)   
             //setError(false)
             setLoading(false)
+            setTimezone(storeData?.data[0].TimeZon)
         } else {
             //setError(true)
         }
@@ -72,7 +73,6 @@ const CustomerAcquisition = (props: IGlobalProps) => {
 
     React.useEffect(() => {
         setLoading(true)
-        setTimezone('')
         if(storeId == 958 || storeId == 971 || storeId == 977) {
             setSelectedStoreId(cleanStoreId(storeId))
         }

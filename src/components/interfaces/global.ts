@@ -7,7 +7,7 @@ export interface IGlobalProps {
     brand?: string
     setErrorMessage?: any
     callID?: string
-    setTimezone?: any
+    setTimezone?: (time: any) => void
 }
 
 export interface IStatesObject {
@@ -30,7 +30,7 @@ export interface IStoreLoad {
 export interface IStoreData extends IStoreLoad {
     doctors: any
     rooms: any
-    setTimezone?: any
+    setTimezone?: (time: any) => void
 }
 
 export interface ISearch {

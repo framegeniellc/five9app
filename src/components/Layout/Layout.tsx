@@ -8,11 +8,16 @@ import Offers from '../Offers/Offers'
 import { IGlobalProps } from '../interfaces/global'
 
 const Layout = (props: IGlobalProps) => {
+    console.log('render la')
     const error: boolean = true
     const option: string = 'STORE'
     const [timezone, setTimezone] = React.useState<string>('')  
     const { interceptor, storeId, IVR, brand, skill, language, callID } = props
     const [errorMessage, setErrorMessage] = React.useState<string>('')
+
+    const updateTimezone = (time: any) => {
+        setTimezone(time)
+    }
 
     return (
         <div className={css.layout}>
@@ -26,7 +31,7 @@ const Layout = (props: IGlobalProps) => {
                     option === 'OFFER' ?
                     <Offers interceptor={interceptor} storeId={storeId} />
                     : option === 'STORE' ?
-                    <CustomerAcquisition {...props} setErrorMessage={setErrorMessage} setTimezone={setTimezone} />
+                    <CustomerAcquisition {...props} setErrorMessage={setErrorMessage} setTimezone={updateTimezone} />
 
                     : <Loading />
                 }
