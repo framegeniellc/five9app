@@ -10,7 +10,7 @@ const config = env + '.config.js';
 module.exports = {
   entry: "./src/components/index.tsx",
   target: "web",
-  mode: "development",
+  mode: "production",
   output: {
     path: path.resolve(__dirname, "build"),
     filename: "bundle.js",
