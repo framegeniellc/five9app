@@ -77,7 +77,7 @@ const SearchBox = (props: ISearch) => {
         display: 'flex',
     
         ':before': {
-            backgroundColor: color,
+            backgroundColor: 'transparent',
             borderRadius: 10,
             content: '" "',
             display: 'block',
@@ -100,7 +100,7 @@ const SearchBox = (props: ISearch) => {
           },
         input: styles => ({ ...styles, ...dot() }),
         placeholder: styles => ({ ...styles, fontSize: '0.9rem', color: '#807e7e', ...dot() }),
-        singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
+        singleValue: (provided, state) => { const display = "none"; return { ...provided, display }}
     }
 
     const removeBrand = (storeName: string, brandName: string) => {
@@ -165,7 +165,7 @@ const SearchBox = (props: ISearch) => {
         <React.Fragment>
             <div className={css.searchBox}>
                 <div className={css.select}>
-                    <Select hideSelectedOptions={true} styles={selectStyle} placeholder="Select Store" options={options} onChange={onChangeStore} components={{ Option, DropdownIndicator}} /> 
+                    <Select styles={selectStyle} placeholder="Select Store" options={options} onChange={onChangeStore} components={{ Option, DropdownIndicator}} /> 
                 </div>
                 <div className={css.zip}>
                     <input type="text" name="zip" maxLength={5} placeholder="Refine by ZIP Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} onKeyDown={preventNotDesiredCharacters} value={searchValue} />
