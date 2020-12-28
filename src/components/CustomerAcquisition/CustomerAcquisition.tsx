@@ -13,6 +13,7 @@ import Error from '../Error/Error'
 
 const CustomerAcquisition = (props: IGlobalProps) => {
     const { interceptor, storeId, IVR, language, brand, skill, callID, setTimezone, setErrorMessage} = props 
+    const [appData, setAppData] = React.useState<any>({})
     const [stores, setStores] = React.useState<any>([])
     const [store, setStore] = React.useState<any>([])
     const [doctors, setDoctors] = React.useState<any>([])
@@ -30,27 +31,28 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         const doctorsData = await getCachedData(interceptor, selectedStoreId, 'doctors')
         const examRoomsData = await getCachedData(interceptor, selectedStoreId, 'rooms')
 
-        setDoctors(doctorsData?.data)
-        setStore(storeData?.data[0])
-        setExamRooms(examRoomsData?.data)
-        setStores(storesData?.data)
+        setAppData({
+            doctors: doctorsData?.data,
+            store: storeData?.data[0],
+            examRooms: examRoomsData?.data,
+            stores: storesData?.data
+        })
 
-        setErrorMessage('')
+        //setErrorMessage('')
 
         if (storeData && storeData.data && storeData.data?.length > 0) {
             setExistsStore(true)   
-            setError(false)
+            //setError(false)
             setLoading(false)
         } else {
-            setError(true)
+            //setError(true)
         }
 
         if (!storesData && !storeData && !doctorsData && !examRoomsData) {
-            setErrorMessage('Connection with store information is not available, please try again later')
+            //setErrorMessage('Connection with store information is not available, please try again later')
         }
 
         setLoading(false)
-
     }
 
     const defineLanguage = () => {
@@ -77,27 +79,23 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         setStoreInfo()
     }, [selectedStoreId])
 
-    console.log('render')
-
-    console.log(props)
-    
     return (
             <div>
                     <div className={css.customerAcquisition}>
                         <div className={css.header}>
-                            <SearchBox setStoreInfo={setStoreInfo} store={store} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} stores={stores} />
+                            <SearchBox setStoreInfo={setStoreInfo} store={appData?.store} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} stores={appData?.stores} />
                         </div>
                         <div className={css.column}>
                             <div className={`${css.columnItem} ${css.details}`}>
                                 <div>
-                                    <OpeningScript IVR={IVR} store={store} language={defineLanguage()} brand={brand} skill={skill} specialStore={specialStore} callID={callID} />
-                                    <StoreDetails text={store?.LandMarks} />
-                                    <SpecialNotes text={store?.Alerts} />
+                                    <OpeningScript IVR={IVR} store={appData?.store} language={defineLanguage()} brand={brand} skill={skill} specialStore={specialStore} callID={callID} />
+                                    <StoreDetails text={appData?.store?.LandMarks} />
+                                    <SpecialNotes text={appData?.store?.Alerts} />
                                 </div>
                             </div>
                             {existStore && 
                             <div className={`${css.columnItem} ${css.storeInformation}`}>
-                                <StoreInformation store={store} loading={loading} doctors={doctors} rooms={examRooms} setTimezone={setTimezone} />
+                                <StoreInformation store={appData?.store} loading={loading} doctors={appData?.doctors} rooms={appData?.examRooms} setTimezone={setTimezone} />
                             </div>  
                             }
                         </div> 

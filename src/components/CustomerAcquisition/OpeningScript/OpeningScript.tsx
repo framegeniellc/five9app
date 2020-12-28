@@ -9,7 +9,7 @@ const OpeningScript = (props: IOpeningScript) => {
     const [copied, setCopied] = React.useState<boolean>(false)
 
     const onChange = (e: any) => {
-        console.log('e', e)
+        //console.log('e', e)
     }
 
     const copyText = () => {
@@ -18,8 +18,6 @@ const OpeningScript = (props: IOpeningScript) => {
             setCopied(false)
         }, 2000)
     }
-
-    console.log(props)
 
     return (
         <div className={`${css.textArea} ${css.openingScriptContainer}`}>
