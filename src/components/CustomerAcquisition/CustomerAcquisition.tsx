@@ -9,7 +9,7 @@ import SpecialNotes from './SpecialNotes/SpecialNotes'
 import SearchBox from './SearchBox/SearchBox'
 import StoreItem from './SearchBox/StoreItem/StoreItem'
 import Error from '../Error/Error'
-//import Loading from "../Loading/Loading"
+import Loading from "../Loading/Loading"
 
 const CustomerAcquisition = (props: IGlobalProps) => {
     const { interceptor, storeId, IVR, language, brand, skill, callID, setTimezone, setErrorMessage} = props 
@@ -38,8 +38,6 @@ const CustomerAcquisition = (props: IGlobalProps) => {
             stores: storesData?.data
         })
 
-        //setErrorMessage('')
-
         if (storeData && storeData.data && storeData.data?.length > 0) {
             setExistsStore(true)   
             //setError(false)
@@ -47,10 +45,6 @@ const CustomerAcquisition = (props: IGlobalProps) => {
             setTimezone(storeData?.data[0].TimeZon)
         } else {
             //setError(true)
-        }
-
-        if (!storesData && !storeData && !doctorsData && !examRoomsData) {
-            //setErrorMessage('Connection with store information is not available, please try again later')
         }
 
         setLoading(false)
@@ -73,13 +67,14 @@ const CustomerAcquisition = (props: IGlobalProps) => {
 
     React.useEffect(() => {
         setLoading(true)
+        setTimezone('')
         if(storeId == 958 || storeId == 971 || storeId == 977) {
             setSelectedStoreId(cleanStoreId(storeId))
         }
         setStoreInfo()
     }, [selectedStoreId])
 
-    return (
+    return (loading ? ( <Loading></Loading>) : (
             <div>
                     <div className={css.customerAcquisition}>
                         <div className={css.header}>
@@ -95,13 +90,14 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                             </div>
                             {existStore && 
                             <div className={`${css.columnItem} ${css.storeInformation}`}>
-                                <StoreInformation store={appData?.store} loading={loading} doctors={appData?.doctors} rooms={appData?.examRooms} setTimezone={setTimezone} />
+                                <StoreInformation store={appData?.store} doctors={appData?.doctors} rooms={appData?.examRooms} setTimezone={setTimezone} />
                             </div>  
                             }
                         </div> 
                     </div>
             </div>
         )
+    )
     }
   
   export default CustomerAcquisition

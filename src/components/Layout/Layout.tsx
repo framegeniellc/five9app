@@ -8,7 +8,6 @@ import Offers from '../Offers/Offers'
 import { IGlobalProps } from '../interfaces/global'
 
 const Layout = (props: IGlobalProps) => {
-    console.log('render la')
     const error: boolean = true
     const option: string = 'STORE'
     const [timezone, setTimezone] = React.useState<string>('')  

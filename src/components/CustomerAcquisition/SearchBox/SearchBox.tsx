@@ -165,7 +165,7 @@ const SearchBox = (props: ISearch) => {
         <React.Fragment>
             <div className={css.searchBox}>
                 <div className={css.select}>
-                    <Select styles={selectStyle} placeholder="Select Store" options={options} onChange={onChangeStore} components={{ Option, DropdownIndicator}} /> 
+                    <Select hideSelectedOptions={true} styles={selectStyle} placeholder="Select Store" options={options} onChange={onChangeStore} components={{ Option, DropdownIndicator}} /> 
                 </div>
                 <div className={css.zip}>
                     <input type="text" name="zip" maxLength={5} placeholder="Refine by ZIP Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} onKeyDown={preventNotDesiredCharacters} value={searchValue} />

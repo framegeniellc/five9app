@@ -3,22 +3,18 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import { IStoreData, ISchedule, IDoctor, IStatesObject } from '../../interfaces/global'
 import StoreHours from './StoreHours/StoreHours'
 import Doctor from './Doctor/Doctor'
-import Loading from '../../Loading/Loading'
 import statesList from '../../../../static/mock/stateList'
 import { formatPhoneNumber } from '../Common/store'
 import css from './StoreInformation.module.scss'
 
 const StoreInformation = (props: IStoreData) => {
     const [copied, setCopied] = React.useState<boolean>(false)
-    const {store, loading, doctors, rooms, setTimezone} = props
+    const {store, doctors, rooms, setTimezone} = props
     /*
     React.useEffect(() => {
        setTimezone(store?.TimeZon)
     }, [store])
     */
-    if (loading) {
-        return (<Loading></Loading>)
-    }
 
     const checkRoomCategories = () => {
         const filteredStandardMRS = rooms.map( (item: any, key: any) => {
