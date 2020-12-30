@@ -10,16 +10,7 @@ import css from './StoreInformation.module.scss'
 
 const StoreInformation = (props: IStoreData) => {
     const [copied, setCopied] = React.useState<boolean>(false)
-    const {store, doctors, loading, rooms, setTimezone} = props
-    /*
-    React.useEffect(() => {
-       setTimezone(store?.TimeZon)
-    }, [store])
-    */
-
-    if (loading) {
-        return (<Loading></Loading>)
-    }
+    const {store, doctors, rooms, setTimezone} = props
 
     const checkRoomCategories = () => {
         const filteredStandardMRS = rooms.map( (item: any, key: any) => {

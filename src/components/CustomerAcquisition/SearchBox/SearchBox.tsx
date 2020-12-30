@@ -88,7 +88,7 @@ const SearchBox = (props: ISearch) => {
     })
 
     const selectStyle: StylesConfig = {
-        control: (styles, state) => {
+        control: (styles: any, state: any) => {
             return {
               ...styles,
               border: `2px solid ${finishSearch ? 'green' : '#ccc'}`,
@@ -100,7 +100,7 @@ const SearchBox = (props: ISearch) => {
           },
         input: styles => ({ ...styles, ...dot() }),
         placeholder: styles => ({ ...styles, fontSize: '0.9rem', color: '#807e7e', ...dot() }),
-        singleValue: (provided, state) => { const display = "none"; return { ...provided, display }}
+        singleValue: (provided: any, state: any) => { const display = "none"; return { ...provided, display }}
     }
 
     const removeBrand = (storeName: string, brandName: string) => {
