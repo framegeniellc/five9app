@@ -71,21 +71,27 @@
     height: 28px;
 
     .timezoneDetail {
+        display: flex;
+        flex-direction: row;
+        white-space: nowrap;
         -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
         -moz-animation: fadein 2s; /* Firefox < 16 */
         -ms-animation: fadein 2s; /* Internet Explorer */
         -o-animation: fadein 2s; /* Opera < 12.1 */
             animation: fadein 2s;
 
+        @media (max-width: 1680px) { 
+            flex-direction: column;
+            white-space: inherit;
+        }            
       
-        @media (max-width: 1030px) { 
+        @media (max-width: 1235px) { 
             font-size: 0.8rem;
         }
 
-        @media (max-width:468px) { 
-            font-size: 0.8rem;
+        @media (max-width: 1014px) { 
+            font-size: 0.7rem;
         }
-      
 
         .time {
             @media (max-width:767px) { 

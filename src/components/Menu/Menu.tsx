@@ -37,7 +37,7 @@ const Menu = (props: IMenu) => {
                             {
                                 <Clock timezone={getRealTimezone(props?.timezone)}></Clock>
                             }
-                            <span className={css.time}>({props?.timezone})</span>
+                            ({props?.timezone})
                         </div>
                     : '' }
                 </div>

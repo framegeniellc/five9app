@@ -23,13 +23,23 @@ const Clock = (props: IClock) => {
 		setTime(adjustedDate)
 	}
 
-	const h = time.getHours()
+	let h = time.getHours()
+	let daytime = 'am'
 	const m = time.getMinutes()
 	const s = time.getSeconds()
 
+	if (h >= 12) {
+		h = h - 12
+		daytime = 'pm'
+	}
+	  
+	if (h == 0) {
+		h = 12
+	}
+
 	return (	
 		<div>
-			<span className={css.time}>{h}:{(m < 10 ? '0' + m : m)} {h < 12 ? 'am' : 'pm'}</span>
+			<span className={css.time}>{h}:{(m < 10 ? '0' + m : m)} {daytime}</span>
 		</div>
 	)	
 }
