@@ -86,8 +86,8 @@ const SearchBox = (props: ISearch) => {
             width: 5,
         },
     })
-
-    const selectStyle: StylesConfig = {
+    
+    const selectStyle = {
         control: (styles: any, state: any) => {
             return {
               ...styles,
@@ -98,8 +98,8 @@ const SearchBox = (props: ISearch) => {
              }
             };
           },
-        input: styles => ({ ...styles, ...dot() }),
-        placeholder: styles => ({ ...styles, fontSize: '0.9rem', color: '#807e7e', ...dot() }),
+        input: (styles:any) => ({ ...styles, ...dot() }),
+        placeholder: (styles:any) => ({ ...styles, fontSize: '0.9rem', color: '#807e7e', ...dot() }),
         singleValue: (provided: any, state: any) => { const display = "none"; return { ...provided, display }}
     }
 
