@@ -1,7 +1,7 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from "react"
+import * as ReactDOM from "react-dom"
+import Clock from '../Widgets/Clock/Clock'
 import css from './Menu.module.scss'
-import Clock from 'react-live-clock';
 
 export enum MENU_ITEM {
     NONE = '',
@@ -34,7 +34,9 @@ const Menu = (props: IMenu) => {
                 <div>
                     { props?.timezone ?
                         <div className={css.timezoneDetail}>
-                            <Clock format={'h:mm A'} ticking={true} timezone={getRealTimezone(props?.timezone)} /> {' '}
+                            {
+                                <Clock timezone={getRealTimezone(props?.timezone)}></Clock>
+                            }
                             <span className={css.time}>({props?.timezone})</span>
                         </div>
                     : '' }
