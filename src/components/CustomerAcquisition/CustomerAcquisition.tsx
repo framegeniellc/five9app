@@ -26,10 +26,13 @@ const CustomerAcquisition = (props: IGlobalProps) => {
     const [error, setError] = React.useState<boolean>(false)
 
     const setStoreInfo = async () => {
+        /*
         const storesData = await getCachedData(interceptor, null, 'info')
         const storeData = await getCachedData(interceptor, selectedStoreId, 'info')
         const doctorsData = await getCachedData(interceptor, selectedStoreId, 'doctors')
         const examRoomsData = await getCachedData(interceptor, selectedStoreId, 'rooms')
+	*/
+	const [storesData, storeData, doctorsData, examRoomsData] = await Promise.all([getCachedData(interceptor, null, 'info'), getCachedData(interceptor, selectedStoreId, 'info'), getCachedData(interceptor, selectedStoreId, 'doctors'), getCachedData(interceptor, selectedStoreId, 'rooms')]);
 
         setAppData({
             doctors: doctorsData?.data,
