@@ -19,10 +19,14 @@ const acceptedStatusCodes = [200, 201]
 const getCachedData = async (transport: any, storeId: number, type: string) => {
   try {
     let cdnBaseUrl = 'https://cdn.nowoptics.com/five9/json/';
-    let requestTYpe = '';
-    const storeParam = typeof storeId !== 'object' ? prependZeros(storeId) : ``
+    //let requestTYpe = '';
+    //const storeParam = typeof storeId !== 'object' ? prependZeros(storeId) : ``
 
     if ( storeId > 0 ) {
+      const file = require('../../../static/mock/data/' + prependZeros(storeId) + '_' + getRequestType(type));
+
+      return { data: file, error: '' }
+      /*
       const storeParam = typeof storeId !== 'object' ? `?StoreID=${prependZeros(storeId)}` : `?StoreID=`
       const finalEndpoint = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${storeParam}&endpoint=${type}&format=json`
       const response = await transport.get(finalEndpoint, {timeout: 30000})
@@ -30,15 +34,21 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
       if (response) {
         return response
       }
+      */
     } else {
+      /*
       const headers = {
         'Access-Control-Allow-Origin' : '*',
         'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       }
+      */
       if (storeId === null || storeId === 0)
       {
         if (type === 'info' && storeId === null) {
-          const response = await transport.get(cdnBaseUrl + 'stores.json', { headers: headers } );
+          const storeFile = require('../../../static/mock/data/stores.json');
+
+          return { data: storeFile, error: '' }
+          //const response = await transport.get(cdnBaseUrl + 'stores.json', { headers: headers } );
           //console.log('jsonp', cdnBaseUrl + 'stores.json')
           /*
           jsonp(cdnBaseUrl + 'stores.json', {  timeout: 300000 }, (err: any, data: any) => {
@@ -50,7 +60,7 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
           } )
           */
 
-          return JSON.parse(response)
+          //return JSON.parse(response)
         } else {
           if (type === 'doctors' || type === 'rooms') {
             return { data: [], error: ''}
