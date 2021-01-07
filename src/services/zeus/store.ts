@@ -38,8 +38,9 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
       if (storeId === null || storeId === 0)
       {
         if (type === 'info' && storeId === null) {
-          //const response = await transport.get(cdnBaseUrl + 'stores.json', { headers: headers } );
-          console.log('jsonp', cdnBaseUrl + 'stores.json')
+          const response = await transport.get(cdnBaseUrl + 'stores.json', { headers: headers } );
+          //console.log('jsonp', cdnBaseUrl + 'stores.json')
+          /*
           jsonp(cdnBaseUrl + 'stores.json', {  timeout: 300000 }, (err: any, data: any) => {
             if(err) {
               console.log(err)
@@ -47,8 +48,9 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
               console.log(data)
             }
           } )
+          */
 
-          //return JSON.parse(response)
+          return JSON.parse(response)
         } else {
           if (type === 'doctors' || type === 'rooms') {
             return { data: [], error: ''}
