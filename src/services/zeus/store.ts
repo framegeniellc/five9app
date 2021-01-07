@@ -23,9 +23,14 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
     //const storeParam = typeof storeId !== 'object' ? prependZeros(storeId) : ``
 
     if ( storeId > 0 ) {
+      const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json');
+
+      return response
+      /*
       const file = require('../../../static/mock/data/' + prependZeros(storeId) + '_' + getRequestType(type));
 
       return { data: file, error: '' }
+      */
       /*
       const storeParam = typeof storeId !== 'object' ? `?StoreID=${prependZeros(storeId)}` : `?StoreID=`
       const finalEndpoint = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${storeParam}&endpoint=${type}&format=json`
@@ -45,31 +50,25 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
       if (storeId === null || storeId === 0)
       {
         if (type === 'info' && storeId === null) {
+          /*
           const storeFile = require('../../../static/mock/data/stores.json');
 
           return { data: storeFile, error: '' }
-          //const response = await transport.get(cdnBaseUrl + 'stores.json', { headers: headers } );
-          //console.log('jsonp', cdnBaseUrl + 'stores.json')
-          /*
-          jsonp(cdnBaseUrl + 'stores.json', {  timeout: 300000 }, (err: any, data: any) => {
-            if(err) {
-              console.log(err)
-            } else {
-              console.log(data)
-            }
-          } )
           */
+          const response = await transport.get(cdnBaseUrl + 'stores.json');
 
-          //return JSON.parse(response)
+          return response
         } else {
           if (type === 'doctors' || type === 'rooms') {
             return { data: [], error: ''}
           }
         }
       } else {
+        /*
         const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json');
 
         return response
+        */
       }
 
       return { data: [], error: ''}
