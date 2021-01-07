@@ -3,6 +3,8 @@ import Geocode from 'react-geocode'
 import { getNearestStores } from '../../components/CustomerAcquisition/Common/store'
 import getDefaultTransport, { ENDPOINTS as BASE_ENDPOINTS } from '../api/defaultInterceptor'
 
+const jsonp = require('jsonp')
+
 const ENDPOINTS = {
     TOKEN: `/Account/Login`,
     PROMOTIONS: `GetStorePromotions`,
@@ -16,14 +18,50 @@ const acceptedStatusCodes = [200, 201]
 
 const getCachedData = async (transport: any, storeId: number, type: string) => {
   try {
-    const storeParam = typeof storeId !== 'object' ? `?StoreID=${prependZeros(storeId)}` : `?StoreID=`
-    const finalEndpoint = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${storeParam}&endpoint=${type}&format=json`
-    const response = await transport.get(finalEndpoint, {timeout: 30000})
+    let cdnBaseUrl = 'https://cdn.nowoptics.com/five9/json/';
+    let requestTYpe = '';
+    const storeParam = typeof storeId !== 'object' ? prependZeros(storeId) : ``
 
-    if (response) {
-      return response
+    if ( storeId > 0 ) {
+      const storeParam = typeof storeId !== 'object' ? `?StoreID=${prependZeros(storeId)}` : `?StoreID=`
+      const finalEndpoint = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${storeParam}&endpoint=${type}&format=json`
+      const response = await transport.get(finalEndpoint, {timeout: 30000})
+
+      if (response) {
+        return response
+      }
+    } else {
+      const headers = {
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      }
+      if (storeId === null || storeId === 0)
+      {
+        if (type === 'info' && storeId === null) {
+          //const response = await transport.get(cdnBaseUrl + 'stores.json', { headers: headers } );
+          console.log('jsonp', cdnBaseUrl + 'stores.json')
+          jsonp(cdnBaseUrl + 'stores.json', {  timeout: 300000 }, (err: any, data: any) => {
+            if(err) {
+              console.log(err)
+            } else {
+              console.log(data)
+            }
+          } )
+
+          //return JSON.parse(response)
+        } else {
+          if (type === 'doctors' || type === 'rooms') {
+            return { data: [], error: ''}
+          }
+        }
+      } else {
+        const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json');
+
+        return response
+      }
+
+      return { data: [], error: ''}
     }
-    
   } catch(e) {
 
   }
