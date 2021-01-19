@@ -16,6 +16,18 @@ const ENDPOINTS = {
 
 const acceptedStatusCodes = [200, 201]
 
+const getAssetVersion = (length: number) => {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  
+  return result;
+}
+
 const getCachedData = async (transport: any, storeId: number, type: string) => {
   try {
     let cdnBaseUrl = 'https://cdn.nowoptics.com/five9/json/';
@@ -23,7 +35,7 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
     //const storeParam = typeof storeId !== 'object' ? prependZeros(storeId) : ``
 
     if ( storeId > 0 ) {
-      const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json');
+      const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json?v=' + getAssetVersion(14));
 
       return response
       /*
@@ -55,7 +67,7 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
 
           return { data: storeFile, error: '' }
           */
-          const response = await transport.get(cdnBaseUrl + 'stores.json');
+          const response = await transport.get(cdnBaseUrl + 'stores.json?v=' + getAssetVersion(12));
 
           return response
         } else {
@@ -77,6 +89,8 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
 
   }
 }
+
+
 
 const getEndpointData = async (transport: any, storeId: number, type: string) => {
     try {
