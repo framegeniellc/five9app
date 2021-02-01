@@ -1,21 +1,18 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import Clock from '../Widgets/Clock/Clock'
+import { IMenu } from '../interfaces/global'
 import css from './Menu.module.scss'
 
 export enum MENU_ITEM {
     NONE = '',
     STORE = 'STORE',
     OFFERS = 'OFFERS',
-}
-
-interface IMenu {
-    option: any
-    timezone: any
+    DOCTORS = 'DOCTORS',
 }
 
 const Menu = (props: IMenu) => {
-    const {option} = props
+    const { option, timezone, setOption } = props 
     
     const getRealTimezone = (timezone: string) => {
         switch (timezone){
@@ -28,16 +25,20 @@ const Menu = (props: IMenu) => {
         }
     }
 
+    const updateView = (option: any) => {
+        setOption(option)
+    }
+
     return (
         <React.Fragment>
             <div className={css.timezone}> 
                 <div>
-                    { props?.timezone ?
+                    { timezone ?
                         <div className={css.timezoneDetail}>
                             {
-                                <Clock timezone={getRealTimezone(props?.timezone)}></Clock>
+                                <Clock timezone={getRealTimezone(timezone)}></Clock>
                             }
-                            ({props?.timezone})
+                            ({timezone})
                         </div>
                     : '' }
                 </div>
@@ -45,9 +46,15 @@ const Menu = (props: IMenu) => {
             <nav className={css.menu}>
                 <ul>
                     <li>
-                        <a href="#" className={`${option === MENU_ITEM.STORE ? css.active : ''}`}> 
+                        <a href="#" onClick={() => updateView(MENU_ITEM.STORE)} className={`${option === MENU_ITEM.STORE ? css.active : ''}`}> 
                             <i className={`${css.icon} fas fa-info-circle`}></i>
                             <span>Info</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onClick={() =>updateView(MENU_ITEM.DOCTORS)} className={`${option === MENU_ITEM.DOCTORS ? css.active : ''}`}> 
+                            <i className={`${css.icon} fas fa-user-md`}></i>
+                            <span>Doctors</span>
                         </a>
                     </li>
                     {/* 

@@ -72,5 +72,13 @@ export interface IDoctor {
 export interface IMenu {
     option: any
     timezone?: string
+    setOption?: (option: any) => void
 }
 
+export interface IDoctorSchedule {
+    ADPId?: any
+    FirstName?: string
+    LastName?: string 
+    Title?: string
+    WorkDate?: string
+}
