@@ -2,7 +2,6 @@
 import * as React from "react";
 import css from './Layout.module.scss';
 import CustomerAcquisition from '../CustomerAcquisition/CustomerAcquisition'
-import DoctorSchedule from '../Doctors/DoctorSchedule'
 import Menu from '../Menu/Menu'
 import Loading from '../Loading/Loading'
 import Offers from '../Offers/Offers'
@@ -27,15 +26,8 @@ const Layout = (props: IGlobalProps) => {
             </div>
             <div className={css.viewContainer}>
                 {errorMessage.length ? (<div className={css.errorMessage}>{errorMessage}</div>): ``}
-                {
-                    //error ?
-                    option === MENU_ITEM.OFFERS ?
-                    <Offers interceptor={interceptor} storeId={storeId} />
-                    : option === MENU_ITEM.STORE ?
-                    <CustomerAcquisition {...props} setErrorMessage={setErrorMessage} setTimezone={updateTimezone} />
-                    : option === MENU_ITEM.DOCTORS ?
-                    <DoctorSchedule />
-
+                { option ?
+                    <CustomerAcquisition {...props} option={option} setErrorMessage={setErrorMessage} setTimezone={updateTimezone} />
                     : <Loading />
                 }
             </div>

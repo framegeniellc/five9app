@@ -9,10 +9,13 @@ import SpecialNotes from './SpecialNotes/SpecialNotes'
 import SearchBox from './SearchBox/SearchBox'
 import StoreItem from './SearchBox/StoreItem/StoreItem'
 import Error from '../Error/Error'
+import DoctorSchedule from '../Doctors/DoctorSchedule'
 import Loading from "../Loading/Loading"
+import { MENU_ITEM } from '../Menu/Menu'
+
 
 const CustomerAcquisition = (props: IGlobalProps) => {
-    const { interceptor, storeId, IVR, language, brand, skill, callID, setTimezone, setErrorMessage} = props 
+    const { interceptor, storeId, IVR, language, brand, skill, callID, option, setTimezone, setErrorMessage} = props 
     const [appData, setAppData] = React.useState<any>({})
     const [stores, setStores] = React.useState<any>([])
     const [store, setStore] = React.useState<any>([])
@@ -78,6 +81,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                         <div className={css.header}>
                             <SearchBox setStoreInfo={setStoreInfo} store={appData?.store} setSelectedStoreId={setSelectedStoreId} setGeoResponse={setGeoResponse} stores={appData?.stores} />
                         </div>
+                        { option === MENU_ITEM.STORE ?
                         <div className={css.column}>
                             <div className={`${css.columnItem} ${css.details}`}>
                                 <div>
@@ -92,6 +96,10 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                             </div>  
                             }
                         </div> 
+                        : option === MENU_ITEM.DOCTORS ?
+                            <DoctorSchedule />
+                        : ''
+                        }
                     </div>
             </div>
         )

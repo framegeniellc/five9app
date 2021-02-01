@@ -6,6 +6,7 @@ export interface IGlobalProps {
     skill?: string
     brand?: string
     setErrorMessage?: any
+    option?: string
     callID?: string
     setTimezone?: (time: any) => void
 }
