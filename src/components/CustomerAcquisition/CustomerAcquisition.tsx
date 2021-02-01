@@ -97,7 +97,7 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                             }
                         </div> 
                         : option === MENU_ITEM.DOCTORS ?
-                            <DoctorSchedule />
+                            <DoctorSchedule interceptor={interceptor} storeId={selectedStoreId} />
                         : ''
                         }
                     </div>

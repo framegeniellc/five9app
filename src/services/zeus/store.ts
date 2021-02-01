@@ -12,9 +12,22 @@ const ENDPOINTS = {
     STORE: `GetStoreInformation`,
     DOCTOR: `GetStoreDoctorComments`,
     ROOMS: `GetStoreExamRooms`,
+    DOCTORAVAILABILITY: `GetStoreDoctorScheduler`,
 }
 
 const acceptedStatusCodes = [200, 201]
+
+const getAssetVersion = (length: number) => {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  
+  return result;
+}
 
 const getCachedData = async (transport: any, storeId: number, type: string) => {
   try {
@@ -23,9 +36,14 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
     //const storeParam = typeof storeId !== 'object' ? prependZeros(storeId) : ``
 
     if ( storeId > 0 ) {
+      const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json?v=' + getAssetVersion(14));
+
+      return response
+      /*
       const file = require('../../../static/mock/data/' + prependZeros(storeId) + '_' + getRequestType(type));
 
       return { data: file, error: '' }
+      */
       /*
       const storeParam = typeof storeId !== 'object' ? `?StoreID=${prependZeros(storeId)}` : `?StoreID=`
       const finalEndpoint = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${storeParam}&endpoint=${type}&format=json`
@@ -45,37 +63,55 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
       if (storeId === null || storeId === 0)
       {
         if (type === 'info' && storeId === null) {
+          /*
           const storeFile = require('../../../static/mock/data/stores.json');
 
           return { data: storeFile, error: '' }
-          //const response = await transport.get(cdnBaseUrl + 'stores.json', { headers: headers } );
-          //console.log('jsonp', cdnBaseUrl + 'stores.json')
-          /*
-          jsonp(cdnBaseUrl + 'stores.json', {  timeout: 300000 }, (err: any, data: any) => {
-            if(err) {
-              console.log(err)
-            } else {
-              console.log(data)
-            }
-          } )
           */
+          const response = await transport.get(cdnBaseUrl + 'stores.json?v=' + getAssetVersion(12));
 
-          //return JSON.parse(response)
+          return response
         } else {
           if (type === 'doctors' || type === 'rooms') {
             return { data: [], error: ''}
           }
         }
       } else {
+        /*
         const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json');
 
         return response
+        */
       }
 
       return { data: [], error: ''}
     }
   } catch(e) {
 
+  }
+}
+
+const getAvailableTime = async (transport: any, storeId: number) => {
+  try {
+    const storeParam = typeof storeId !== 'object' ? `?StoreNumber=${prependZeros(storeId)}` : `?StoreNumber=`
+    const finalEndpoint: string = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${BASE_ENDPOINTS.FIVE9}/${getRequestType(`doctorAvailability`)}${storeParam}&FromDate=2021-02-01 00:00:00&ToDate=2021-02-12 23:59:59`
+    const token = await getToken()
+    const response = await transport.get(finalEndpoint, getConfig(token, BASE_ENDPOINTS.NOBLE_ZEUS_USERNAME))
+
+    if (response.error || response.data.error) {
+      return { error: response.error || response.data.error, data: '' }
+    }
+    
+    if (response.data.StatusCode && !acceptedStatusCodes.includes(response.data.StatusCode)) {
+      return { error: response.data.Message, data: '' }
+    }
+
+    return { error: '', data: response?.data }
+  } catch (e) {
+      return {
+        error: e.response?.data.message ? e.response.data.message : 'Unable to retrieve data',
+        data: null,
+      }
   }
 }
 
@@ -119,6 +155,9 @@ const getRequestType = (type: string) => {
     }
     case 'rooms': {
       return ENDPOINTS.ROOMS
+    }
+    case 'doctorAvailability': {
+      return ENDPOINTS.DOCTORAVAILABILITY
     }
   }
 }
@@ -164,4 +203,4 @@ const getLocationFromZip = async (zip: string, stores: any, setGeoResponse: any)
   });
 }
 
-export { getEndpointData, getLocationFromZip, getCachedData }
+export { getEndpointData, getLocationFromZip, getCachedData, getAvailableTime }
