@@ -83,11 +83,11 @@ const StoreInformation = (props: IStoreData) => {
                         })}
                     </div>
                 </div>
-                <div className={`${css.iconContainer} ${css.storeLanguages}`}>
+                {/*<div className={`${css.iconContainer} ${css.storeLanguages}`}>
                     <i className={`${css.icon} fa fa-globe`}></i>
                    <div><span>{store?.Language}</span></div>
                 </div>
-
+                */}
                 { rooms || doctors ? 
                 <div className={`${css.iconContainer} ${css.storeMRS}`}>
                     <i className={`${css.icon} fas fa-star-of-life`}></i>
