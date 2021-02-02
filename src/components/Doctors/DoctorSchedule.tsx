@@ -49,6 +49,7 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
             for (const c in data) {
                 let item: IStoreDoctorScheduler = data[c]
                 startEnd = getStartEnd(item.WorkDate, item.Title)
+
                 let calendarDate: ICalendarDate = {
                     title: `${item['Title']}${showAMPM(startEnd[1])} ${item['FirstName']} ${item['LastName']}` || ``,
                     start: `${startEnd[0]}`,
@@ -72,40 +73,56 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
         return 'am'    
     }
 
+    const checkHoursMinutes = (time: string[]) => {
+        if (time?.length === 1) {
+            return '00'
+        } 
+        
+        return time[1]
+    }
+
+
     const getStartEnd = (workDate: string, title: string) => {
         const parsedDate = formatDate(new Date(workDate))
         const splitedHours = title.split('-')
 
-        return [`${parsedDate}T${getStartTime(Number(splitedHours[0]), Number(splitedHours[1]))}:00:00`, `${parsedDate}T${getEndTime(Number(splitedHours[0]), Number(splitedHours[1]))}:00:00`]
+        const timeStart = checkHoursMinutes(splitedHours[0]?.split(':'))
+        const timeEnd = checkHoursMinutes(splitedHours[1]?.split(':'))
+
+        return [`${parsedDate}T${getStartTime(splitedHours[0])}:${timeStart}:00`, `${parsedDate}T${getEndTime(splitedHours[0], splitedHours[1])}:${timeEnd}:00`]
     }
 
-    const getStartTime = (startTime: number, endTime: number) => {
-        if( startTime < 6 )
-            return getMilitaryTime(startTime)
+    const getStartTime = (startTime: string) => {
+        const startHour = startTime.split(':')
 
-        if ( startTime < 10 ) {
-            return `0${startTime}`
+        if( Number(startHour[0]) < 6 )
+            return getMilitaryTime(Number(startHour[0]))
+
+        if ( Number(startHour[0]) < 10 ) {
+            return `0${Number(startHour[0])}`
         }
 
-        return startTime
+        return Number(startHour[0])
     }
 
-    const getEndTime = (startTime: number, endTime: number) => {
+    const getEndTime = (startTime: string, endTime: string) => {
         let noonOffsets = []
+        const startHour = startTime.split(':')
+        const endHour = endTime.split(':')
 
-        for (var i = startTime + 1; i <= 12; i++) {
+        for (var i = Number(startHour[0]) + 1; i <= 12; i++) {
             noonOffsets.push(i);
         }
 
-        if( !noonOffsets.includes(endTime) || startTime < 6 ) {
-            return getMilitaryTime(endTime)
+        if( !noonOffsets.includes(Number(endHour[0])) || Number(startHour[0]) < 6 ) {
+            return getMilitaryTime(Number(endHour[0]))
         }
 
-        if (endTime < 10) {
-            return `0${endTime}`
+        if (Number(endHour[0]) < 10) {
+            return `0${Number(endHour[0])}`
         }
 
-        return endTime
+        return Number(endHour[0])
     }
 
     const getMilitaryTime = (hour: number) => {
