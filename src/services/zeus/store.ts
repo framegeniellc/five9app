@@ -34,6 +34,10 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
     //let requestTYpe = '';
     //const storeParam = typeof storeId !== 'object' ? prependZeros(storeId) : ``
 
+    if (storeId == 958 || storeId == 971 || storeId == 977) {
+      storeId = Number(storeId.toString().substring(1))
+    }
+
     if ( storeId > 0 ) {
       const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json?v=' + getAssetVersion(14));
 
