@@ -77,7 +77,7 @@ const getStoreScript = (props: IOpeningScript) => {
 
     // If IVR is 1, then get script of IVR according to language
     if (Number(IVR) == 1) {
-        return getIVRScript(brand, language)
+        return getIVRScript(brand, language, store)
     }
 
     if (brand && store === undefined) {
@@ -97,8 +97,27 @@ const getStoreScript = (props: IOpeningScript) => {
     //return getDefaultScript(store, language)
 }
 
-const getIVRScript = (brand: any, lang: string) => {
-    return `${getTranslation('Thank you for calling', lang)} ${getTranslation('in', lang)} ${getBrandName(brand)}. ${getTranslation('How can I help you in filling your prescription today?', lang)}`
+const getIVRScript = (brand: any, lang: string, store: any) => {
+    if (Number(store?.StoreNumber) === 5 || Number(store?.StoreNumber) === 7015 ) {
+        let roadName: string = ''
+        let to_es: string = ''
+    
+        switch (Number(store?.StoreNumber)){
+            case 5: 
+                roadName = 'Sisk Road'
+                break
+            case 7015: 
+                roadName = 'Sylvan Ave'
+                break
+            default: 
+        }
+    
+        if (lang == 'es') { to_es = ` ${getTranslation('to', lang)}` }
+    
+        return `${getTranslation('Thank you for calling', lang)}${to_es} ${store?.BrandName} ${getTranslation('at', lang)} ${roadName}, Modesto. ${getTranslation('How can I help you in filling your prescription today?', lang)}`
+    }
+    
+    return `${getTranslation('Thank you for calling', lang)} ${getBrandName(brand)} ${getTranslation('in', lang)} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}. ${getTranslation('How can I help you in filling your prescription today?', lang)}`
 }
 
 const getSkillScript = (skill: string, brand: string, lang: string ) => {
