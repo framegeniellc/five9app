@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/framegeniellc/five9app#readme",
   "dependencies": {
+    "@fullcalendar/daygrid": "^5.5.0",
+    "@fullcalendar/react": "^5.5.0",
     "@types/jest": "^26.0.19",
     "@types/node-sass": "^4.11.1",
     "@types/react": "^16.14.2",
@@ -37,6 +39,7 @@
     "react-select": "^3.1.1"
   },
   "devDependencies": {
+    "@types/fullcalendar": "^3.8.0",
     "@types/node": "^14.14.13",
     "@types/react-copy-to-clipboard": "^5.0.0",
     "awesome-typescript-loader": "^5.2.1",
