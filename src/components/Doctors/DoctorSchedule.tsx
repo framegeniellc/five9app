@@ -7,14 +7,14 @@ import { getAvailableTime } from '../../services/zeus/store'
 const DoctorSchedule = (props: IDoctorSchedule) => {
     const [doctorHours, setDoctorHours] = React.useState<any>([])
     const [loading, setLoading] = React.useState<boolean>(true)
+    const [startInterval, setStartInterval] = React.useState<any>(new Date())
 
     const setDoctorAvailability = async () => {
         if (props.storeId !== 0) {
-            const availableTime = await getAvailableTime(props.interceptor, props.storeId)
+            const availableTime = await getAvailableTime(props.interceptor, props.storeId, startInterval)
 
             if(availableTime && availableTime.data?.length > 0) {
                 const groupedData = groupByDate(availableTime.data)
-                console.log('grouped data', groupedData)
                 setDoctorHours(groupedData)
             }
 

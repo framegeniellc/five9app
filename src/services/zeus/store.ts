@@ -91,10 +91,10 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
   }
 }
 
-const getAvailableTime = async (transport: any, storeId: number) => {
-  try {
+const getAvailableTime = async (transport: any, storeId: number, startInterval: any) => {
+  try {    
     const storeParam = typeof storeId !== 'object' ? `?StoreNumber=${prependZeros(storeId)}` : `?StoreNumber=`
-    const finalEndpoint: string = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${BASE_ENDPOINTS.FIVE9}/${getRequestType(`doctorAvailability`)}${storeParam}&FromDate=2021-02-01 00:00:00&ToDate=2021-02-12 23:59:59`
+    const finalEndpoint: string = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${BASE_ENDPOINTS.FIVE9}/${getRequestType(`doctorAvailability`)}${storeParam}${getRangePeriod(startInterval)}`
     const token = await getToken()
     const response = await transport.get(finalEndpoint, getConfig(token, BASE_ENDPOINTS.NOBLE_ZEUS_USERNAME))
 
@@ -113,6 +113,29 @@ const getAvailableTime = async (transport: any, storeId: number) => {
         data: null,
       }
   }
+}
+
+const getRangePeriod = (startInterval: Date) => {
+  const y = startInterval.getFullYear()
+  const m = startInterval.getMonth()
+  const firstDay = new Date(y, m, 1);
+  const lastDay = new Date(y, m + 1, 0)
+
+  return `&FromDate=${formatDate(firstDay)} 00:00:00&ToDate=${formatDate(lastDay)} 23:59:59`
+}
+
+const formatDate = (date: Date) => {
+  const d = new Date(date)
+  let month = '' + (d.getMonth() + 1)
+  const year = d.getFullYear()
+  let day = '' + d.getDate()
+  
+  if (month.length < 2) 
+    month = '0' + month
+  if (day.length < 2) 
+    day = '0' + day;
+
+  return [year, month, day].join('-')
 }
 
 const getEndpointData = async (transport: any, storeId: number, type: string) => {
