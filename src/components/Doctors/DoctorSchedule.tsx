@@ -32,6 +32,7 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
             if(availableTime && availableTime.data?.length > 0) {
                 const groupedData = groupByDate(availableTime.data)
                 const calendarDates = getCalendarDates(groupedData)
+                console.log('calendarDates', calendarDates)
                 setDoctorHours(calendarDates)
             }
 
@@ -71,6 +72,10 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
     const getStartTime = (startTime: number, endTime: number) => {
         if( startTime < 6 )
             return getMilitaryTime(startTime)
+
+        if ( startTime < 10 ) {
+            return `0${startTime}`
+        }
 
         return startTime
     }
