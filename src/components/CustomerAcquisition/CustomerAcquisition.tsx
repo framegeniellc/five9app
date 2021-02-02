@@ -30,12 +30,15 @@ const CustomerAcquisition = (props: IGlobalProps) => {
 
     const setStoreInfo = async () => {
 
-        const [storesData, storeData, doctorsData, examRoomsData] = await Promise.all([getCachedData(interceptor, null, 'info'), getCachedData(interceptor, selectedStoreId, 'info'), getCachedData(interceptor, selectedStoreId, 'doctors'), getCachedData(interceptor, selectedStoreId, 'rooms')]);
+        const [storesData, storeData] = await Promise.all([getCachedData(interceptor, null, 'info'), getCachedData(interceptor, selectedStoreId, 'info')]);
 
+        //doctorsData
+        //examRoomsData
+        //getCachedData(interceptor, selectedStoreId, 'doctors'), getCachedData(interceptor, selectedStoreId, 'rooms')
         setAppData({
-            doctors: doctorsData?.data,
+            //doctors: doctorsData?.data,
             store: storeData?.data[0],
-            examRooms: examRoomsData?.data,
+            //examRooms: examRoomsData?.data,
             stores: storesData?.data
         })
 
@@ -92,7 +95,8 @@ const CustomerAcquisition = (props: IGlobalProps) => {
                             </div>
                             {existStore && 
                             <div className={`${css.columnItem} ${css.storeInformation}`}>
-                                <StoreInformation store={appData?.store} doctors={appData?.doctors} rooms={appData?.examRooms} setTimezone={setTimezone} />
+                                <StoreInformation store={appData?.store} setTimezone={setTimezone} />
+                                {/*doctors={appData?.doctors} rooms={appData?.examRooms} */}
                             </div>  
                             }
                         </div> 

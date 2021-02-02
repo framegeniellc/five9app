@@ -1,3 +1,29 @@
+.bubble {
+  position: absolute;
+  top: 42px;
+  right: -18px;
+  background: #656565de;
+  padding: 10px;
+  color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(14, 30, 37, 0.16);
+  width: 52px; }
+  @media (max-width: 991px) {
+    .bubble {
+      top: 35px;
+      left: 112px; } }
+  .bubble::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: 100%;
+    left: 1.5em;
+    border: .75rem solid transparent;
+    border-top: none;
+    border-bottom-color: #656565de;
+    filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1)); }
+
 p,
 ul {
   margin: 0; }
@@ -41,3 +67,34 @@ html {
   cursor: pointer;
   box-shadow: 0 2px 10px rgba(14, 30, 37, 0.16);
   outline: none; }
+
+.blue {
+  background-color: #039BE5;
+  color: #ffffff;
+  cursor: pointer; }
+  .blue:hover {
+    background-color: #039BE5 !important; }
+
+.yellow {
+  background-color: #F6BF26;
+  color: #ffffff;
+  cursor: pointer; }
+  .yellow:hover {
+    background-color: #F6BF26 !important; }
+
+.green {
+  background-color: #33b679;
+  color: #ffffff;
+  cursor: pointer; }
+  .green:hover {
+    background-color: #33b679 !important; }
+
+.orange {
+  background-color: #F4511E;
+  color: #ffffff;
+  cursor: pointer; }
+  .orange:hover {
+    background-color: #F4511E !important; }
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: rgba(248, 248, 248, 0.8) !important; }

@@ -10,7 +10,7 @@ import { MENU_ITEM } from '../Menu/Menu'
 
 const Layout = (props: IGlobalProps) => {
     const error: boolean = true
-    const [option, setOption] = React.useState<string>(MENU_ITEM.STORE) 
+    const [option, setOption] = React.useState<string>(MENU_ITEM.DOCTORS) 
     const [timezone, setTimezone] = React.useState<string>('')  
     const { interceptor, storeId, IVR, brand, skill, language, callID } = props
     const [errorMessage, setErrorMessage] = React.useState<string>('')

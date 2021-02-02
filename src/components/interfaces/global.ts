@@ -29,8 +29,8 @@ export interface IStoreLoad {
 }
 
 export interface IStoreData extends IStoreLoad {
-    doctors: any
-    rooms: any
+    //doctors: any
+    //rooms: any
     setTimezone?: (time: any) => void
 }
 

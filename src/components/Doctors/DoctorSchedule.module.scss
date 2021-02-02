@@ -1,5 +1,9 @@
 @import '../../styles/mixins/helpers.scss';
 
 .doctorContainer{
-    background-color: $color-white;
+    padding: 1rem;
+    margin: 0 15px;
+    background: $color-white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(14,30,37,.16);
 }

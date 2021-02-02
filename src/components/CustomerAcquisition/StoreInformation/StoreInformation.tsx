@@ -10,8 +10,9 @@ import css from './StoreInformation.module.scss'
 
 const StoreInformation = (props: IStoreData) => {
     const [copied, setCopied] = React.useState<boolean>(false)
-    const {store, doctors, rooms, setTimezone} = props
+    const {store, setTimezone} = props
 
+    /*
     const checkRoomCategories = () => {
         const filteredStandardMRS = rooms.map( (item: any, key: any) => {
             if (item.ODStatus === 'MRS' || item.ODStatus === 'Standard') {
@@ -21,6 +22,7 @@ const StoreInformation = (props: IStoreData) => {
 
         return filteredStandardMRS.filter((v: any, i: any, a: any) => a.indexOf(v) === i).join('/').slice(0, -1)
     }
+    */
 
     const getShortStateByLong = (longState: string) => {
         const states: IStatesObject = statesList
@@ -88,7 +90,9 @@ const StoreInformation = (props: IStoreData) => {
                    <div><span>{store?.Language}</span></div>
                 </div>
                 */}
-                { rooms || doctors ? 
+                { 
+                /*
+                rooms || doctors ? 
                 <div className={`${css.iconContainer} ${css.storeMRS}`}>
                     <i className={`${css.icon} fas fa-star-of-life`}></i>
                     <div className={css.odContainer}>
@@ -102,7 +106,8 @@ const StoreInformation = (props: IStoreData) => {
                         </div>
                     </div>
                 </div>
-                : ''}
+                : ''
+                */}
                 <div className={`${css.iconContainer} ${css.storeLab}`}>
                 <i className={`${css.icon} fas fa-flask`}></i>
                     <span>{store?.StoreLabStatus === 'None' ? `Lab: Closed` : `Lab: Open`}</span>

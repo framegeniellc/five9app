@@ -19,3 +19,47 @@ html {
   box-shadow: 0 2px 10px rgba(14,30,37,.16);
   outline: none;
 }
+
+.blue {
+  background-color: $calendar-blue;
+  color: $color-white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $calendar-blue !important;
+  }
+}
+
+.yellow {
+  background-color: $calendar-yellow;
+  color: $color-white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $calendar-yellow !important;
+  }
+}
+
+.green {
+  background-color: $calendar-green;
+  color: $color-white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $calendar-green !important;
+  }
+}
+
+.orange {
+  background-color: $calendar-orange;
+  color: $color-white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $calendar-orange !important;
+  }
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: rgba(248, 248, 248, 0.8) !important;
+}
