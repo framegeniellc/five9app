@@ -42,7 +42,16 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
       return response
       */
 
-      if (storeId == 958 || storeId == 971 || storeId == 977) {
+      if (
+        storeId == 958 || 
+        storeId == 971 || 
+        storeId == 977 ||
+        storeId == 97106 || 
+        storeId == 97107 || 
+        storeId == 97108 || 
+        storeId == 97109 || 
+        storeId == 97110
+        ) {
         storeId = Number(storeId.toString().substring(1))
       }
 

@@ -65,6 +65,15 @@ const getStoreScript = (props: IOpeningScript) => {
     const { store, language, IVR, brand, skill, specialStore } = props
     const modestoStores = [5, 7015]
 
+    //If storeId is a special store, then get 2nd interaction script according to language and store ID
+    if (specialStore){ //&& (Number(store?.StoreNumber) == 58 || Number(store?.StoreNumber == 71) || Number(store?.StoreNumber == 77))) {
+        return getSpecialStore(store)
+    }
+            
+    if (modestoStores.indexOf(Number(store?.StoreNumber)) > -1) {
+        return getModestoScript(store, language)
+    }
+
     // If only Skrill and brand, then get script of IVR according to language
     if (skill == 'CR') {
         return getSkillScript(skill, brand, language)
@@ -80,16 +89,7 @@ const getStoreScript = (props: IOpeningScript) => {
     }
 
     // If only store, then get default script according to language
-    if (store) {
-        //If storeId is a special store, then get 2nd interaction script according to language and store ID
-        if (specialStore){ //&& (Number(store?.StoreNumber) == 58 || Number(store?.StoreNumber == 71) || Number(store?.StoreNumber == 77))) {
-            return getSpecialStore(store)
-        }
-        
-        if (modestoStores.indexOf(Number(store?.StoreNumber)) > -1) {
-            return getModestoScript(store, language)
-        }
-                
+    if (store) {               
         return getDefaultScript(store, language)
     }
 
@@ -117,6 +117,15 @@ const getDefaultScript = (store: any, lang: string) => {
 }
 
 const getSpecialStore = (store: any) => {
+
+    if (Number(store?.StoreNumber) === 7106 || 
+        Number(store?.StoreNumber) === 7107 ||
+        Number(store?.StoreNumber) === 7108 || 
+        Number(store?.StoreNumber) === 7109 || 
+        Number(store?.StoreNumber) === 7110) {
+            return `Thank you for calling in ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, my name is _______, How may we address your call?`
+    }
+
     return `Thank you for calling ${store?.StateName} Physician Eye Care Group in ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, my name is _______, How may we address your call?`
 }
 

@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import css from './DoctorSchedule.module.scss'
 import { IDoctorSchedule } from '../interfaces/global'
 import { getAvailableTime, formatDate } from '../../services/zeus/store'
+import Loading from '../Loading/Loading'
 
 
 interface ICalendarDate {
@@ -168,6 +169,7 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
     }, [])
 
     return (
+            loading ? ( <Loading></Loading>) : (
             <div className={css.doctorContainer}>
                 <FullCalendar         
                 plugins={[ dayGridPlugin ]}
@@ -180,13 +182,13 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
                 eventContent={renderEventContent} 
                 handleWindowResize={true}
                 height={'700px'}
-                //timeZone={'UTC'}
                 events={doctorHours}
                 viewDidMount={doDidMount}
                 >
                 </FullCalendar>
                 </div>
-            )  
+            )
+        )  
     }
   
   export default DoctorSchedule

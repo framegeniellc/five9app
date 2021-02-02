@@ -58,23 +58,24 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         return Number(language) === 2 ? 'es' : 'en'
     }
 
-    const cleanStoreId = (storeId: number) => {
-        const specialStores = [958, 971, 977]
-
+    const checkSpecialStore = (storeId: number) => {
+        const specialStores = [958, 971, 977, 97106, 97107, 97108, 97109, 97110]
+        setSpecialStore(false)
         if (specialStores.indexOf(storeId) > -1) {
             setSpecialStore(true)
-            storeId = Number(storeId.toString().substring(1))
-        }
-        
-        return storeId
+            //storeId = Number(storeId.toString().substring(1))
+        }               
     }
 
     React.useEffect(() => {
         setLoading(true)
         setTimezone('')
+        checkSpecialStore(selectedStoreId)
+        /*
         if(storeId == 958 || storeId == 971 || storeId == 977) {
-            setSelectedStoreId(cleanStoreId(storeId))
+            //setSelectedStoreId(cleanStoreId(storeId))
         }
+        */
         setStoreInfo()
     }, [selectedStoreId])
 
