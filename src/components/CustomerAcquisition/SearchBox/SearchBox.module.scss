@@ -12,6 +12,7 @@
     .select {
         width: 20rem;
         margin-right: 2rem;
+        z-index: 99999;
         @media (max-width: 768px) {  
             width: 100%;
         }

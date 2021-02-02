@@ -10,6 +10,7 @@ interface ICalendarDate {
     title: string | null
     start: string | null
     end: string | null
+    classNames: string[]
 }
 
 interface IStoreDoctorScheduler {
@@ -32,7 +33,6 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
             if(availableTime && availableTime.data?.length > 0) {
                 const groupedData = groupByDate(availableTime.data)
                 const calendarDates = getCalendarDates(groupedData)
-                console.log('calendarDates', calendarDates)
                 setDoctorHours(calendarDates)
             }
 
@@ -50,9 +50,10 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
                 let item: IStoreDoctorScheduler = data[c]
                 startEnd = getStartEnd(item.WorkDate, item.Title)
                 let calendarDate: ICalendarDate = {
-                    title: `${item['Title']} ${item['FirstName']} ${item['LastName']}` || ``,
+                    title: `${item['Title']}${showAMPM(startEnd[1])} ${item['FirstName']} ${item['LastName']}` || ``,
                     start: `${startEnd[0]}`,
-                    end: `${startEnd[1]}`
+                    end: `${startEnd[1]}`,
+                    classNames: ['blue']
                 }
 
                 calendarDates.push(calendarDate)
@@ -60,6 +61,15 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
         }
 
         return calendarDates
+    }
+
+    const showAMPM = (endTime: string) => {
+        let hours = new Date(endTime).getHours()
+
+        if (hours > 12) {
+            return 'pm'
+        }
+        return 'am'    
     }
 
     const getStartEnd = (workDate: string, title: string) => {
