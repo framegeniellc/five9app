@@ -25,10 +25,6 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
     const [loading, setLoading] = React.useState<boolean>(true)
     const [startInterval, setStartInterval] = React.useState<any>(new Date())
 
-    React.useEffect(() => {
-      setDoctorAvailability()
-    }, [])
-
     const setDoctorAvailability = async () => {
         if (props.storeId !== 0) {
             const availableTime = await getAvailableTime(props.interceptor, props.storeId, startInterval)
@@ -82,13 +78,16 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
     function renderEventContent(eventInfo: any) {
         return (
           <>
-            {console.log(eventInfo.event)}
             <div className={eventInfo.event.classNames[0]}>
               <b>{' '}{eventInfo.event.title}</b>
             </div>
           </>
         )
-      }
+    }
+
+    React.useEffect(() => {
+      setDoctorAvailability()
+    }, [])
 
     return (
             <div className={css.doctorContainer}>
