@@ -81,7 +81,7 @@ const getStoreScript = (props: IOpeningScript) => {
     }
 
     if (brand && store === undefined) {
-        return getBrandScript(brand, language)
+        return getBrandScript(language)
     }
 
     // If only store, then get default script according to language
@@ -105,8 +105,8 @@ const getSkillScript = (skill: string, brand: string, lang: string ) => {
     return `${getTranslation('Thank you for calling', lang)} ${getBrandName(brand)}, ${getTranslation('my name is', lang)} _______. ${getTranslation('May I have your first and last name?', lang)}`
 }
 
-const getBrandScript = (brand: string, lang: string ) => {
-    return `${getTranslation('Thank you for calling', lang)} ${getBrandName(brand)}, ${getTranslation('to better assist you can I please have your zip code?', lang)}`
+const getBrandScript = (lang: string ) => {
+    return `${getTranslation('Hello. Thank you for calling.', lang)} ${getTranslation('To better assist you, can I please have your zip code?', lang)}`
 }
 
 const getDefaultScript = (store: any, lang: string) => {
