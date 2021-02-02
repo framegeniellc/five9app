@@ -65,7 +65,49 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
         const parsedDate = formatDate(new Date(workDate))
         const splitedHours = title.split('-')
 
-        return [`${parsedDate}T${splitedHours[0]}:00:00`, `${parsedDate}T${splitedHours[1]}:00:00`]
+        return [`${parsedDate}T${getStartTime(Number(splitedHours[0]), Number(splitedHours[1]))}:00:00`, `${parsedDate}T${getEndTime(Number(splitedHours[0]), Number(splitedHours[1]))}:00:00`]
+    }
+
+    const getStartTime = (startTime: number, endTime: number) => {
+        if( startTime < 6 )
+            return getMilitaryTime(startTime)
+
+        return startTime
+    }
+
+    const getEndTime = (startTime: number, endTime: number) => {
+        let noonOffsets = []
+
+        for (var i = startTime + 1; i <= 12; i++) {
+            noonOffsets.push(i);
+        }
+
+        if( !noonOffsets.includes(endTime) || startTime < 6 ) {
+            return getMilitaryTime(endTime)
+        }
+
+        if (endTime < 10) {
+            return `0${endTime}`
+        }
+
+        return endTime
+    }
+
+    const getMilitaryTime = (hour: number) => {
+        switch(hour) {
+            case 1: { return '13' }
+            case 2: { return '14' }
+            case 3: { return '15' }
+            case 4: { return '16' }
+            case 5: { return '17' }
+            case 6: { return '18' }
+            case 7: { return '19' }
+            case 8: { return '20' }
+            case 9: { return '21' }
+            case 10: { return '22' }
+            case 11: { return '23' }
+            case 12: { return '00' }
+        }
     }
 
     const groupByDate = (data: any) => {
