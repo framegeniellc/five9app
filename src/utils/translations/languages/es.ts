@@ -11,4 +11,8 @@ export default {
     'My': 'Mi',
     'name is': 'nombre es',
     'to': 'a',
+    'Hello. Thank you for calling.': 'Hola, gracias por llamar.',
+    'To better assist you, can I please have your zip code?': 'Para darle una mejor asistencia, me puede brindar su código postal por favor?',
 }
+
+
