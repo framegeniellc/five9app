@@ -24,9 +24,9 @@ interface IStoreDoctorScheduler {
 const DoctorSchedule = (props: IDoctorSchedule) => {
     const [doctorHours, setDoctorHours] = React.useState<any>([])
     const [loading, setLoading] = React.useState<boolean>(true)
-    const [startInterval, setStartInterval] = React.useState<any>(new Date())
+    //const [startInterval, setStartInterval] = React.useState<any>(new Date())
 
-    const setDoctorAvailability = async () => {
+    const setDoctorAvailability = async (startInterval: Date) => {
         if (props.storeId !== 0) {
             const availableTime = await getAvailableTime(props.interceptor, props.storeId, startInterval)
 
@@ -159,12 +159,18 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
         )
     }
 
-    const doDidMount = (arg: any) => {
-        console.log('did mount', arg)
+    const doRender = async (arg: any) => {
+        const d = new Date(arg.startStr)
+
+        setDoctorAvailability(d)
     }
 
+    const delay = (ms: number) => {
+        return new Promise(resolve => setTimeout(resolve, ms))
+      }
+
     React.useEffect(() => {
-      setDoctorAvailability()
+      setDoctorAvailability(new Date())
     }, [])
 
     return (
@@ -182,7 +188,8 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
                 height={'700px'}
                 //timeZone={'UTC'}
                 events={doctorHours}
-                viewDidMount={doDidMount}
+                //viewDidMount={doDidMount}
+                datesSet={doRender}
                 >
                 </FullCalendar>
                 </div>
