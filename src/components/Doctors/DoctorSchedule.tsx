@@ -36,8 +36,7 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
             if(availableTime && availableTime.data?.length > 0) {
                 const groupedData = groupByDate(availableTime.data)
                 const calendarDates = getCalendarDates(groupedData)
-                console.log('type', calendarDates)
-                setDoctorHours(groupedData)
+                setDoctorHours(calendarDates)
             }
 
             setLoading(false)
