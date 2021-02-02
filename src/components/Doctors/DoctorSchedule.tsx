@@ -3,12 +3,82 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import css from './DoctorSchedule.module.scss'
 import { IDoctorSchedule } from '../interfaces/global'
+import { getAvailableTime, formatDate } from '../../services/zeus/store'
 
+
+interface ICalendarDate {
+    title: string | null
+    start: string | null
+    end: string | null
+}
+
+interface IStoreDoctorScheduler {
+    ADPId: string | null
+    FirstName: string
+    LastName: string
+    Title: string
+    WorkDate: string
+}
 
 const DoctorSchedule = (props: IDoctorSchedule) => {
+    const [doctorHours, setDoctorHours] = React.useState<any>([])
+    const [loading, setLoading] = React.useState<boolean>(true)
+    const [startInterval, setStartInterval] = React.useState<any>(new Date())
 
-    let todayStr = new Date().toISOString().replace(/T.*$/, '')
-    let tomorrow = new Date(todayStr + 1).toISOString().replace(/T.*$/, '')
+    React.useEffect(() => {
+      setDoctorAvailability()
+    }, [])
+
+    const setDoctorAvailability = async () => {
+        if (props.storeId !== 0) {
+            const availableTime = await getAvailableTime(props.interceptor, props.storeId, startInterval)
+
+            if(availableTime && availableTime.data?.length > 0) {
+                const groupedData = groupByDate(availableTime.data)
+                const calendarDates = getCalendarDates(groupedData)
+                console.log('type', calendarDates)
+                setDoctorHours(groupedData)
+            }
+
+            setLoading(false)
+        }
+    }
+
+    const getCalendarDates = (groupedData: any) => {
+        let calendarDates: ICalendarDate[] = []
+        let startEnd = []
+
+        for (const d in groupedData) {
+            const data = groupedData[`${d}`]
+            for (const c in data) {
+                let item: IStoreDoctorScheduler = data[c]
+                startEnd = getStartEnd(item.WorkDate, item.Title)
+                let calendarDate: ICalendarDate = {
+                    title: `${item['Title']} ${item['FirstName']} ${item['LastName']}` || ``,
+                    start: `${startEnd[0]}`,
+                    end: `${startEnd[1]}`
+                }
+
+                calendarDates.push(calendarDate)
+            }
+        }
+
+        return calendarDates
+    }
+
+    const getStartEnd = (workDate: string, title: string) => {
+        const parsedDate = formatDate(new Date(workDate))
+        const splitedHours = title.split('-')
+
+        return [`${parsedDate}T${splitedHours[0]}:00:00`, `${parsedDate}T${splitedHours[1]}:00:00`]
+    }
+
+    const groupByDate = (data: any) => {
+        return data.reduce( (r: any, a: any) => { 
+            r[a.WorkDate] = [...r[a.WorkDate] || [], a]
+            return r 
+        }, {} );
+    }
 
     function renderEventContent(eventInfo: any) {
         return (
@@ -35,48 +105,11 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
                 handleWindowResize={true}
                 height={'700px'}
                 //timeZone={'UTC'}
-                events={[
-                    { 
-                        title: 'Dr. Test - 12:00 - 4:00pm', 
-                        start: todayStr + 'T12:00:00',
-                        end: todayStr + 'T14:00:00',
-                        allDay: false,
-                        classNames: ['blue'],
-                        overlap: true
-                    },
-                    { 
-                        title: 'Dr. Test - 11:00am - 3:00pm', 
-                        start: todayStr + 'T11:00:00',
-                        end: todayStr + 'T15:00:00',
-                        allDay: false,
-                        classNames: ['yellow'],
-                    },
-                    { 
-                      title: 'Dr. Test - 9:00 - 10:00am', 
-                      start: todayStr + 'T09:00:00',
-                      end: todayStr + 'T10:00:00',
-                      allDay: false,
-                      classNames: ['green'],
-                    },
-                    { 
-                      title: 'Dr. Test - 11:00am - 3:00pm', 
-                      start: tomorrow + 'T11:00:00',
-                      end: tomorrow + 'T15:00:00',
-                      allDay: false,
-                      classNames: ['orange'],
-                    },
-                    { 
-                      title: 'Dr. Test - 9:00 - 10:00am', 
-                      start: tomorrow + 'T09:00:00',
-                      end: tomorrow + 'T10:00:00',
-                      allDay: false,
-                      classNames: ['blue'],
-                    }
-                ]}
+                events={doctorHours}
                 >
                 </FullCalendar>
-            </div>
-            )
+                </div>
+            )  
     }
   
   export default DoctorSchedule

@@ -82,4 +82,6 @@ export interface IDoctorSchedule {
     LastName?: string 
     Title?: string
     WorkDate?: string
+    interceptor: any
+    storeId: number
 }
