@@ -70,10 +70,6 @@ const getStoreScript = (props: IOpeningScript) => {
         return getSpecialStore(store)
     }
             
-    if (modestoStores.indexOf(Number(store?.StoreNumber)) > -1) {
-        return getModestoScript(store, language)
-    }
-
     // If only Skrill and brand, then get script of IVR according to language
     if (skill == 'CR') {
         return getSkillScript(skill, brand, language)
@@ -89,7 +85,12 @@ const getStoreScript = (props: IOpeningScript) => {
     }
 
     // If only store, then get default script according to language
-    if (store) {               
+    if (store) {         
+              
+        if (modestoStores.indexOf(Number(store?.StoreNumber)) > -1) {
+            return getModestoScript(store, language)
+        }
+
         return getDefaultScript(store, language)
     }
 
