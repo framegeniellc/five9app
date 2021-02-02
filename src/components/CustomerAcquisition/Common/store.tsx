@@ -86,7 +86,7 @@ const getStoreScript = (props: IOpeningScript) => {
 
     // If only store, then get default script according to language
     if (store) {         
-              
+
         if (modestoStores.indexOf(Number(store?.StoreNumber)) > -1) {
             return getModestoScript(store, language)
         }
@@ -124,7 +124,7 @@ const getSpecialStore = (store: any) => {
         Number(store?.StoreNumber) === 7108 || 
         Number(store?.StoreNumber) === 7109 || 
         Number(store?.StoreNumber) === 7110) {
-            return `Thank you for calling in ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, my name is _______, How may we address your call?`
+            return `Thank you for calling Oklahoma Physician Eye Care Group in ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, my name is _______, How may we address your call?`
     }
 
     return `Thank you for calling ${store?.StateName} Physician Eye Care Group in ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, my name is _______, How may we address your call?`
