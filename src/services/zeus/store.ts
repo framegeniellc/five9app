@@ -41,6 +41,11 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
 
       return response
       */
+
+      if (storeId == 958 || storeId == 971 || storeId == 977) {
+        storeId = Number(storeId.toString().substring(1))
+      }
+
       const file = require('../../../static/mock/data/' + prependZeros(storeId) + '_' + getRequestType(type));
 
       return { data: file, error: '' }
@@ -63,10 +68,12 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
       if (storeId === null || storeId === 0)
       {
         if (type === 'info' && storeId === null) {
+
           const storeFile = require('../../../static/mock/data/stores.json');
 
           return { data: storeFile, error: '' }
-         /*
+
+          /*
           const response = await transport.get(cdnBaseUrl + 'stores.json?v=' + getAssetVersion(12));
 
           return response

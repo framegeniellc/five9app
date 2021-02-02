@@ -16,11 +16,12 @@ const Menu = (props: IMenu) => {
     
     const getRealTimezone = (timezone: string) => {
         switch (timezone){
-            case 'AST': return 'America/Anchorage'
+            case 'AST': return 'America/Caracas'
             case 'EST': return 'America/Indiana/Indianapolis'
             case 'CST': return 'America/Chicago'
             case 'MST': return 'America/Denver'
             case 'PST': return 'America/Los_Angeles'
+            case 'AKST': return 'America/Anchorage'
             default: return ''
         }
     }

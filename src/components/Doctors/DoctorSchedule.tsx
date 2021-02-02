@@ -132,6 +132,10 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
         )
     }
 
+    const doDidMount = (arg: any) => {
+        console.log('did mount', arg)
+    }
+
     React.useEffect(() => {
       setDoctorAvailability()
     }, [])
@@ -151,6 +155,7 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
                 height={'700px'}
                 //timeZone={'UTC'}
                 events={doctorHours}
+                viewDidMount={doDidMount}
                 >
                 </FullCalendar>
                 </div>
