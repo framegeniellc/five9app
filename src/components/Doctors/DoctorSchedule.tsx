@@ -20,22 +20,25 @@ interface IStoreDoctorScheduler {
     LastName: string
     Title: string
     WorkDate: string
+    ClassName?: string
+}
+
+interface IDoctorClass {
+    LastName: IStoreDoctorScheduler
     ClassName: string
 }
 
 const DoctorSchedule = (props: IDoctorSchedule) => {
     const [doctorHours, setDoctorHours] = React.useState<any>([])
     const [loading, setLoading] = React.useState<boolean>(true)
-    //const [startInterval, setStartInterval] = React.useState<any>(new Date())
 
     const setDoctorAvailability = async (startInterval: Date) => {
         if (props.storeId !== 0) {
             const availableTime = await getAvailableTime(props.interceptor, props.storeId, startInterval)
 
             if(availableTime && availableTime.data?.length > 0) {
-
-                const doctors = Array.from(new Set(availableTime.data.map(x => x.LastName)))
-                const doctorsClassnames = getDoctorClass(doctors)
+                const doctors: IStoreDoctorScheduler[] = Array.from(new Set(availableTime.data.map( (x: IStoreDoctorScheduler) => x.LastName)))
+                const doctorsClassnames: IDoctorClass[] = getDoctorClass(doctors)
                 const groupedData = groupByDate(availableTime.data)
                 const calendarDates = getCalendarDates(groupedData, doctorsClassnames)
                 setDoctorHours(calendarDates)
@@ -45,11 +48,11 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
         }
     }
 
-    const getDoctorClass = (doctors: any) => {
-        const doctorClass: any = []
+    const getDoctorClass = (doctors: IStoreDoctorScheduler[]) => {
+        const doctorClass: IDoctorClass[] = []
 
-        doctors.map((doctor: any, key: any) => {
-            const doctors = {
+        doctors.map((doctor: IStoreDoctorScheduler, key: number) => {
+            const doctors: IDoctorClass = {
                 LastName: doctor,
                 ClassName: getClass(key)
             }
@@ -70,7 +73,7 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
         }
     }
 
-    const getCalendarDates = (groupedData: any, doctorsClassnames: any) => {
+    const getCalendarDates = (groupedData: any, doctorsClassnames: IDoctorClass[]) => {
         let calendarDates: ICalendarDate[] = []
         let startEnd = []
 
@@ -80,7 +83,8 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
                 let item: IStoreDoctorScheduler = data[c]
                 startEnd = getStartEnd(item.WorkDate, item.Title)
 
-                Object.keys(doctorsClassnames).forEach(k => {
+                Object.keys(doctorsClassnames).forEach((k:string) => {
+                    console.log('k => ', typeof k)
                     if (doctorsClassnames[k]?.LastName === item['LastName']) {
                         item['ClassName'] = doctorsClassnames[k]?.ClassName
                     }
