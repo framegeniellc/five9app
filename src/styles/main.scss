@@ -60,6 +60,16 @@ html {
   }
 }
 
+.purple {
+  background-color: $calendar-purple;
+  color: $color-white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $calendar-purple !important;
+  }
+}
+
 .fc .fc-daygrid-day.fc-day-today {
   background-color: rgba(248, 248, 248, 0.8) !important;
 }

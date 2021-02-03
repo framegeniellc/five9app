@@ -84,4 +84,5 @@ export interface IDoctorSchedule {
     WorkDate?: string
     interceptor: any
     storeId: number
+    ClassName: string
 }

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import FullCalendar from '@fullcalendar/react'
+import FullCalendar, { compareByFieldSpecs } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import css from './DoctorSchedule.module.scss'
 import { IDoctorSchedule } from '../interfaces/global'
@@ -20,6 +20,7 @@ interface IStoreDoctorScheduler {
     LastName: string
     Title: string
     WorkDate: string
+    ClassName: string
 }
 
 const DoctorSchedule = (props: IDoctorSchedule) => {
@@ -32,8 +33,11 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
             const availableTime = await getAvailableTime(props.interceptor, props.storeId, startInterval)
 
             if(availableTime && availableTime.data?.length > 0) {
+
+                const doctors = Array.from(new Set(availableTime.data.map(x => x.LastName)))
+                const doctorsClassnames = getDoctorClass(doctors)
                 const groupedData = groupByDate(availableTime.data)
-                const calendarDates = getCalendarDates(groupedData)
+                const calendarDates = getCalendarDates(groupedData, doctorsClassnames)
                 setDoctorHours(calendarDates)
             }
 
@@ -41,7 +45,32 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
         }
     }
 
-    const getCalendarDates = (groupedData: any) => {
+    const getDoctorClass = (doctors: any) => {
+        const doctorClass: any = []
+
+        doctors.map((doctor: any, key: any) => {
+            const doctors = {
+                LastName: doctor,
+                ClassName: getClass(key)
+            }
+            doctorClass.push(doctors)
+        })
+
+        return doctorClass
+    }
+
+    const getClass = (key: number) => {
+        switch (key){
+            case 0: return 'blue'
+            case 1: return 'green'
+            case 2: return 'purple'
+            case 3: return 'orange'
+            case 4: return 'yellow'
+            default: return 'blue'
+        }
+    }
+
+    const getCalendarDates = (groupedData: any, doctorsClassnames: any) => {
         let calendarDates: ICalendarDate[] = []
         let startEnd = []
 
@@ -51,11 +80,17 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
                 let item: IStoreDoctorScheduler = data[c]
                 startEnd = getStartEnd(item.WorkDate, item.Title)
 
+                Object.keys(doctorsClassnames).forEach(k => {
+                    if (doctorsClassnames[k]?.LastName === item['LastName']) {
+                        item['ClassName'] = doctorsClassnames[k]?.ClassName
+                    }
+                })
+                
                 let calendarDate: ICalendarDate = {
-                    title: `${item['Title']}${showAMPM(startEnd[1])} ${item['FirstName']} ${item['LastName']}` || ``,
+                    title: `${item['Title']}${showAMPM(startEnd[1])} | ${item['FirstName'].toLowerCase()} ${item['LastName'].toLowerCase()}` || ``,
                     start: `${startEnd[0]}`,
                     end: `${startEnd[1]}`,
-                    classNames: ['blue']
+                    classNames: [`${item['ClassName']}`]
                 }
 
                 calendarDates.push(calendarDate)
@@ -81,7 +116,6 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
         
         return time[1]
     }
-
 
     const getStartEnd = (workDate: string, title: string) => {
         const parsedDate = formatDate(new Date(workDate))
@@ -151,10 +185,14 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
     }
 
     function renderEventContent(eventInfo: any) {
+
+        const splitTitle = eventInfo.event.title.split('|')
+
         return (
           <>
             <div className={eventInfo.event.classNames[0]}>
-              <b>{' '}{eventInfo.event.title}</b>
+              <span className={css.hours}>{splitTitle[0]}</span>
+              <span className={css.name}>{splitTitle[1]}</span>
             </div>
           </>
         )

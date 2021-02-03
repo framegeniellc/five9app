@@ -96,5 +96,12 @@ html {
   .orange:hover {
     background-color: #F4511E !important; }
 
+.purple {
+  background-color: #8E24AA;
+  color: #ffffff;
+  cursor: pointer; }
+  .purple:hover {
+    background-color: #8E24AA !important; }
+
 .fc .fc-daygrid-day.fc-day-today {
   background-color: rgba(248, 248, 248, 0.8) !important; }
