@@ -31,33 +31,33 @@ const getAssetVersion = (length: number) => {
 
 const getCachedData = async (transport: any, storeId: number, type: string) => {
   try {
-    //let cdnBaseUrl = 'https://cdn.nowoptics.com/five9/json/';
+    let cdnBaseUrl = 'https://cdn.nowoptics.com/five9/json/';
     //let requestTYpe = '';
     //const storeParam = typeof storeId !== 'object' ? prependZeros(storeId) : ``
+
+    if (
+      storeId == 958 || 
+      storeId == 971 || 
+      storeId == 977 ||
+      storeId == 97106 || 
+      storeId == 97107 || 
+      storeId == 97108 || 
+      storeId == 97109 || 
+      storeId == 97110
+      ) {
+      storeId = Number(storeId.toString().substring(1))
+    }
     
-    if ( storeId > 0 ) {
-      /*
+    if ( storeId > 0 ) {     
       const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json?v=' + getAssetVersion(14));
 
       return response
-      */
 
-      if (
-        storeId == 958 || 
-        storeId == 971 || 
-        storeId == 977 ||
-        storeId == 97106 || 
-        storeId == 97107 || 
-        storeId == 97108 || 
-        storeId == 97109 || 
-        storeId == 97110
-        ) {
-        storeId = Number(storeId.toString().substring(1))
-      }
-
+      /*
       const file = require('../../../static/mock/data/' + prependZeros(storeId) + '_' + getRequestType(type));
 
       return { data: file, error: '' }
+      */
       /*
       const storeParam = typeof storeId !== 'object' ? `?StoreID=${prependZeros(storeId)}` : `?StoreID=`
       const finalEndpoint = `${BASE_ENDPOINTS.NOBLE_ZEUS_URL}/${storeParam}&endpoint=${type}&format=json`
@@ -77,27 +77,23 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
       if (storeId === null || storeId === 0)
       {
         if (type === 'info' && storeId === null) {
-
+          /*
           const storeFile = require('../../../static/mock/data/stores.json');
 
           return { data: storeFile, error: '' }
-
-          /*
+          */
           const response = await transport.get(cdnBaseUrl + 'stores.json?v=' + getAssetVersion(12));
 
           return response
-          */
         } else {
           if (type === 'doctors' || type === 'rooms') {
             return { data: [], error: ''}
           }
         }
       } else {
-        /*
         const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json');
 
         return response
-        */
       }
 
       return { data: [], error: ''}

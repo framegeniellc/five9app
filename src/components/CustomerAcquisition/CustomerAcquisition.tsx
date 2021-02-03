@@ -32,23 +32,15 @@ const CustomerAcquisition = (props: IGlobalProps) => {
 
         const [storesData, storeData] = await Promise.all([getCachedData(interceptor, null, 'info'), getCachedData(interceptor, selectedStoreId, 'info')]);
 
-        //doctorsData
-        //examRoomsData
-        //getCachedData(interceptor, selectedStoreId, 'doctors'), getCachedData(interceptor, selectedStoreId, 'rooms')
         setAppData({
-            //doctors: doctorsData?.data,
             store: storeData?.data[0],
-            //examRooms: examRoomsData?.data,
             stores: storesData?.data
         })
 
         if (storeData && storeData.data && storeData.data?.length > 0) {
             setExistsStore(true)   
-            //setError(false)
             setLoading(false)
             setTimezone(storeData?.data[0].TimeZon)
-        } else {
-            //setError(true)
         }
 
         setLoading(false)
@@ -71,11 +63,6 @@ const CustomerAcquisition = (props: IGlobalProps) => {
         setLoading(true)
         setTimezone('')
         checkSpecialStore(selectedStoreId)
-        /*
-        if(storeId == 958 || storeId == 971 || storeId == 977) {
-            //setSelectedStoreId(cleanStoreId(storeId))
-        }
-        */
         setStoreInfo()
     }, [selectedStoreId])
 

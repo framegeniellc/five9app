@@ -28,6 +28,10 @@ interface IDoctorClass {
     ClassName: string
 }
 
+interface ICustomObject {
+    [key: string]: string
+  }
+
 const DoctorSchedule = (props: IDoctorSchedule) => {
     const [doctorHours, setDoctorHours] = React.useState<any>([])
     const [loading, setLoading] = React.useState<boolean>(true)
@@ -83,8 +87,7 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
                 let item: IStoreDoctorScheduler = data[c]
                 startEnd = getStartEnd(item.WorkDate, item.Title)
 
-                Object.keys(doctorsClassnames).forEach((k:string) => {
-                    console.log('k => ', typeof k)
+                Object.keys(doctorsClassnames).forEach((k: string) => {
                     if (doctorsClassnames[k]?.LastName === item['LastName']) {
                         item['ClassName'] = doctorsClassnames[k]?.ClassName
                     }
