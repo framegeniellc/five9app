@@ -17,20 +17,24 @@
         }
     }
     .storeName {
+        white-space: none;
 
         .inline {
             display: flex;
             flex-direction: row;
             position: relative;
+            max-width: 300px !important;
         }
         
         .storeNumber {
             font-size: 0.8rem;
-            padding: 2px;
+            padding: 2px 2px;
             border-radius: 5px;
             border: none;
             font-weight: bold;
             width: 3rem;
+            max-width: 30px;
+            max-height: 16px;
             text-align: center;
             margin-left: 8px;
             background: rgb(235, 235, 228);
