@@ -77,7 +77,7 @@ const getStoreScript = (props: IOpeningScript) => {
     }  
 
     // If IVR is 1, then get script of IVR according to language
-    if (Number(IVR) == 1) {
+    if (Number(IVR) == 1 && store) {
         return getIVRScript(brand, language, store)
     }
 
