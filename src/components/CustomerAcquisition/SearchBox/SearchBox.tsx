@@ -43,10 +43,11 @@ const SearchBox = (props: ISearch) => {
         }
     }    
 
-    const startSearch = (evt: any) => {
-        if (searchValue?.length == 5) {
+    const startSearch = (value: string) => {
+        const text = value || searchValue
+        if (text?.length == 5) {
             setIsLoadingSearch(true)
-            getLocationFromZip(searchValue, stores, setGeoResponse).then(function() {
+            getLocationFromZip(text, stores, setGeoResponse).then(function() {
                 setOptions(getOptions(false))
                 setFinishSearch(true)
                 setIsLoadingSearch(false)
@@ -56,20 +57,16 @@ const SearchBox = (props: ISearch) => {
             setFinishSearch(false)
         }
     }
-    const onKeyPress = (evt: any) => {
-        //setSearchValue(evt.target.value)
-        //startSearch(evt)
-    }
 
     const onChangeStore = (selectedOption: any) => {
         const value = selectedOption.value
         setSelectedStoreId(value)
-        //setStoreInfo()
     }
 
     const onKeyUpHandler = (evt: any) => {
-        setSearchValue(evt.target.value)
-        startSearch(evt)
+        const value = evt.target.value
+        setSearchValue(value)
+        startSearch(value)
     }
 
     const dot = (color = '#ccc') => ({
@@ -161,6 +158,16 @@ const SearchBox = (props: ISearch) => {
         )
     }
 
+    const onPasteHandler = (evt: any) => {
+        const value = evt.clipboardData.getData('Text')
+        const regex = /^[0-9\b]+$/
+
+        if (value === '' || regex.test(value)) {
+            setSearchValue(value)
+            startSearch(value)
+        }
+    }
+
     return (
         <React.Fragment>
             <div className={css.searchBox}>
@@ -168,7 +175,7 @@ const SearchBox = (props: ISearch) => {
                     <Select styles={selectStyle} placeholder="Select Store" options={options} onChange={onChangeStore} components={{ Option, DropdownIndicator}} /> 
                 </div>
                 <div className={css.zip}>
-                    <input type="text" name="zip" maxLength={5} placeholder="Refine by ZIP Code"  onKeyPress={onKeyPress} onKeyUp={onKeyUpHandler} onChange={onChangeHandler} onKeyDown={preventNotDesiredCharacters} value={searchValue} />
+                    <input type="text" name="zip" onPaste={onPasteHandler} maxLength={5} placeholder="Refine by ZIP Code" onKeyUp={onKeyUpHandler} onChange={onChangeHandler} onKeyDown={preventNotDesiredCharacters} value={searchValue} />
                 </div>
             </div>
         </React.Fragment>
