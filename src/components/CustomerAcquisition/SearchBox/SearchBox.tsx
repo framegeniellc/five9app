@@ -25,7 +25,13 @@ const SearchBox = (props: ISearch) => {
 
     const preventNotDesiredCharacters = (e: React.KeyboardEvent) => {
         const keyCode = e.keyCode ? e.keyCode : e.which
+        const key = e.which || e.keyCode;
+        const ctrl = e.ctrlKey ? e.ctrlKey : ((key === 17) ? true : false);
 
+        if ( key == 67 && ctrl ) {
+            document.execCommand('copy');
+        }
+        
         if (
           keyCode == 8 ||
           keyCode == 9 ||
