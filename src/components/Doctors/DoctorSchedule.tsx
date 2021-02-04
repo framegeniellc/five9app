@@ -94,7 +94,7 @@ const DoctorSchedule = (props: IDoctorSchedule) => {
                 })
                 
                 let calendarDate: ICalendarDate = {
-                    title: `${item['Title']}${showAMPM(startEnd[1])} | ${item['FirstName'].toLowerCase()} ${item['LastName'].toLowerCase()}` || ``,
+                    title: `${item['Title'].replace('-', ' - ')}${showAMPM(startEnd[1])} | ${item['FirstName'].toLowerCase()} ${item['LastName'].toLowerCase()}` || ``,
                     start: `${startEnd[0]}`,
                     end: `${startEnd[1]}`,
                     classNames: [`${item['ClassName']}`]
