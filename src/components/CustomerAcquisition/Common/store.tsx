@@ -121,10 +121,10 @@ const getIVRScript = (brand: any, lang: string, store: any) => {
             default: 
         }
 
-        return `${getTranslation('Thank you for calling', lang)}${to_es} ${store?.BrandName} ${getTranslation('at', lang)} ${roadName}, Modesto. ${getTranslation('How can I help you in filling your prescription today?', lang)}`
+        return `${getTranslation('Thank you for calling', lang)}${to_es} ${store?.BrandName} ${getTranslation('at', lang)} ${roadName}, Modesto. ${getTranslation('My', lang)} ${getTranslation('name is', lang)} _______. ${getTranslation('How can I help you in filling your prescription today?', lang)}`
     }
     
-    return `${getTranslation('Thank you for calling', lang)}${to_es} ${getBrandName(brand)} ${getTranslation('at', lang)} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}. ${getTranslation('How can I help you in filling your prescription today?', lang)}`
+    return `${getTranslation('Thank you for calling', lang)}${to_es} ${getBrandName(brand)} ${getTranslation('at', lang)} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}. ${getTranslation('My', lang)} ${getTranslation('name is', lang)} _______. ${getTranslation('How can I help you in filling your prescription today?', lang)}`
 }
 
 const getSkillScript = (skill: string, brand: string, lang: string ) => {
@@ -146,12 +146,14 @@ const getDefaultScript = (store: any, lang: string) => {
 const getSpecialStore = (store: any, lang: string) => {
 
     const specialStoreList = [7106, 7107, 7108, 7109, 7110]
+    let connector: string = lang === 'en'? getTranslation('in', lang) :  getTranslation('at', lang)
 
     if (specialStoreList.indexOf(Number(store?.StoreNumber)) > -1) {
-        return `${getTranslation('Thank you for calling', lang)} Oklahoma Physician Eye Care Group ${getTranslation('in', lang)} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______. ${getTranslation('How may we address your call?', lang)}?`
+        return `${getTranslation('Thank you for calling', lang)} Oklahoma Physician Eye Care Group ${connector} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______. ${getTranslation('How may I address your call?', lang)}
+`
     }
 
-    return `${getTranslation('Thank you for calling', lang)} ${store?.StateName} Physician Eye Care Group ${getTranslation('in', lang)} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______. ${getTranslation('How may we address your call?', lang)}?`
+    return `${getTranslation('Thank you for calling', lang)} ${store?.StateName} Physician Eye Care Group ${getTranslation('in', lang)} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______. ${getTranslation('How may I address your call?', lang)}`
 }
 
 const getModestoScript = (store: any, lang: string) => {

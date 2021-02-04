@@ -13,7 +13,7 @@ export default {
     'to': 'a',
     'Hello. Thank you for calling.': 'Hola, gracias por llamar.',
     'To better assist you, can I please have your zip code?': 'Para darle una mejor asistencia, me puede brindar su código postal por favor?',
-    'How may we address your call?': 'Cómo puedo asistirle el dia de hoy?',
+    'How may I address your call?': 'Cómo puedo asistirle el dia de hoy?',
 }
 
 
