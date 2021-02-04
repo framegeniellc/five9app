@@ -31,7 +31,7 @@ const getAssetVersion = (length: number) => {
 
 const getCachedData = async (transport: any, storeId: number, type: string) => {
   try {
-    let cdnBaseUrl = 'https://cdn.nowoptics.com/five9/json/';
+    let cdnBaseUrl = 'https://cdn.nowoptics.com/five9/';
     //let requestTYpe = '';
     //const storeParam = typeof storeId !== 'object' ? prependZeros(storeId) : ``
 
