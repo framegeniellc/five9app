@@ -105,8 +105,7 @@ const getStoreScript = (props: IOpeningScript) => {
 }
 
 const getIVRScript = (brand: any, lang: string, store: any) => {
-    let to_es: string = ''
-    if (lang == 'es') { to_es = ` ${getTranslation('to', lang)}` }
+    let to_es: string = lang === 'es' ? ` ${getTranslation('to', lang)}` : ''
 
     if (Number(store?.StoreNumber) === 5 || Number(store?.StoreNumber) === 7015 ) {
         let roadName: string = ''
@@ -139,27 +138,29 @@ const getDefaultScript = (store: any, lang: string) => {
     //if ( lang == 'en') {
         //return `${getTranslation(store?.StoreScriptOperning, lang)}`
     //} else {
-        return `${getTranslation('Thank you for calling', lang)} ${store?.BrandName} ${getTranslation('at', lang)} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______, ${getTranslation('are you calling to schedule your eye exam today?', lang)}`
+        let to_es: string = lang === 'es' ? ` ${getTranslation('to', lang)}` : ''
+        return `${getTranslation('Thank you for calling', lang)}${to_es} ${store?.BrandName} ${getTranslation('at', lang)} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______. ${getTranslation('are you calling to schedule your eye exam today?', lang)}`
     //}
 }
 
 const getSpecialStore = (store: any, lang: string) => {
 
     const specialStoreList = [7106, 7107, 7108, 7109, 7110]
-    let connector: string = lang === 'en'? getTranslation('in', lang) :  getTranslation('at', lang)
+    let connector: string = lang === 'es' ? getTranslation('at', lang) : getTranslation('in', lang)
+    let to_es: string = lang === 'es' ? ` ${getTranslation('to', lang)}` : ''
 
     if (specialStoreList.indexOf(Number(store?.StoreNumber)) > -1) {
-        return `${getTranslation('Thank you for calling', lang)} Oklahoma Physician Eye Care Group ${connector} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______. ${getTranslation('How may I address your call?', lang)}
+        return `${getTranslation('Thank you for calling', lang)} Oklahoma Physicians Eye Care Group ${connector} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______. ${getTranslation('How may I address your call?', lang)}
 `
     }
 
-    return `${getTranslation('Thank you for calling', lang)} ${store?.StateName} Physician Eye Care Group ${getTranslation('in', lang)} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______. ${getTranslation('How may I address your call?', lang)}`
+    return `${getTranslation('Thank you for calling', lang)} ${store?.StateName} Physicians Eye Care Group ${connector} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______. ${getTranslation('How may I address your call?', lang)}`
 }
 
 const getModestoScript = (store: any, lang: string) => {
 
     let roadName: string = ''
-    let to_es: string = ''
+    let to_es: string = lang === 'es' ? ` ${getTranslation('to', lang)}` : ''
 
     switch (Number(store?.StoreNumber)){
         case 5: 
@@ -171,15 +172,15 @@ const getModestoScript = (store: any, lang: string) => {
         default: 
     }
 
-    if (lang == 'es') { to_es = ` ${getTranslation('to', lang)}` }
-
     return `${getTranslation('Thank you for calling', lang)}${to_es} ${store?.BrandName} ${getTranslation('at', lang)} ${roadName}, Modesto. ${getTranslation('My', lang)} ${getTranslation('name is', lang)} _______, ${getTranslation('are you calling to book your eye exam today?', lang)}`
     
 }
 
 
 const getFirstInteractionScript = (store: any, lang: string) => {
-    return `${getTranslation('Thank you for calling', lang)} ${store?.BrandName} ${getTranslation('at', lang)} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______. ${getTranslation('How may we address your call?', lang)}`    
+    let to_es: string = lang === 'es' ? ` ${getTranslation('to', lang)}` : ''
+
+    return `${getTranslation('Thank you for calling', lang)}${to_es} ${store?.BrandName} ${getTranslation('at', lang)} ${store?.StoreName?.replace(store?.BrandName + ' - ', '')}, ${getTranslation('my name is', lang)} _______. ${getTranslation('How may I address your call?', lang)}`    
 }
 
 export { getNearestStores, getStoreScript, formatPhoneNumber }
