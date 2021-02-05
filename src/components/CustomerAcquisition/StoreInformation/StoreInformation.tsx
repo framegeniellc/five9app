@@ -55,10 +55,10 @@ const StoreInformation = (props: IStoreData) => {
                     <i className={`${css.icon} fas fa-store`}></i>
                     <div className={css.inline}>
                         <span>{store?.StoreName}</span>
-                        <CopyToClipboard text={`${Number(store?.StoreNumber)}`} onCopy={copyText}>
-                            <p className={css.storeNumber}>{`#${Number(store?.StoreNumber)}`}</p> 
-                        </CopyToClipboard>
                     </div>
+                    <CopyToClipboard text={`${Number(store?.StoreNumber)}`} onCopy={copyText}>
+                        <p className={css.storeNumber}>{`#${Number(store?.StoreNumber)}`}</p> 
+                    </CopyToClipboard>
                 </div>
                 <div className={`${css.iconContainer} ${css.storeAddress}`}>
                     <i className={`${css.icon} fa fa-map-marker-alt`}></i>

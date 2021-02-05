@@ -7,7 +7,7 @@
     padding: 0 15px;
     
     @media (max-width: 991px) {  
-        padding: 15px;
+        margin-bottom: 0.5rem;
     }
 
     .title {
@@ -15,6 +15,9 @@
         font-weight: bold;
         margin-bottom: 1rem;
         color: $color-dark-grey;
+        @media (max-width: 991px) {  
+            margin-bottom: 0.3rem;
+        }
     }
     textarea {
         min-height: 80px;
