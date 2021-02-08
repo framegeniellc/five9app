@@ -48,8 +48,13 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
       storeId = Number(storeId.toString().substring(1))
     }
     
-    if ( storeId > 0 ) {     
-      const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json?v=' + getAssetVersion(14));
+    if ( storeId > 0 ) {
+      const storeIdRequest = prependZeros(storeId)
+      const response = await transport.get(cdnBaseUrl + storeIdRequest + '_' + getRequestType(type) + '.json?v=' + getUniqueId());
+
+      if (response && !response.data) {
+        response.data = await getStoreFromGeneric(transport, cdnBaseUrl, storeIdRequest)
+      }
 
       return response
 
@@ -82,7 +87,7 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
 
           return { data: storeFile, error: '' }
           */
-          const response = await transport.get(cdnBaseUrl + 'stores.json?v=' + getAssetVersion(12));
+          const response = await transport.get(cdnBaseUrl + 'stores.json?v=' + getUniqueId())
 
           return response
         } else {
@@ -93,6 +98,8 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
       } else {
         const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json');
 
+        
+
         return response
       }
 
@@ -101,6 +108,40 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
   } catch(e) {
 
   }
+}
+
+const getStoreFromGeneric = async (transport: any, cdnBaseUrl: string, storeId: string | number) => {
+  const allStores = await getAllStores(transport, cdnBaseUrl)
+
+  if (allStores && allStores.data) {
+    for(const st in allStores.data) {
+      if(allStores.data[st].StoreNumber === storeId) {
+        return [allStores.data[st]]
+      }
+    } 
+  }
+
+  return false
+}
+
+const getAllStores = async (transport: any, cdnBaseUrl: string) => {
+  const response = await transport.get(cdnBaseUrl + 'stores.json?v=' + getUniqueId())
+
+  return response
+}
+
+const getUniqueId = () => {
+  let idstr=String.fromCharCode(Math.floor((Math.random()*25)+65));
+
+  do {                
+      const ascicode=Math.floor((Math.random()*42)+48)
+
+      if (ascicode < 58 || ascicode > 64) {
+        idstr += String.fromCharCode(ascicode);    
+      }                
+  } while (idstr.length<32)
+
+  return (idstr);
 }
 
 const getAvailableTime = async (transport: any, storeId: number, startInterval: any) => {
