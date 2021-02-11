@@ -98,8 +98,6 @@ const getCachedData = async (transport: any, storeId: number, type: string) => {
       } else {
         const response = await transport.get(cdnBaseUrl + prependZeros(storeId) + '_' + getRequestType(type) + '.json');
 
-        
-
         return response
       }
 
@@ -115,7 +113,7 @@ const getStoreFromGeneric = async (transport: any, cdnBaseUrl: string, storeId: 
 
   if (allStores && allStores.data) {
     for(const st in allStores.data) {
-      if(allStores.data[st].StoreNumber === storeId) {
+      if(allStores.data[st].StoreNumber == storeId) {
         return [allStores.data[st]]
       }
     } 
