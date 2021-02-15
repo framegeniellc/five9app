@@ -108,10 +108,12 @@ const StoreInformation = (props: IStoreData) => {
                 </div>
                 : ''
                 */}
+                {/*
                 <div className={`${css.iconContainer} ${css.storeLab}`}>
                 <i className={`${css.icon} fas fa-flask`}></i>
                     <span>{store?.StoreLabStatus === 'None' ? `Lab: Closed` : `Lab: Open`}</span>
                 </div>
+                */}
                 </React.Fragment>)}
             </div>
   
