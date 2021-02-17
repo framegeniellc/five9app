@@ -38,6 +38,18 @@ const StoreInformation = (props: IStoreData) => {
         return ''
     }
 
+    const getLabStatus = (labStatus: string) => {
+        console.log('labStatus', labStatus)
+        switch (labStatus) {
+            case 'Remote Edge': 
+            case 'None': {
+                return `Lab: Closed`
+            }
+        }
+
+        return `Lab: Open`
+    }
+
     const copyText = () => {
         setCopied(true)
         setTimeout( () => {
@@ -110,7 +122,7 @@ const StoreInformation = (props: IStoreData) => {
                 */}
                 <div className={`${css.iconContainer} ${css.storeLab}`}>
                 <i className={`${css.icon} fas fa-flask`}></i>
-                    <span>{store?.StoreLabStatus === 'None' ? `Lab: Closed` : `Lab: Open`}</span>
+                    <span>{getLabStatus(store?.StoreLabStatus)}</span>
                 </div>
                 </React.Fragment>)}
             </div>
